@@ -40,6 +40,128 @@ export interface ExploreTripGalleryImage {
   alt: string;
 }
 
+/**
+ * AP-007.1 — Ebene 1 landing page layout. Trips with `layout: "landing"`
+ * render the full inspiration landing page (Hero → USP bar → Warum →
+ * Erlebniswelten → Ride Guides → Warum MW Guides → Closing CTA) instead
+ * of the AP-007/AP-008.2 premium magazine blocks. Magazine articles
+ * (`sections` only) and legacy premium trips (Mailand, Wien) are unaffected.
+ */
+export type ExploreTripLayout = "magazine" | "premium" | "landing";
+
+/** Lucide icon key for USP bar items (see landing UspBar). */
+export type ExploreTripLandingUspIcon =
+  | "bed"
+  | "globe"
+  | "transport"
+  | "star"
+  | "nodes"
+  | "suitcase"
+  | "sparkles";
+
+/** Short premium card in the horizontal USP bar beneath the hero. */
+export interface ExploreTripLandingUsp {
+  title: string;
+  description: string;
+  icon: ExploreTripLandingUspIcon;
+}
+
+/** AP-010.1 — illustrated concept map (Ebene 1 standard, swappable per trip). */
+export interface ExploreTripConceptIllustration {
+  src: string;
+  alt: string;
+}
+
+/** Ride Guide card on the landing page — may link to a real tour or show status label. */
+export interface ExploreTripLandingRideGuide {
+  slug: string;
+  title: string;
+  /** Short card description beneath the title. */
+  description?: string;
+  image: string;
+  imageAlt: string;
+  available: boolean;
+  /** When available, links to `/touren/[tourSlug]`. */
+  tourSlug?: string;
+  duration?: string;
+  format?: string;
+  price?: string;
+  /** Display label when not yet available, e.g. "Bald verfügbar". */
+  status?: string;
+}
+
+/** Platform USP with a Lucide icon name (see landing PlatformUspsSection). */
+export interface ExploreTripPlatformUsp {
+  title: string;
+  description: string;
+  icon:
+    | "users"
+    | "calendar"
+    | "train"
+    | "layers"
+    | "languages"
+    | "map-pin"
+    | "headphones";
+}
+
+/** Text link or button target on the landing page. */
+export interface ExploreTripLandingCta {
+  href: string;
+  label: string;
+}
+
+/** Optional title override when pulling Erlebniswelten from Trip Explorer data. */
+export interface ExploreTripLandingErlebnisweltRef {
+  slug: string;
+  title?: string;
+}
+
+/**
+ * AP-007.1 / AP-010.1 — all content blocks for the Ebene 1 landing page.
+ * Every visible string is overridable here so future trips reuse the same
+ * master template without markup changes.
+ */
+export interface ExploreTripLanding {
+  languageHint?: string;
+  /** Primary hero CTA — defaults to "#konzept" / "Trip entdecken" when omitted. */
+  heroPrimaryCta?: ExploreTripLandingCta;
+  /** Secondary hero CTA, e.g. "Später speichern". */
+  heroSecondaryCta?: ExploreTripLandingCta;
+  uspBar: ExploreTripLandingUsp[];
+  /** Left column body copy in "Das Konzept". */
+  conceptIntro: string;
+  /** H2 in "Das Konzept", e.g. "Ein See. Drei Länder. Tausend Möglichkeiten." */
+  conceptHeading: string;
+  /** Optional link beneath the concept copy. */
+  conceptLink?: ExploreTripLandingCta;
+  /** AP-010.1 — illustrated concept map in the right column of "Das Konzept". */
+  conceptIllustration: ExploreTripConceptIllustration;
+  /** Erlebniswelten section eyebrow — defaults to "Erlebniswelten". */
+  erlebnisweltenEyebrow?: string;
+  /** Erlebniswelten H2 — derived from trip title when omitted. */
+  erlebnisweltenHeading?: string;
+  /** Top-right link in the Erlebniswelten header, e.g. "Alle Welten anzeigen". */
+  erlebnisweltenViewAll?: ExploreTripLandingCta;
+  /** Pull Erlebniswelten from the Trip Explorer registry; filter/order via refs. */
+  erlebnisweltenFromExplorer: ExploreTripLandingErlebnisweltRef[];
+  /** Ride Guides H2 — e.g. "Ride Guides – Deine Touren am und rund um den Bodensee." */
+  rideGuidesHeading: string;
+  rideGuides: ExploreTripLandingRideGuide[];
+  /** Trailing "view all" card in the Ride Guides row. */
+  rideGuidesViewAll?: ExploreTripLandingCta;
+  platformUsps: ExploreTripPlatformUsp[];
+  closingImage: string;
+  closingImageAlt: string;
+  closingHeadline: string;
+  closingSubtitle: string;
+  /** Subtext beneath the Trip Explorer button in the closing section. */
+  closingButtonSubtext?: string;
+  /** @deprecated Renamed to `conceptIntro` in AP-010.1 — kept for migration only. */
+  whyIntro?: string;
+  /** @deprecated Renamed to `rideGuidesHeading` — use full heading string instead. */
+  rideGuidesRegion?: string;
+}
+
 export interface ExploreTrip {
   slug: string;
   theme: ExploreTripTheme;
@@ -81,6 +203,15 @@ export interface ExploreTrip {
   gallery?: ExploreTripGalleryImage[];
   /** Defaults to "Alle Explore Trips" if omitted (see detail page). */
   ctaLabel?: string;
+
+  /**
+   * AP-007.1 — page layout selector. Omit or `"magazine"` for article-style
+   * trips; `"premium"` for AP-007 blocks; `"landing"` for the Ebene 1
+   * inspiration landing page.
+   */
+  layout?: ExploreTripLayout;
+  /** Required when `layout === "landing"`. */
+  landing?: ExploreTripLanding;
 }
 
 /**

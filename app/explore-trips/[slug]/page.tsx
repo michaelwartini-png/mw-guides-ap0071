@@ -13,6 +13,8 @@ import { exploreTrips, getExploreTripBySlug } from "@/content/exploreTrips";
 import { getErlebnisbausteinBySlug } from "@/content/erlebnisbausteine";
 import { erlebnisbausteinTypeLabels } from "@/types/erlebnisbaustein";
 import { getTourBySlug } from "@/content/tours";
+import { getTripExplorerByTripSlug } from "@/content/tripExplorers";
+import { ExploreTripPage } from "@/components/explore-trips/landing/ExploreTripPage";
 
 interface ExploreTripPageProps {
   params: Promise<{ slug: string }>;
@@ -64,6 +66,14 @@ export default async function ExploreTripDetailPage({ params }: ExploreTripPageP
   const rideGuides = (trip.rideGuideSlugs ?? [])
     .map(getTourBySlug)
     .filter((t) => t !== undefined);
+  const tripExplorer = getTripExplorerByTripSlug(slug);
+
+  if (trip.layout === "landing") {
+    if (!trip.landing || !tripExplorer) {
+      notFound();
+    }
+    return <ExploreTripPage trip={trip} tripExplorer={tripExplorer} />;
+  }
 
   return (
     <>
@@ -250,6 +260,42 @@ export default async function ExploreTripDetailPage({ params }: ExploreTripPageP
                   <Image src={g.image} alt={g.alt} fill sizes="(min-width: 640px) 33vw, 100vw" className="object-cover" />
                 </Reveal>
               ))}
+            </div>
+          </section>
+        )}
+
+        {/* AP-007 Ebene 2: Trip Explorer entry — only when explorer data exists for this trip */}
+        {tripExplorer && (
+          <section className="relative overflow-hidden py-20 lg:py-28">
+            <div className="absolute inset-0">
+              <Image
+                src={tripExplorer.heroImage}
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover"
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50"
+                aria-hidden="true"
+              />
+            </div>
+            <div className="relative mx-auto max-w-[1240px] px-6 lg:px-10">
+              <Reveal className="max-w-[560px]">
+                <span className="mwg-eyebrow text-white/60">Trip Explorer</span>
+                <h2 className="mwg-display-lg mt-4 text-white">
+                  {tripExplorer.heroTitle} entdecken.
+                </h2>
+                <p className="mt-4 max-w-[42ch] text-[16px] leading-relaxed text-white/80">
+                  {tripExplorer.heroSubtitle} Inspiration statt Reiseplan — Erlebniswelten,
+                  Highlights und besondere Momente zum Stöbern.
+                </p>
+                <div className="mt-8">
+                  <Button href={`/explore-trips/${slug}/explorer`} variant="accent">
+                    Trip Explorer öffnen
+                  </Button>
+                </div>
+              </Reveal>
             </div>
           </section>
         )}

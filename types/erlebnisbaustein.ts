@@ -13,9 +13,8 @@ import type { City } from "@/types/taxonomy";
  * "Ein Erlebnisbaustein kann Bestandteil mehrerer Explore Trips sein"
  * (brief) — so, like `cities` in taxonomy.ts, these are defined once in
  * content/erlebnisbausteine.ts and referenced by slug from any number of
- * Explore Trips. This file only prepares the data shape; no Trip
- * Explorer UI is built against it yet (see AP-007, "Trip Explorer wird
- * noch nicht umgesetzt").
+ * Explore Trips. Trip Explorer UI (AP-007 Ebene 2) lives at
+ * `/explore-trips/[slug]/explorer` — see content/tripExplorers.ts.
  */
 export type ErlebnisbausteinType =
   | "strassenbahn"
