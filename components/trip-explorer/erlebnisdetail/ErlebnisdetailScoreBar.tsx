@@ -1,11 +1,15 @@
-import { ArrowRight, Headphones, Star } from "lucide-react";
+import { ArrowRight, Headphones, MapPin, Star } from "lucide-react";
 import type { Erlebnisdetail } from "@/types/erlebnisdetail";
+import { ErlebnisdetailPlatformReviews } from "@/components/trip-explorer/erlebnisdetail/ErlebnisdetailPlatformReview";
+import { hasMapSection } from "@/lib/erlebnisdetailHelpers";
 
 interface ErlebnisdetailScoreBarProps {
   detail: Erlebnisdetail;
 }
 
 export function ErlebnisdetailScoreBar({ detail }: ErlebnisdetailScoreBarProps) {
+  const showMapButton = hasMapSection(detail);
+
   return (
     <section className="border-b border-[var(--mwg-line)] bg-[var(--mwg-paper-raised)]">
       <div className="mx-auto flex max-w-[1240px] flex-col gap-6 px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-10">
@@ -34,6 +38,10 @@ export function ErlebnisdetailScoreBar({ detail }: ErlebnisdetailScoreBarProps) 
 
           <div className="hidden h-10 w-px bg-[var(--mwg-line)] sm:block" />
 
+          <ErlebnisdetailPlatformReviews reviews={detail.reviews} prominent />
+
+          <div className="hidden h-10 w-px bg-[var(--mwg-line)] lg:block" />
+
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
             {detail.scoreCategories.map((cat) => (
               <li key={cat.label} className="text-[13px]">
@@ -48,6 +56,16 @@ export function ErlebnisdetailScoreBar({ detail }: ErlebnisdetailScoreBarProps) 
               <Headphones size={15} />
               Ride Guide verfügbar
             </div>
+          )}
+
+          {showMapButton && (
+            <a
+              href="#erlebnis-karte"
+              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--mwg-line)] px-4 py-2 text-[13px] font-medium text-[var(--mwg-ink-70)] transition-colors hover:border-[var(--mwg-ink)] hover:text-[var(--mwg-ink)]"
+            >
+              <MapPin size={14} />
+              Karte öffnen
+            </a>
           )}
         </div>
 

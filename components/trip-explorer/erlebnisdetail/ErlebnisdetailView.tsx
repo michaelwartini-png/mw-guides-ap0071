@@ -11,12 +11,20 @@ import {
   Building2,
   ChevronRight,
   Eye,
+  MapPin,
   Plus,
   UtensilsCrossed,
 } from "lucide-react";
 import type { Erlebnisdetail, ErlebnisdetailFeature } from "@/types/erlebnisdetail";
 import { getHighlightBySlug } from "@/content/explorerHighlights";
 import { useExplorerTrip } from "@/components/trip-explorer/workspace/ExplorerTripContext";
+import { ErlebnisdetailPlatformReviews } from "@/components/trip-explorer/erlebnisdetail/ErlebnisdetailPlatformReview";
+import {
+  getPracticalIcon,
+  hasMapSection,
+  OFFICIAL_INFO_PLACEHOLDER,
+  resolveOfficialInfo,
+} from "@/lib/erlebnisdetailHelpers";
 
 const FEATURE_ICONS: Record<ErlebnisdetailFeature["icon"], typeof Eye> = {
   view: Eye,
@@ -87,6 +95,38 @@ interface ErlebnisdetailViewProps {
 
 export function ErlebnisdetailView({ detail }: ErlebnisdetailViewProps) {
   const [activeTab, setActiveTab] = useState("Überblick");
+  const officialInfo = resolveOfficialInfo(detail);
+  const showMapSection = hasMapSection(detail);
+
+  const officialEntries: {
+    emoji: string;
+    label: string;
+    value?: string;
+    href?: string;
+  }[] = [
+    {
+      emoji: "🌐",
+      label: "Offizielle Webseite",
+      value: officialInfo.website,
+      href: officialInfo.websiteHref,
+    },
+    {
+      emoji: "🗺️",
+      label: "Karte",
+      value: officialInfo.map,
+      href: officialInfo.mapHref ?? (showMapSection ? "#erlebnis-karte" : undefined),
+    },
+    {
+      emoji: "🕒",
+      label: "Fahrplan / Öffnungszeiten",
+      value: officialInfo.schedule,
+    },
+    {
+      emoji: "💶",
+      label: "Preise",
+      value: officialInfo.prices,
+    },
+  ];
 
   return (
     <>
@@ -131,9 +171,21 @@ export function ErlebnisdetailView({ detail }: ErlebnisdetailViewProps) {
           </div>
 
           {/* Middle: Map */}
-          <div>
+          <div id="erlebnis-karte" className="scroll-mt-36">
+            <div className="flex items-center justify-between gap-3">
+              <h3 className="font-display text-[17px] font-medium">Karte</h3>
+              {showMapSection && (
+                <a
+                  href="#erlebnis-karte"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[var(--mwg-line)] px-3 py-1.5 text-[12px] font-medium text-[var(--mwg-ink-70)] transition-colors hover:border-[var(--mwg-ink)] hover:text-[var(--mwg-ink)]"
+                >
+                  <MapPin size={13} />
+                  Karte öffnen
+                </a>
+              )}
+            </div>
             {detail.mapImage && (
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-[var(--mwg-line)]">
+              <div className="relative mt-3 aspect-[4/3] overflow-hidden rounded-xl border border-[var(--mwg-line)]">
                 <Image
                   src={detail.mapImage}
                   alt={detail.mapImageAlt ?? "Karte"}
@@ -181,51 +233,82 @@ export function ErlebnisdetailView({ detail }: ErlebnisdetailViewProps) {
             )}
           </div>
 
-          {/* Right: Booking & practical info */}
+          {/* Right: Official info & practical info */}
           <div className="space-y-6">
-            {detail.ticketImage && (
-              <div className="rounded-xl border border-[var(--mwg-line)] bg-[var(--mwg-paper-raised)] p-4">
-                <div className="relative mb-4 aspect-[16/9] overflow-hidden rounded-lg">
-                  <Image
-                    src={detail.ticketImage}
-                    alt={detail.ticketImageAlt ?? detail.title}
-                    fill
-                    className="object-cover"
-                    sizes="320px"
-                  />
-                </div>
-                <h3 className="font-display text-[17px] font-medium">Tickets & Buchung</h3>
-                {detail.ticketBullets && (
-                  <ul className="mt-3 space-y-1.5">
-                    {detail.ticketBullets.map((bullet) => (
-                      <li key={bullet} className="text-[13px] text-[var(--mwg-ink-70)]">
-                        • {bullet}
-                      </li>
-                    ))}
-                  </ul>
+            <div className="rounded-xl border border-[var(--mwg-line)] bg-[var(--mwg-paper-raised)] p-4">
+              <h3 className="font-display text-[17px] font-medium">Offizielle Informationen</h3>
+              <ul className="mt-3 space-y-3">
+                {officialEntries.map((entry) => {
+                  const isMapEntry = entry.label === "Karte";
+                  const linkHref = entry.href;
+                  const linkLabel =
+                    entry.value ?? (isMapEntry && linkHref ? "Karte öffnen" : undefined);
+
+                  return (
+                    <li key={entry.label} className="flex items-start gap-2.5 text-[13px]">
+                      <span className="mt-0.5 shrink-0" aria-hidden>
+                        {entry.emoji}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[var(--mwg-ink-70)]">{entry.label}</p>
+                        {linkHref && linkLabel ? (
+                          <a
+                            href={linkHref}
+                            target={linkHref.startsWith("#") ? undefined : "_blank"}
+                            rel={linkHref.startsWith("#") ? undefined : "noopener noreferrer"}
+                            className="mt-0.5 block truncate font-medium text-[var(--mwg-accent)] hover:underline"
+                          >
+                            {linkLabel}
+                          </a>
+                        ) : (
+                          <p className="mt-0.5 font-medium">
+                            {entry.value ?? OFFICIAL_INFO_PLACEHOLDER}
+                          </p>
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
+                {officialInfo.ticketsHref && (
+                  <li className="flex items-start gap-2.5 text-[13px]">
+                    <span className="mt-0.5 shrink-0" aria-hidden>
+                      🎟️
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[var(--mwg-ink-70)]">Tickets</p>
+                      <a
+                        href={officialInfo.ticketsHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-0.5 block font-medium text-[var(--mwg-accent)] hover:underline"
+                      >
+                        {officialInfo.ticketsLabel ?? "Tickets buchen"}
+                      </a>
+                    </div>
+                  </li>
                 )}
-                {detail.ticketCtaHref && (
-                  <a
-                    href={detail.ticketCtaHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 flex w-full items-center justify-center rounded-full bg-[var(--mwg-ink)] px-5 py-3 text-[14px] font-medium text-white transition-all hover:-translate-y-0.5"
-                  >
-                    {detail.ticketCtaLabel ?? "Tickets buchen"}
-                  </a>
-                )}
-              </div>
-            )}
+              </ul>
+            </div>
 
             <div className="rounded-xl border border-[var(--mwg-line)] bg-[var(--mwg-paper-raised)] p-4">
               <h3 className="font-display text-[17px] font-medium">Praktische Informationen</h3>
               <dl className="mt-3 divide-y divide-[var(--mwg-line)]">
-                {detail.practicalInfo.map((row) => (
-                  <div key={row.label} className="flex justify-between gap-4 py-2.5 text-[13px]">
-                    <dt className="text-[var(--mwg-ink-70)]">{row.label}</dt>
-                    <dd className="text-right font-medium">{row.value}</dd>
-                  </div>
-                ))}
+                {detail.practicalInfo.map((row) => {
+                  const icon = getPracticalIcon(row.label);
+                  return (
+                    <div key={row.label} className="flex justify-between gap-4 py-2.5 text-[13px]">
+                      <dt className="flex items-center gap-2 text-[var(--mwg-ink-70)]">
+                        {icon && (
+                          <span className="shrink-0" aria-hidden>
+                            {icon}
+                          </span>
+                        )}
+                        {row.label}
+                      </dt>
+                      <dd className="text-right font-medium">{row.value}</dd>
+                    </div>
+                  );
+                })}
               </dl>
             </div>
 
@@ -265,31 +348,12 @@ export function ErlebnisdetailView({ detail }: ErlebnisdetailViewProps) {
         )}
 
         {/* Reviews */}
-        {detail.reviews.length > 0 && (
-          <section className="mt-12">
-            <h2 className="font-display text-[22px] font-medium">Bewertungen im Überblick</h2>
-            <div className="mt-5 flex flex-wrap gap-4">
-              {detail.reviews.map((review) => (
-                <div
-                  key={review.source}
-                  className="rounded-xl border border-[var(--mwg-line)] bg-[var(--mwg-paper-raised)] px-6 py-4"
-                >
-                  <p className="font-mono text-[11px] uppercase tracking-wider text-[var(--mwg-ink-45)]">
-                    {review.source === "google" ? "Google" : "TripAdvisor"}
-                  </p>
-                  <p className="mt-1 font-display text-[24px] font-medium">
-                    {review.rating.toFixed(1).replace(".", ",")} ★
-                  </p>
-                  {review.reviewCount && (
-                    <p className="text-[12px] text-[var(--mwg-ink-70)]">
-                      {review.reviewCount} Bewertungen
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+        <section className="mt-12">
+          <h2 className="font-display text-[22px] font-medium">Bewertungen im Überblick</h2>
+          <div className="mt-5">
+            <ErlebnisdetailPlatformReviews reviews={detail.reviews} />
+          </div>
+        </section>
 
         {/* Recommendations */}
         {detail.recommendations.length > 0 && (

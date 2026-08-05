@@ -24,6 +24,17 @@ export interface ErlebnisdetailPracticalRow {
   value: string;
 }
 
+export interface ErlebnisdetailOfficialInfo {
+  website?: string;
+  websiteHref?: string;
+  map?: string;
+  mapHref?: string;
+  schedule?: string;
+  prices?: string;
+  ticketsHref?: string;
+  ticketsLabel?: string;
+}
+
 export interface ErlebnisdetailMapInfo {
   departureA?: string;
   departureB?: string;
@@ -79,6 +90,7 @@ export interface Erlebnisdetail {
   ticketBullets?: string[];
   ticketCtaLabel?: string;
   ticketCtaHref?: string;
+  officialInfo?: ErlebnisdetailOfficialInfo;
   practicalInfo: ErlebnisdetailPracticalRow[];
   operator?: {
     name: string;
