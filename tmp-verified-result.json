@@ -1,0 +1,60 @@
+{
+  "mailand": {
+    "slug": "mailand-unlimited",
+    "screenshotPath": "c:\\Users\\Michael\\Desktop\\MW Guides\\mw-guides-master-ap0071\\mw-guides\\tmp-konzept-verified.png",
+    "imgState": {
+      "found": true,
+      "alt": "Mailand Unlimited – Konzeptillustration",
+      "src": "/images/explore-trips/mailand-concept-illustration.png",
+      "isDirectPath": true,
+      "naturalWidth": 1024,
+      "naturalHeight": 682,
+      "complete": false,
+      "currentSrc": "http://localhost:3000/images/explore-trips/mailand-concept-illustration.png",
+      "clientWidth": 546,
+      "clientHeight": 409
+    },
+    "conceptNetworkRequests": [
+      {
+        "url": "http://localhost:3000/images/explore-trips/mailand-concept-illustration.png",
+        "status": 200
+      },
+      {
+        "url": "http://localhost:3000/images/explore-trips/mailand-concept-illustration.png",
+        "status": 200
+      }
+    ],
+    "naturalWidth": 1024,
+    "pass": true,
+    "verdict": "PASS"
+  },
+  "bodensee": {
+    "slug": "bodensee",
+    "screenshotPath": "c:\\Users\\Michael\\Desktop\\MW Guides\\mw-guides-master-ap0071\\mw-guides\\tmp-bodensee-verified.png",
+    "imgState": {
+      "found": true,
+      "alt": "Bodensee Unlimited – Konzeptillustration",
+      "src": "/images/explore-trips/bodensee-concept-illustration.png",
+      "isDirectPath": true,
+      "naturalWidth": 1536,
+      "naturalHeight": 1024,
+      "complete": false,
+      "currentSrc": "http://localhost:3000/images/explore-trips/bodensee-concept-illustration.png",
+      "clientWidth": 546,
+      "clientHeight": 409
+    },
+    "conceptNetworkRequests": [
+      {
+        "url": "http://localhost:3000/images/explore-trips/bodensee-concept-illustration.png",
+        "status": 200
+      },
+      {
+        "url": "http://localhost:3000/images/explore-trips/bodensee-concept-illustration.png",
+        "status": 200
+      }
+    ],
+    "naturalWidth": 1536,
+    "pass": true,
+    "verdict": "PASS"
+  }
+}

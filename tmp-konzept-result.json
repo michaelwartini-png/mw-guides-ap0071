@@ -1,0 +1,30 @@
+{
+  "screenshotPath": "C:\\Users\\Michael\\Desktop\\MW Guides\\mw-guides-master-ap0071\\mw-guides\\tmp-konzept-screenshot.png",
+  "imgStateBefore": {
+    "naturalWidth": 0,
+    "complete": false,
+    "loading": "lazy"
+  },
+  "imgStateAfter": {
+    "src": "/_next/image?url=%2Fimages%2Fexplore-trips%2Fmailand-concept-illustration.png&w=3840&q=75",
+    "naturalWidth": 0,
+    "naturalHeight": 0,
+    "complete": false,
+    "loading": "lazy"
+  },
+  "conceptNetworkRequests": [],
+  "conceptImageStatus": "NOT_REQUESTED",
+  "consoleErrors": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+    }
+  ],
+  "nextImageErrors": [],
+  "illustrationVisible": false,
+  "illustrationEmpty": true
+}

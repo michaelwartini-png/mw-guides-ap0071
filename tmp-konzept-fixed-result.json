@@ -1,0 +1,25 @@
+{
+  "screenshotPath": "c:\\Users\\Michael\\Desktop\\MW Guides\\mw-guides-master-ap0071\\mw-guides\\tmp-konzept-fixed-screenshot.png",
+  "imgState": {
+    "found": true,
+    "loadingAttr": null,
+    "loadingProp": "auto",
+    "fetchPriorityAttr": null,
+    "fetchPriorityProp": "auto",
+    "naturalWidth": 0,
+    "naturalHeight": 0,
+    "complete": false,
+    "currentSrc": ""
+  },
+  "hasPreload": true,
+  "conceptNetworkRequests": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)",
+    "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+  ],
+  "fixWorked": false,
+  "illustrationVisible": false,
+  "naturalWidthGtZero": false,
+  "notLazy": true,
+  "priorityOrEager": true
+}
