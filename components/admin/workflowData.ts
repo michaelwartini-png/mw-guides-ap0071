@@ -111,10 +111,9 @@ export function getAdjacentSectionId(
 }
 
 export const PLACEHOLDER_TEXT: Record<
-  Exclude<WorkflowSectionId, "allgemein" | "hero" | "bewertungen">,
+  Exclude<WorkflowSectionId, "allgemein" | "hero" | "bewertungen" | "offizielle-informationen">,
   string
 > = {
-  "offizielle-informationen": "Hier werden später die offiziellen Informationen angezeigt.",
   highlights: "Hier werden später die Highlights angezeigt.",
   "praktische-informationen": "Hier werden später die praktischen Informationen angezeigt.",
   galerie: "Hier wird später die Galerie angezeigt.",

@@ -6,6 +6,12 @@ import {
   BEWERTUNGEN_SCHWEBEBAHN,
 } from "@/components/admin/bewertungenData";
 import type { HeroData } from "@/components/admin/heroData";
+import type { OffizielleInformationenData } from "@/components/admin/offizielleInformationenData";
+import {
+  OFFIZIELLE_GLACIER,
+  OFFIZIELLE_KATAMARAN,
+  OFFIZIELLE_SCHWEBEBAHN,
+} from "@/components/admin/offizielleInformationenData";
 import type { WorkflowSection } from "@/components/admin/workflowData";
 
 export type ErlebnisSlug =
@@ -29,6 +35,7 @@ export type ErlebnisRecord = {
   allgemein: AllgemeinData;
   hero: HeroData;
   bewertungen: BewertungenData;
+  offizielleInformationen: OffizielleInformationenData;
   workflowSections: WorkflowSection[];
 };
 
@@ -135,6 +142,7 @@ export const ERLEBNISSE: Record<ErlebnisSlug, ErlebnisRecord> = {
       rideGuideAvailable: true,
     },
     bewertungen: BEWERTUNGEN_KATAMARAN,
+    offizielleInformationen: OFFIZIELLE_KATAMARAN,
     workflowSections: KATAMARAN_SECTIONS,
   },
   "wuppertaler-schwebebahn": {
@@ -167,6 +175,7 @@ export const ERLEBNISSE: Record<ErlebnisSlug, ErlebnisRecord> = {
       rideGuideAvailable: true,
     },
     bewertungen: BEWERTUNGEN_SCHWEBEBAHN,
+    offizielleInformationen: OFFIZIELLE_SCHWEBEBAHN,
     workflowSections: SCHWEBEBAHN_SECTIONS,
   },
   "glacier-express": {
@@ -199,6 +208,7 @@ export const ERLEBNISSE: Record<ErlebnisSlug, ErlebnisRecord> = {
       rideGuideAvailable: false,
     },
     bewertungen: BEWERTUNGEN_GLACIER,
+    offizielleInformationen: OFFIZIELLE_GLACIER,
     workflowSections: GLACIER_SECTIONS,
   },
 };

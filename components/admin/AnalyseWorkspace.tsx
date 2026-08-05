@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AllgemeinEditor } from "@/components/admin/AllgemeinEditor";
 import { BewertungenEditor } from "@/components/admin/BewertungenEditor";
 import { HeroEditor } from "@/components/admin/HeroEditor";
+import { OffizielleInformationenEditor } from "@/components/admin/OffizielleInformationenEditor";
 import { AdminLink } from "@/components/admin/adminButtons";
 import { getDefaultErlebnis, type ErlebnisRecord } from "@/components/admin/erlebnisData";
 import { WorkflowNav } from "@/components/admin/WorkflowNav";
@@ -49,6 +50,8 @@ export function AnalyseWorkspace({ erlebnis = getDefaultErlebnis() }: AnalyseWor
             <HeroEditor initialData={erlebnis.hero} />
           ) : activeItem === "bewertungen" ? (
             <BewertungenEditor initialData={erlebnis.bewertungen} />
+          ) : activeItem === "offizielle-informationen" ? (
+            <OffizielleInformationenEditor initialData={erlebnis.offizielleInformationen} />
           ) : (
             <div className="flex min-h-[200px] items-center justify-center px-4 py-10">
               <p className="max-w-md text-center text-[15px] leading-relaxed text-[var(--mwg-ink-70)]">
