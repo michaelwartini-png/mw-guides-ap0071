@@ -60,7 +60,7 @@ export function ErlebnisCard({ erlebnis, onDuplicate, onDelete }: ErlebnisCardPr
       </div>
 
       <div className="mt-5 flex flex-wrap gap-2 border-t border-[var(--mwg-line)] pt-4">
-        <AdminLink href="/admin/neues-erlebnis/analyse" variant="primary">
+        <AdminLink href={`/admin/erlebnis/${erlebnis.id}`} variant="primary">
           Bearbeiten
         </AdminLink>
         <AdminSecondaryButton type="button" onClick={() => onDuplicate(erlebnis.id)}>

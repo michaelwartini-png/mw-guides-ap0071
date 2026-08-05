@@ -27,9 +27,13 @@ function SectionTitle({ children }: { children: ReactNode }) {
   return <h3 className="text-sm font-semibold text-ink">{children}</h3>;
 }
 
-export function HeroEditor() {
-  const [savedData, setSavedData] = useState<HeroData>(DEFAULT_HERO_DATA);
-  const [formData, setFormData] = useState<HeroData>(DEFAULT_HERO_DATA);
+interface HeroEditorProps {
+  initialData?: HeroData;
+}
+
+export function HeroEditor({ initialData = DEFAULT_HERO_DATA }: HeroEditorProps) {
+  const [savedData, setSavedData] = useState<HeroData>(initialData);
+  const [formData, setFormData] = useState<HeroData>(initialData);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
 
   function updateField<K extends keyof HeroData>(key: K, value: HeroData[K]) {

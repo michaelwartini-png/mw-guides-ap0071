@@ -1,3 +1,8 @@
+import {
+  ERLEBNIS_LIST,
+  type ErlebnisRecord,
+} from "@/components/admin/erlebnisData";
+
 export type ErlebnisStatus = "Entwurf" | "In Bearbeitung" | "Veröffentlicht";
 
 export type DashboardErlebnis = {
@@ -7,43 +12,24 @@ export type DashboardErlebnis = {
   erlebniswelt: string;
   status: ErlebnisStatus;
   progress: number;
-  /** ISO date string for sorting */
   lastModifiedAt: string;
   lastModifiedLabel: string;
 };
 
-export const DASHBOARD_ERLEBNISSE: DashboardErlebnis[] = [
-  {
-    id: "katamaran-konstanz-friedrichshafen",
-    name: "Katamaran Konstanz–Friedrichshafen",
-    kategorie: "Schifffahrt",
-    erlebniswelt: "Wasser",
-    status: "Entwurf",
-    progress: 22,
-    lastModifiedAt: "2026-08-05T09:45:00",
-    lastModifiedLabel: "05.08.2026 · 09:45 Uhr",
-  },
-  {
-    id: "wuppertaler-schwebebahn",
-    name: "Wuppertaler Schwebebahn",
-    kategorie: "Schwebebahn",
-    erlebniswelt: "Technik",
-    status: "Veröffentlicht",
-    progress: 100,
-    lastModifiedAt: "2026-08-04T16:20:00",
-    lastModifiedLabel: "04.08.2026 · 16:20 Uhr",
-  },
-  {
-    id: "glacier-express",
-    name: "Glacier Express",
-    kategorie: "Bahn",
-    erlebniswelt: "Bahn",
-    status: "Entwurf",
-    progress: 8,
-    lastModifiedAt: "2026-08-03T11:10:00",
-    lastModifiedLabel: "03.08.2026 · 11:10 Uhr",
-  },
-];
+function toDashboardErlebnis(record: ErlebnisRecord): DashboardErlebnis {
+  return {
+    id: record.slug,
+    name: record.name,
+    kategorie: record.kategorie,
+    erlebniswelt: record.erlebniswelt,
+    status: record.profileStatus as ErlebnisStatus,
+    progress: record.progress,
+    lastModifiedAt: record.lastModifiedAt,
+    lastModifiedLabel: record.lastModifiedLabel,
+  };
+}
+
+export const DASHBOARD_ERLEBNISSE: DashboardErlebnis[] = ERLEBNIS_LIST.map(toDashboardErlebnis);
 
 export type ErlebnisFilter = "Alle" | ErlebnisStatus;
 

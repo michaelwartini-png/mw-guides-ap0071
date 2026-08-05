@@ -2,24 +2,30 @@ import {
   getCompletedCount,
   getProgressPercent,
   isWorkflowComplete,
-  WORKFLOW_EXPERIENCE_NAME,
-  WORKFLOW_LAST_SAVED,
-  WORKFLOW_PROFILE_STATUS,
   type WorkflowSection,
 } from "@/components/admin/workflowData";
 
 interface WorkflowProgressProps {
   sections: WorkflowSection[];
-  experienceName?: string;
+  experienceName: string;
+  profileStatus: string;
+  lastSaved: {
+    date: string;
+    time: string;
+  };
+  progressPercent?: number;
 }
 
 export function WorkflowProgress({
   sections,
-  experienceName = WORKFLOW_EXPERIENCE_NAME,
+  experienceName,
+  profileStatus,
+  lastSaved,
+  progressPercent,
 }: WorkflowProgressProps) {
   const completedCount = getCompletedCount(sections);
   const totalCount = sections.length;
-  const progressPercent = getProgressPercent(sections);
+  const displayPercent = progressPercent ?? getProgressPercent(sections);
   const isComplete = isWorkflowComplete(sections);
 
   return (
@@ -33,11 +39,11 @@ export function WorkflowProgress({
 
       <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-[13px] text-[var(--mwg-ink-70)]">
         <span>
-          Status: <span className="font-medium text-ink">{WORKFLOW_PROFILE_STATUS}</span>
+          Status: <span className="font-medium text-ink">{profileStatus}</span>
         </span>
-        <span className="font-medium text-ink">{progressPercent}&nbsp;% vollständig</span>
+        <span className="font-medium text-ink">{displayPercent}&nbsp;% vollständig</span>
         <span>
-          Zuletzt gespeichert: {WORKFLOW_LAST_SAVED.date} · {WORKFLOW_LAST_SAVED.time}
+          Zuletzt gespeichert: {lastSaved.date} · {lastSaved.time}
         </span>
       </div>
 
@@ -55,7 +61,7 @@ export function WorkflowProgress({
         <div className="h-1.5 min-w-[160px] max-w-sm flex-1 overflow-hidden rounded-full bg-[var(--mwg-line)]">
           <div
             className="h-full rounded-full bg-accent transition-all duration-500"
-            style={{ width: `${progressPercent}%` }}
+            style={{ width: `${displayPercent}%` }}
           />
         </div>
         <p className="text-[13px] text-stone">

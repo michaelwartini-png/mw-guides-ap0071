@@ -22,9 +22,13 @@ function FieldLabel({ htmlFor, children }: { htmlFor: string; children: ReactNod
   );
 }
 
-export function AllgemeinEditor() {
-  const [savedData, setSavedData] = useState<AllgemeinData>(DEFAULT_ALLGEMEIN_DATA);
-  const [formData, setFormData] = useState<AllgemeinData>(DEFAULT_ALLGEMEIN_DATA);
+interface AllgemeinEditorProps {
+  initialData?: AllgemeinData;
+}
+
+export function AllgemeinEditor({ initialData = DEFAULT_ALLGEMEIN_DATA }: AllgemeinEditorProps) {
+  const [savedData, setSavedData] = useState<AllgemeinData>(initialData);
+  const [formData, setFormData] = useState<AllgemeinData>(initialData);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
 
   function updateField<K extends keyof AllgemeinData>(key: K, value: AllgemeinData[K]) {

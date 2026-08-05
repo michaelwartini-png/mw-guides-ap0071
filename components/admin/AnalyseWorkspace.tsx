@@ -2,26 +2,40 @@
 
 import { useState } from "react";
 import { AllgemeinEditor } from "@/components/admin/AllgemeinEditor";
+import { BewertungenEditor } from "@/components/admin/BewertungenEditor";
 import { HeroEditor } from "@/components/admin/HeroEditor";
+import { AdminLink } from "@/components/admin/adminButtons";
+import { getDefaultErlebnis, type ErlebnisRecord } from "@/components/admin/erlebnisData";
 import { WorkflowNav } from "@/components/admin/WorkflowNav";
 import { WorkflowNavigation } from "@/components/admin/WorkflowNavigation";
 import { WorkflowProgress } from "@/components/admin/WorkflowProgress";
 import { getSectionStep, WorkflowStepHeader } from "@/components/admin/WorkflowStepHeader";
 import {
   PLACEHOLDER_TEXT,
-  WORKFLOW_SECTIONS,
   type WorkflowSection,
   type WorkflowSectionId,
 } from "@/components/admin/workflowData";
 
-export function AnalyseWorkspace() {
-  const [sections] = useState<WorkflowSection[]>(WORKFLOW_SECTIONS);
+interface AnalyseWorkspaceProps {
+  erlebnis?: ErlebnisRecord;
+}
+
+export function AnalyseWorkspace({ erlebnis = getDefaultErlebnis() }: AnalyseWorkspaceProps) {
+  const [sections] = useState<WorkflowSection[]>(erlebnis.workflowSections);
   const [activeItem, setActiveItem] = useState<WorkflowSectionId>("allgemein");
   const { step, total, label } = getSectionStep(activeItem, sections.length);
 
   return (
     <div className="space-y-5">
-      <WorkflowProgress sections={sections} />
+      <AdminLink href="/admin">← Zur Erlebnisverwaltung</AdminLink>
+
+      <WorkflowProgress
+        sections={sections}
+        experienceName={erlebnis.name}
+        profileStatus={erlebnis.profileStatus}
+        lastSaved={erlebnis.lastSaved}
+        progressPercent={erlebnis.progress}
+      />
 
       <div className="grid gap-5 lg:grid-cols-[minmax(200px,25%)_minmax(0,75%)] lg:gap-6">
         <WorkflowNav sections={sections} activeId={activeItem} onSelect={setActiveItem} />
@@ -30,9 +44,11 @@ export function AnalyseWorkspace() {
           <WorkflowStepHeader step={step} total={total} label={label} />
 
           {activeItem === "allgemein" ? (
-            <AllgemeinEditor />
+            <AllgemeinEditor initialData={erlebnis.allgemein} />
           ) : activeItem === "hero" ? (
-            <HeroEditor />
+            <HeroEditor initialData={erlebnis.hero} />
+          ) : activeItem === "bewertungen" ? (
+            <BewertungenEditor initialData={erlebnis.bewertungen} />
           ) : (
             <div className="flex min-h-[200px] items-center justify-center px-4 py-10">
               <p className="max-w-md text-center text-[15px] leading-relaxed text-[var(--mwg-ink-70)]">
