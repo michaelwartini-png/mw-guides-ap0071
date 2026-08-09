@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { AllgemeinEditor } from "@/components/admin/AllgemeinEditor";
 import { BewertungenEditor } from "@/components/admin/BewertungenEditor";
 import { HeroEditor } from "@/components/admin/HeroEditor";
 import { HighlightsEditor } from "@/components/admin/HighlightsEditor";
 import { OffizielleInformationenEditor } from "@/components/admin/OffizielleInformationenEditor";
 import { AdminLink } from "@/components/admin/adminButtons";
-import { getDefaultErlebnis, type ErlebnisRecord } from "@/components/admin/erlebnisData";
+import type { ErlebnisRecord } from "@/components/admin/erlebnisData";
+import { buildNewErlebnisRecord } from "@/components/admin/erlebnisSessionStore";
 import { WorkflowNav } from "@/components/admin/WorkflowNav";
 import { WorkflowNavigation } from "@/components/admin/WorkflowNavigation";
 import { WorkflowProgress } from "@/components/admin/WorkflowProgress";
@@ -22,8 +23,10 @@ interface AnalyseWorkspaceProps {
   erlebnis?: ErlebnisRecord;
 }
 
-export function AnalyseWorkspace({ erlebnis = getDefaultErlebnis() }: AnalyseWorkspaceProps) {
-  const [sections] = useState<WorkflowSection[]>(erlebnis.workflowSections);
+export function AnalyseWorkspace({ erlebnis }: AnalyseWorkspaceProps) {
+  const emptyErlebnis = useMemo(() => buildNewErlebnisRecord({ name: "" }), []);
+  const data = erlebnis ?? emptyErlebnis;
+  const [sections] = useState<WorkflowSection[]>(data.workflowSections);
   const [activeItem, setActiveItem] = useState<WorkflowSectionId>("allgemein");
   const { step, total, label } = getSectionStep(activeItem, sections.length);
 
@@ -33,10 +36,10 @@ export function AnalyseWorkspace({ erlebnis = getDefaultErlebnis() }: AnalyseWor
 
       <WorkflowProgress
         sections={sections}
-        experienceName={erlebnis.name}
-        profileStatus={erlebnis.profileStatus}
-        lastSaved={erlebnis.lastSaved}
-        progressPercent={erlebnis.progress}
+        experienceName={data.name}
+        profileStatus={data.profileStatus}
+        lastSaved={data.lastSaved}
+        progressPercent={data.progress}
       />
 
       <div className="grid gap-5 lg:grid-cols-[minmax(200px,25%)_minmax(0,75%)] lg:gap-6">
@@ -46,15 +49,18 @@ export function AnalyseWorkspace({ erlebnis = getDefaultErlebnis() }: AnalyseWor
           <WorkflowStepHeader step={step} total={total} label={label} />
 
           {activeItem === "allgemein" ? (
-            <AllgemeinEditor initialData={erlebnis.allgemein} />
+            <AllgemeinEditor key={`${data.slug}-allgemein`} initialData={data.allgemein} />
           ) : activeItem === "hero" ? (
-            <HeroEditor initialData={erlebnis.hero} />
+            <HeroEditor key={`${data.slug}-hero`} initialData={data.hero} />
           ) : activeItem === "bewertungen" ? (
-            <BewertungenEditor initialData={erlebnis.bewertungen} />
+            <BewertungenEditor key={`${data.slug}-bewertungen`} initialData={data.bewertungen} />
           ) : activeItem === "offizielle-informationen" ? (
-            <OffizielleInformationenEditor initialData={erlebnis.offizielleInformationen} />
+            <OffizielleInformationenEditor
+              key={`${data.slug}-offiziell`}
+              initialData={data.offizielleInformationen}
+            />
           ) : activeItem === "highlights" ? (
-            <HighlightsEditor initialData={erlebnis.highlights} />
+            <HighlightsEditor key={`${data.slug}-highlights`} initialData={data.highlights} />
           ) : (
             <div className="flex min-h-[200px] items-center justify-center px-4 py-10">
               <p className="max-w-md text-center text-[15px] leading-relaxed text-[var(--mwg-ink-70)]">

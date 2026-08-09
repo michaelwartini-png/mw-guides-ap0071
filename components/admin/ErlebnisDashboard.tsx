@@ -1,17 +1,21 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { AdminPrimaryLink, AdminSecondaryButton } from "@/components/admin/adminButtons";
 import { ErlebnisCard } from "@/components/admin/ErlebnisCard";
 import {
   DASHBOARD_ERLEBNISSE,
   filterErlebnisse,
   getDashboardStats,
+  getInitialDashboardErlebnisse,
   sortErlebnisse,
+  toDashboardErlebnisFromRecord,
   type DashboardErlebnis,
   type ErlebnisFilter,
   type ErlebnisSort,
 } from "@/components/admin/erlebnisDashboardData";
+import { registerDuplicateErlebnis } from "@/components/admin/erlebnisSessionStore";
 
 const FILTER_OPTIONS: ErlebnisFilter[] = [
   "Alle",
@@ -26,12 +30,31 @@ const FIELD_CLASS =
   "h-10 rounded-xl border border-[var(--mwg-line)] bg-paper-raised px-4 text-[14px] outline-none transition-colors focus:border-accent";
 
 export function ErlebnisDashboard() {
-  const [erlebnisse] = useState<DashboardErlebnis[]>(DASHBOARD_ERLEBNISSE);
+  const searchParams = useSearchParams();
+  const [erlebnisse, setErlebnisse] = useState<DashboardErlebnis[]>(DASHBOARD_ERLEBNISSE);
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<ErlebnisFilter>("Alle");
   const [sort, setSort] = useState<ErlebnisSort>("Zuletzt geändert");
-  const [duplicateMessage, setDuplicateMessage] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<DashboardErlebnis | null>(null);
+
+  useEffect(() => {
+    setErlebnisse(getInitialDashboardErlebnisse());
+  }, []);
+
+  useEffect(() => {
+    if (searchParams.get("created") !== "1") return;
+
+    const name = searchParams.get("name");
+    setStatusMessage(
+      name
+        ? `„${name}" wurde erfolgreich angelegt.`
+        : "Das Erlebnis wurde erfolgreich angelegt.",
+    );
+
+    const timeout = window.setTimeout(() => setStatusMessage(null), 5000);
+    return () => window.clearTimeout(timeout);
+  }, [searchParams]);
 
   const stats = getDashboardStats(erlebnisse);
 
@@ -41,10 +64,15 @@ export function ErlebnisDashboard() {
   }, [erlebnisse, searchQuery, filter, sort]);
 
   function handleDuplicate(id: string) {
-    const item = erlebnisse.find((erlebnis) => erlebnis.id === id);
-    if (!item) return;
-    setDuplicateMessage("Duplikat erstellt.");
-    window.setTimeout(() => setDuplicateMessage(null), 4000);
+    const record = registerDuplicateErlebnis(id);
+    if (!record) return;
+
+    const duplicate = toDashboardErlebnisFromRecord(record);
+    const nextErlebnisse = [duplicate, ...erlebnisse];
+    setErlebnisse(nextErlebnisse);
+    setStatusMessage(`„${duplicate.name}" wurde erstellt.`);
+
+    window.setTimeout(() => setStatusMessage(null), 5000);
   }
 
   function handleDeleteConfirm() {
@@ -79,12 +107,12 @@ export function ErlebnisDashboard() {
         </AdminPrimaryLink>
       </div>
 
-      {duplicateMessage && (
+      {statusMessage && (
         <div
           role="status"
           className="rounded-xl border border-accent/25 bg-accent/10 px-4 py-3 text-[14px] text-ink"
         >
-          {duplicateMessage}
+          {statusMessage}
         </div>
       )}
 

@@ -4,10 +4,11 @@ import { type FormEvent, type ReactNode, useState } from "react";
 import { AdminPrimaryButton, AdminSecondaryButton } from "@/components/admin/adminButtons";
 import {
   BARRIEREFreiheit_OPTIONS,
-  DEFAULT_OFFIZIELLE_INFORMATIONEN,
+  EMPTY_OFFIZIELLE_INFORMATIONEN,
   normalizeExternalUrl,
   type BarrierefreiheitFlags,
   type OffizielleInformationenData,
+  type StandortAnreiseData,
 } from "@/components/admin/offizielleInformationenData";
 import { OffizielleInformationenPreview } from "@/components/admin/OffizielleInformationenPreview";
 
@@ -55,7 +56,7 @@ interface OffizielleInformationenEditorProps {
 }
 
 export function OffizielleInformationenEditor({
-  initialData = DEFAULT_OFFIZIELLE_INFORMATIONEN,
+  initialData = EMPTY_OFFIZIELLE_INFORMATIONEN,
 }: OffizielleInformationenEditorProps) {
   const [savedData, setSavedData] = useState<OffizielleInformationenData>(initialData);
   const [formData, setFormData] = useState<OffizielleInformationenData>(initialData);
@@ -66,6 +67,42 @@ export function OffizielleInformationenEditor({
     value: OffizielleInformationenData[K],
   ) {
     setFormData((current) => ({ ...current, [key]: value }));
+    setSaveMessage(null);
+  }
+
+  function updateStandortField<K extends keyof StandortAnreiseData>(
+    key: K,
+    value: StandortAnreiseData[K],
+  ) {
+    setFormData((current) => ({
+      ...current,
+      standortAnreise: { ...current.standortAnreise, [key]: value },
+    }));
+    setSaveMessage(null);
+  }
+
+  function toggleBetreiberWebseiteGleichOffiziell(checked: boolean) {
+    setFormData((current) => {
+      const betreiberWebseite = current.betreiberWebseite.trim();
+      const offizielleWebseite = current.offizielleWebseite.trim();
+      const sharedUrl = betreiberWebseite || offizielleWebseite;
+
+      return {
+        ...current,
+        betreiberWebseiteGleichOffiziell: checked,
+        betreiberWebseite: checked ? sharedUrl : current.betreiberWebseite,
+        offizielleWebseite: checked ? sharedUrl : current.offizielleWebseite,
+      };
+    });
+    setSaveMessage(null);
+  }
+
+  function updateSharedWebseite(url: string) {
+    setFormData((current) => ({
+      ...current,
+      betreiberWebseite: url,
+      offizielleWebseite: url,
+    }));
     setSaveMessage(null);
   }
 
@@ -91,6 +128,8 @@ export function OffizielleInformationenEditor({
     setSaveMessage(null);
   }
 
+  const { standortAnreise } = formData;
+
   return (
     <div className="grid gap-8 2xl:grid-cols-[minmax(0,1fr)_260px]">
       <form onSubmit={handleSave} className="space-y-8">
@@ -115,35 +154,70 @@ export function OffizielleInformationenEditor({
               className={FIELD_CLASS}
             />
           </div>
-          <div className="space-y-2">
-            <FieldLabel htmlFor="offiziell-betreiber-webseite">Betreiber-Webseite</FieldLabel>
+
+          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-[var(--mwg-line)] px-4 py-3 text-[14.5px] transition-colors has-[:checked]:border-accent has-[:checked]:bg-accent/5">
             <input
-              id="offiziell-betreiber-webseite"
-              type="url"
-              value={formData.betreiberWebseite}
-              onChange={(event) => updateField("betreiberWebseite", event.target.value)}
-              placeholder="https://"
-              className={FIELD_CLASS}
+              type="checkbox"
+              checked={formData.betreiberWebseiteGleichOffiziell}
+              onChange={(event) => toggleBetreiberWebseiteGleichOffiziell(event.target.checked)}
+              className="h-4 w-4 accent-[var(--mwg-accent)]"
             />
-          </div>
-          <OpenLinkButton label="🌐 Betreiber-Webseite öffnen" url={formData.betreiberWebseite} />
+            Betreiber-Webseite ist die offizielle Webseite
+          </label>
+
+          {formData.betreiberWebseiteGleichOffiziell ? (
+            <div className="space-y-2">
+              <FieldLabel htmlFor="offiziell-gemeinsame-webseite">
+                Betreiber- und offizielle Webseite
+              </FieldLabel>
+              <input
+                id="offiziell-gemeinsame-webseite"
+                type="url"
+                value={formData.betreiberWebseite}
+                onChange={(event) => updateSharedWebseite(event.target.value)}
+                placeholder="https://"
+                className={FIELD_CLASS}
+              />
+              <OpenLinkButton label="🌐 Webseite öffnen" url={formData.betreiberWebseite} />
+            </div>
+          ) : (
+            <>
+              <div className="space-y-2">
+                <FieldLabel htmlFor="offiziell-betreiber-webseite">Betreiber-Webseite</FieldLabel>
+                <input
+                  id="offiziell-betreiber-webseite"
+                  type="url"
+                  value={formData.betreiberWebseite}
+                  onChange={(event) => updateField("betreiberWebseite", event.target.value)}
+                  placeholder="https://"
+                  className={FIELD_CLASS}
+                />
+              </div>
+              <OpenLinkButton
+                label="🌐 Betreiber-Webseite öffnen"
+                url={formData.betreiberWebseite}
+              />
+            </>
+          )}
         </fieldset>
 
-        <fieldset className="space-y-4 rounded-xl border border-[var(--mwg-line)] p-4">
-          <SectionTitle>Abschnitt 2 – Offizielle Webseite</SectionTitle>
-          <div className="space-y-2">
-            <FieldLabel htmlFor="offiziell-webseite">Offizielle Webseite</FieldLabel>
-            <input
-              id="offiziell-webseite"
-              type="url"
-              value={formData.offizielleWebseite}
-              onChange={(event) => updateField("offizielleWebseite", event.target.value)}
-              placeholder="https://"
-              className={FIELD_CLASS}
-            />
-          </div>
-          <OpenLinkButton label="🌐 Webseite öffnen" url={formData.offizielleWebseite} />
-        </fieldset>
+        {!formData.betreiberWebseiteGleichOffiziell && (
+          <fieldset className="space-y-4 rounded-xl border border-[var(--mwg-line)] p-4">
+            <SectionTitle>Abschnitt 2 – Offizielle Webseite</SectionTitle>
+            <div className="space-y-2">
+              <FieldLabel htmlFor="offiziell-webseite">Offizielle Erlebnisseite</FieldLabel>
+              <input
+                id="offiziell-webseite"
+                type="url"
+                value={formData.offizielleWebseite}
+                onChange={(event) => updateField("offizielleWebseite", event.target.value)}
+                placeholder="https://"
+                className={FIELD_CLASS}
+              />
+            </div>
+            <OpenLinkButton label="🌐 Webseite öffnen" url={formData.offizielleWebseite} />
+          </fieldset>
+        )}
 
         <fieldset className="space-y-4 rounded-xl border border-[var(--mwg-line)] p-4">
           <SectionTitle>Abschnitt 3 – Fahrplan / Öffnungszeiten</SectionTitle>
@@ -184,14 +258,18 @@ export function OffizielleInformationenEditor({
         </fieldset>
 
         <fieldset className="space-y-4 rounded-xl border border-[var(--mwg-line)] p-4">
-          <SectionTitle>Abschnitt 6 – Standort</SectionTitle>
+          <SectionTitle>Abschnitt 6 – Standort &amp; Anreise</SectionTitle>
+          <p className="text-[13px] leading-relaxed text-[var(--mwg-ink-70)]">
+            Adresse, Karte und GPS. Navigation und Anreisehinweise werden in einem späteren AP
+            ergänzt.
+          </p>
           <div className="space-y-2">
             <FieldLabel htmlFor="offiziell-adresse">Adresse</FieldLabel>
             <input
               id="offiziell-adresse"
               type="text"
-              value={formData.adresse}
-              onChange={(event) => updateField("adresse", event.target.value)}
+              value={standortAnreise.adresse}
+              onChange={(event) => updateStandortField("adresse", event.target.value)}
               className={FIELD_CLASS}
             />
           </div>
@@ -201,8 +279,8 @@ export function OffizielleInformationenEditor({
               <input
                 id="offiziell-breitengrad"
                 type="text"
-                value={formData.gpsBreitengrad}
-                onChange={(event) => updateField("gpsBreitengrad", event.target.value)}
+                value={standortAnreise.gpsBreitengrad}
+                onChange={(event) => updateStandortField("gpsBreitengrad", event.target.value)}
                 className={FIELD_CLASS}
               />
             </div>
@@ -211,8 +289,8 @@ export function OffizielleInformationenEditor({
               <input
                 id="offiziell-laengengrad"
                 type="text"
-                value={formData.gpsLaengengrad}
-                onChange={(event) => updateField("gpsLaengengrad", event.target.value)}
+                value={standortAnreise.gpsLaengengrad}
+                onChange={(event) => updateStandortField("gpsLaengengrad", event.target.value)}
                 className={FIELD_CLASS}
               />
             </div>
@@ -222,13 +300,13 @@ export function OffizielleInformationenEditor({
             <input
               id="offiziell-kartenlink"
               type="url"
-              value={formData.kartenlink}
-              onChange={(event) => updateField("kartenlink", event.target.value)}
+              value={standortAnreise.kartenlink}
+              onChange={(event) => updateStandortField("kartenlink", event.target.value)}
               placeholder="https://"
               className={FIELD_CLASS}
             />
           </div>
-          <OpenLinkButton label="🗺 Karte öffnen" url={formData.kartenlink} />
+          <OpenLinkButton label="🗺 Karte öffnen" url={standortAnreise.kartenlink} />
         </fieldset>
 
         <fieldset className="space-y-4 rounded-xl border border-[var(--mwg-line)] p-4">
@@ -264,6 +342,7 @@ export function OffizielleInformationenEditor({
               className={FIELD_CLASS}
             />
           </div>
+          <OpenLinkButton label="☎ Kontaktseite öffnen" url={formData.kontaktseite} />
         </fieldset>
 
         <fieldset className="space-y-3 rounded-xl border border-[var(--mwg-line)] p-4">

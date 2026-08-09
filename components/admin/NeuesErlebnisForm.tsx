@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { registerNewErlebnis } from "@/components/admin/erlebnisSessionStore";
 
 const KATEGORIEN = [
   "Mit besonderen Verkehrsmitteln unterwegs",
@@ -19,7 +20,14 @@ export function NeuesErlebnisForm() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    router.push("/admin/neues-erlebnis/analyse");
+
+    const record = registerNewErlebnis({ name });
+
+    const params = new URLSearchParams({
+      created: "1",
+      name: record.name,
+    });
+    router.push(`/admin?${params.toString()}`);
   }
 
   return (

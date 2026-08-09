@@ -6,17 +6,25 @@ export type BarrierefreiheitFlags = {
   wc: boolean;
 };
 
+/** Vorbereitet für späteren AP (Navigation, Routenplanung, ÖPNV). */
+export type StandortAnreiseData = {
+  adresse: string;
+  gpsBreitengrad: string;
+  gpsLaengengrad: string;
+  kartenlink: string;
+  navigation: string;
+  anreiseHinweise: string;
+};
+
 export type OffizielleInformationenData = {
   betreiber: string;
+  betreiberWebseiteGleichOffiziell: boolean;
   betreiberWebseite: string;
   offizielleWebseite: string;
   fahrplan: string;
   preise: string;
   ticketshop: string;
-  adresse: string;
-  gpsBreitengrad: string;
-  gpsLaengengrad: string;
-  kartenlink: string;
+  standortAnreise: StandortAnreiseData;
   telefon: string;
   email: string;
   kontaktseite: string;
@@ -43,9 +51,9 @@ export function normalizeExternalUrl(url: string): string | null {
   return `https://${trimmed}`;
 }
 
-export function formatGps(data: OffizielleInformationenData): string | null {
-  const lat = data.gpsBreitengrad.trim();
-  const lng = data.gpsLaengengrad.trim();
+export function formatGps(standort: StandortAnreiseData): string | null {
+  const lat = standort.gpsBreitengrad.trim();
+  const lng = standort.gpsLaengengrad.trim();
   if (!lat && !lng) return null;
   if (lat && lng) return `${lat}° N, ${lng}° E`;
   return lat || lng;
@@ -57,8 +65,52 @@ export function getActiveBarrierefreiheitLabels(data: OffizielleInformationenDat
   );
 }
 
+export function getEffectiveOffizielleWebseite(data: OffizielleInformationenData): string {
+  return data.betreiberWebseiteGleichOffiziell
+    ? data.betreiberWebseite
+    : data.offizielleWebseite;
+}
+
+export const EMPTY_OFFIZIELLE_INFORMATIONEN: OffizielleInformationenData = {
+  betreiber: "",
+  betreiberWebseiteGleichOffiziell: true,
+  betreiberWebseite: "",
+  offizielleWebseite: "",
+  fahrplan: "",
+  preise: "",
+  ticketshop: "",
+  standortAnreise: {
+    adresse: "",
+    gpsBreitengrad: "",
+    gpsLaengengrad: "",
+    kartenlink: "",
+    navigation: "",
+    anreiseHinweise: "",
+  },
+  telefon: "",
+  email: "",
+  kontaktseite: "",
+  barrierefreiheit: {
+    rollstuhlgerecht: false,
+    kinderwagen: false,
+    fahrradmitnahme: false,
+    hunde: false,
+    wc: false,
+  },
+};
+
+const DEFAULT_STANDORT_ANREISE: StandortAnreiseData = {
+  adresse: "Fährstraße 2, 78462 Konstanz",
+  gpsBreitengrad: "47.6597",
+  gpsLaengengrad: "9.1750",
+  kartenlink: "https://maps.google.com/?q=47.6597,9.1750",
+  navigation: "",
+  anreiseHinweise: "",
+};
+
 export const DEFAULT_OFFIZIELLE_INFORMATIONEN: OffizielleInformationenData = {
   betreiber: "Katamaran-Reederei Bodensee GmbH & Co. KG",
+  betreiberWebseiteGleichOffiziell: false,
   betreiberWebseite: "https://www.der-katamaran.de",
   offizielleWebseite: "https://www.katamaran-bodensee.de",
   fahrplan: `Ganzjähriger Linienverkehr.
@@ -70,10 +122,7 @@ Kinder: ab 9,00 €
 Familien: ab 45,00 €
 Fahrradmitnahme: 3,00 €`,
   ticketshop: "https://www.bsb-online.com",
-  adresse: "Fährstraße 2, 78462 Konstanz",
-  gpsBreitengrad: "47.6597",
-  gpsLaengengrad: "9.1750",
-  kartenlink: "https://maps.google.com/?q=47.6597,9.1750",
+  standortAnreise: { ...DEFAULT_STANDORT_ANREISE },
   telefon: "+49 7531 3640-0",
   email: "info@katamaran-bodensee.de",
   kontaktseite: "https://www.katamaran-bodensee.de/kontakt",
@@ -92,6 +141,7 @@ export const OFFIZIELLE_KATAMARAN: OffizielleInformationenData = {
 
 export const OFFIZIELLE_SCHWEBEBAHN: OffizielleInformationenData = {
   betreiber: "WSW mobil GmbH",
+  betreiberWebseiteGleichOffiziell: false,
   betreiberWebseite: "https://www.wsw-online.de",
   offizielleWebseite: "https://www.schwebebahn.de",
   fahrplan: `Mo–So durchgehend.
@@ -103,10 +153,14 @@ Kinder: ermäßigt
 Familien: Tageskarten verfügbar
 Monatskarte: ab 78,00 €`,
   ticketshop: "https://www.schwebebahn.de/tickets",
-  adresse: "Verkehrsmuseum Wuppertal, Kasinostr. 23, 42103 Wuppertal",
-  gpsBreitengrad: "51.2565",
-  gpsLaengengrad: "7.1508",
-  kartenlink: "https://maps.google.com/?q=51.2565,7.1508",
+  standortAnreise: {
+    adresse: "Verkehrsmuseum Wuppertal, Kasinostr. 23, 42103 Wuppertal",
+    gpsBreitengrad: "51.2565",
+    gpsLaengengrad: "7.1508",
+    kartenlink: "https://maps.google.com/?q=51.2565,7.1508",
+    navigation: "",
+    anreiseHinweise: "",
+  },
   telefon: "+49 202 563-0",
   email: "info@wsw-online.de",
   kontaktseite: "https://www.wsw-online.de/kontakt",
@@ -121,6 +175,7 @@ Monatskarte: ab 78,00 €`,
 
 export const OFFIZIELLE_GLACIER: OffizielleInformationenData = {
   betreiber: "Glacier Express AG",
+  betreiberWebseiteGleichOffiziell: true,
   betreiberWebseite: "https://www.glacierexpress.ch",
   offizielleWebseite: "https://www.glacierexpress.ch",
   fahrplan: `Täglicher Verkehr in der Sommersaison.
@@ -132,10 +187,14 @@ Kinder: ermäßigt
 Excellence Class: ab 470 CHF
 Sitzplatzreservierung empfohlen`,
   ticketshop: "https://www.glacierexpress.ch/buchen",
-  adresse: "Bahnhofplatz, 3920 Zermatt",
-  gpsBreitengrad: "46.0207",
-  gpsLaengengrad: "7.7491",
-  kartenlink: "https://maps.google.com/?q=46.0207,7.7491",
+  standortAnreise: {
+    adresse: "Bahnhofplatz, 3920 Zermatt",
+    gpsBreitengrad: "46.0207",
+    gpsLaengengrad: "7.7491",
+    kartenlink: "https://maps.google.com/?q=46.0207,7.7491",
+    navigation: "",
+    anreiseHinweise: "",
+  },
   telefon: "+41 81 288 65 65",
   email: "info@glacierexpress.ch",
   kontaktseite: "https://www.glacierexpress.ch/kontakt",

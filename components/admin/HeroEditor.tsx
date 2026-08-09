@@ -3,7 +3,7 @@
 import { type FormEvent, type ReactNode, useState } from "react";
 import { AdminPrimaryButton, AdminSecondaryButton } from "@/components/admin/adminButtons";
 import {
-  DEFAULT_HERO_DATA,
+  EMPTY_HERO_DATA,
   HERO_BADGES,
   MAX_GALERIE_COUNT,
   MIN_GALERIE_COUNT,
@@ -31,7 +31,7 @@ interface HeroEditorProps {
   initialData?: HeroData;
 }
 
-export function HeroEditor({ initialData = DEFAULT_HERO_DATA }: HeroEditorProps) {
+export function HeroEditor({ initialData = EMPTY_HERO_DATA }: HeroEditorProps) {
   const [savedData, setSavedData] = useState<HeroData>(initialData);
   const [formData, setFormData] = useState<HeroData>(initialData);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);

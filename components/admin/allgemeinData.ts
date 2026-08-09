@@ -1,6 +1,9 @@
+export const BITTE_WAEHLEN = "Bitte wählen…";
+
 export const KATEGORIEN = [
   "Schifffahrt",
   "Bahn",
+  "Schwebebahn",
   "Straßenbahn",
   "Seilbahn",
   "Museum",
@@ -27,6 +30,8 @@ export const LAENDER = [
   "Schweiz",
   "Italien",
   "Frankreich",
+  "Dänemark",
+  "Schweden",
   "Slowakei",
   "Belgien",
   "Niederlande",
@@ -44,10 +49,21 @@ export type AllgemeinData = {
   untertitel: string;
   kategorie: string;
   erlebniswelt: string;
-  land: string;
-  region: string;
+  laender: string[];
+  regionen: string[];
   orte: string[];
   status: string;
+};
+
+export const EMPTY_ALLGEMEIN_DATA: AllgemeinData = {
+  name: "",
+  untertitel: "",
+  kategorie: BITTE_WAEHLEN,
+  erlebniswelt: BITTE_WAEHLEN,
+  laender: [],
+  regionen: [],
+  orte: [],
+  status: "Entwurf",
 };
 
 export const DEFAULT_ALLGEMEIN_DATA: AllgemeinData = {
@@ -55,8 +71,8 @@ export const DEFAULT_ALLGEMEIN_DATA: AllgemeinData = {
   untertitel: "In 52 Minuten über den Bodensee",
   kategorie: "Schifffahrt",
   erlebniswelt: "Wasser",
-  land: "Deutschland",
-  region: "Bodensee",
+  laender: ["Deutschland"],
+  regionen: ["Bodensee"],
   orte: ["Konstanz"],
   status: "Entwurf",
 };

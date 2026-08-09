@@ -2,6 +2,7 @@ import {
   ERLEBNIS_LIST,
   type ErlebnisRecord,
 } from "@/components/admin/erlebnisData";
+import { loadSessionErlebnisse } from "@/components/admin/erlebnisSessionStore";
 
 export type ErlebnisStatus = "Entwurf" | "In Bearbeitung" | "Veröffentlicht";
 
@@ -14,9 +15,11 @@ export type DashboardErlebnis = {
   progress: number;
   lastModifiedAt: string;
   lastModifiedLabel: string;
+  /** Dynamische Karte (Neu/Duplikat) – gespeichert in sessionStorage */
+  isTemporary?: boolean;
 };
 
-function toDashboardErlebnis(record: ErlebnisRecord): DashboardErlebnis {
+function toDashboardErlebnis(record: ErlebnisRecord, isTemporary = false): DashboardErlebnis {
   return {
     id: record.slug,
     name: record.name,
@@ -26,10 +29,22 @@ function toDashboardErlebnis(record: ErlebnisRecord): DashboardErlebnis {
     progress: record.progress,
     lastModifiedAt: record.lastModifiedAt,
     lastModifiedLabel: record.lastModifiedLabel,
+    isTemporary,
   };
 }
 
-export const DASHBOARD_ERLEBNISSE: DashboardErlebnis[] = ERLEBNIS_LIST.map(toDashboardErlebnis);
+export const DASHBOARD_ERLEBNISSE: DashboardErlebnis[] = ERLEBNIS_LIST.map((record) =>
+  toDashboardErlebnis(record),
+);
+
+export function toDashboardErlebnisFromRecord(record: ErlebnisRecord): DashboardErlebnis {
+  return toDashboardErlebnis(record, true);
+}
+
+export function getInitialDashboardErlebnisse(): DashboardErlebnis[] {
+  const sessionRecords = Object.values(loadSessionErlebnisse()).map(toDashboardErlebnisFromRecord);
+  return [...DASHBOARD_ERLEBNISSE, ...sessionRecords];
+}
 
 export type ErlebnisFilter = "Alle" | ErlebnisStatus;
 

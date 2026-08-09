@@ -1,6 +1,7 @@
 import {
   formatGps,
   getActiveBarrierefreiheitLabels,
+  getEffectiveOffizielleWebseite,
   normalizeExternalUrl,
   type OffizielleInformationenData,
 } from "@/components/admin/offizielleInformationenData";
@@ -53,9 +54,11 @@ function PreviewLink({
 }
 
 export function OffizielleInformationenPreview({ data }: OffizielleInformationenPreviewProps) {
-  const gps = formatGps(data);
+  const { standortAnreise } = data;
+  const gps = formatGps(standortAnreise);
   const barrierefreiheit = getActiveBarrierefreiheitLabels(data);
   const kontaktParts = [data.telefon, data.email, data.kontaktseite].filter((part) => part.trim());
+  const offizielleWebseite = getEffectiveOffizielleWebseite(data);
 
   return (
     <div className="sticky top-6 space-y-3">
@@ -70,22 +73,25 @@ export function OffizielleInformationenPreview({ data }: OffizielleInformationen
 
         <div className="space-y-4">
           <PreviewBlock emoji="" label="Betreiber" value={data.betreiber} />
-          <PreviewLink emoji="🌐" label="Offizielle Webseite" url={data.offizielleWebseite} />
-          {data.kartenlink.trim() ? (
-            <PreviewLink emoji="🗺" label="Karte" url={data.kartenlink} />
+          {!data.betreiberWebseiteGleichOffiziell && data.betreiberWebseite.trim() && (
+            <PreviewLink emoji="🌐" label="Betreiber-Webseite" url={data.betreiberWebseite} />
+          )}
+          <PreviewLink emoji="🌐" label="Offizielle Webseite" url={offizielleWebseite} />
+          {standortAnreise.kartenlink.trim() ? (
+            <PreviewLink emoji="🗺" label="Standort & Anreise" url={standortAnreise.kartenlink} />
           ) : (
-            (data.adresse.trim() || gps) && (
+            (standortAnreise.adresse.trim() || gps) && (
               <PreviewBlock
                 emoji="🗺"
-                label="Karte"
-                value={[data.adresse, gps].filter(Boolean).join("\n")}
+                label="Standort & Anreise"
+                value={[standortAnreise.adresse, gps].filter(Boolean).join("\n")}
               />
             )
           )}
-          {data.kartenlink.trim() && data.adresse.trim() && (
-            <PreviewBlock emoji="" label="Adresse" value={data.adresse} />
+          {standortAnreise.kartenlink.trim() && standortAnreise.adresse.trim() && (
+            <PreviewBlock emoji="" label="Adresse" value={standortAnreise.adresse} />
           )}
-          {gps && data.kartenlink.trim() && (
+          {gps && standortAnreise.kartenlink.trim() && (
             <PreviewBlock emoji="" label="GPS" value={gps} />
           )}
           <PreviewBlock emoji="📅" label="Fahrplan" value={data.fahrplan} />

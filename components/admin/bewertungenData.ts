@@ -16,6 +16,18 @@ export type BewertungenData = {
   };
 };
 
+export const EMPTY_BEWERTUNGEN_DATA: BewertungenData = {
+  mwgScore: "",
+  kurzbegruendung: "",
+  google: { bewertung: "", anzahl: "", link: "" },
+  tripadvisor: { bewertung: "", anzahl: "", link: "" },
+  weiterePlattformen: {
+    holidayCheck: { bewertung: "", anzahl: "", link: "" },
+    trustpilot: { bewertung: "", anzahl: "", link: "" },
+    yelp: { bewertung: "", anzahl: "", link: "" },
+  },
+};
+
 export const DEFAULT_BEWERTUNGEN_DATA: BewertungenData = {
   mwgScore: "9.0",
   kurzbegruendung: "Einzigartige Verbindung über den Bodensee mit hoher Erlebnisqualität.",

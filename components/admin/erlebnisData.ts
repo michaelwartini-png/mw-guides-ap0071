@@ -26,7 +26,7 @@ export type ErlebnisSlug =
   | "glacier-express";
 
 export type ErlebnisRecord = {
-  slug: ErlebnisSlug;
+  slug: string;
   name: string;
   kategorie: string;
   erlebniswelt: string;
@@ -134,8 +134,8 @@ export const ERLEBNISSE: Record<ErlebnisSlug, ErlebnisRecord> = {
       untertitel: "In 52 Minuten über den Bodensee",
       kategorie: "Schifffahrt",
       erlebniswelt: "Wasser",
-      land: "Deutschland",
-      region: "Bodensee",
+      laender: ["Deutschland"],
+      regionen: ["Bodensee"],
       orte: ["Konstanz", "Friedrichshafen"],
       status: "Entwurf",
     },
@@ -166,10 +166,10 @@ export const ERLEBNISSE: Record<ErlebnisSlug, ErlebnisRecord> = {
     allgemein: {
       name: "Wuppertaler Schwebebahn",
       untertitel: "Schwebe durch Wuppertal – seit 1901",
-      kategorie: "Sonstiges",
+      kategorie: "Schwebebahn",
       erlebniswelt: "Technik",
-      land: "Deutschland",
-      region: "Bergisches Land",
+      laender: ["Deutschland"],
+      regionen: ["Bergisches Land"],
       orte: ["Wuppertal"],
       status: "Veröffentlicht",
     },
@@ -202,8 +202,8 @@ export const ERLEBNISSE: Record<ErlebnisSlug, ErlebnisRecord> = {
       untertitel: "Die langsamste Expresszug der Welt",
       kategorie: "Bahn",
       erlebniswelt: "Bahn",
-      land: "Schweiz",
-      region: "Alpen",
+      laender: ["Schweiz"],
+      regionen: ["Alpen"],
       orte: ["Zermatt", "St. Moritz"],
       status: "Entwurf",
     },

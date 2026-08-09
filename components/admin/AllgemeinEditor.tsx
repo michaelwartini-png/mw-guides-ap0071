@@ -3,7 +3,8 @@
 import { type FormEvent, type ReactNode, useState } from "react";
 import { AdminPrimaryButton, AdminSecondaryButton } from "@/components/admin/adminButtons";
 import {
-  DEFAULT_ALLGEMEIN_DATA,
+  BITTE_WAEHLEN,
+  EMPTY_ALLGEMEIN_DATA,
   ERLEBNISWELTEN,
   KATEGORIEN,
   LAENDER,
@@ -26,7 +27,7 @@ interface AllgemeinEditorProps {
   initialData?: AllgemeinData;
 }
 
-export function AllgemeinEditor({ initialData = DEFAULT_ALLGEMEIN_DATA }: AllgemeinEditorProps) {
+export function AllgemeinEditor({ initialData = EMPTY_ALLGEMEIN_DATA }: AllgemeinEditorProps) {
   const [savedData, setSavedData] = useState<AllgemeinData>(initialData);
   const [formData, setFormData] = useState<AllgemeinData>(initialData);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
@@ -51,10 +52,56 @@ export function AllgemeinEditor({ initialData = DEFAULT_ALLGEMEIN_DATA }: Allgem
   }
 
   function removeOrt(index: number) {
-    if (formData.orte.length <= 1) return;
     setFormData((current) => ({
       ...current,
       orte: current.orte.filter((_, ortIndex) => ortIndex !== index),
+    }));
+    setSaveMessage(null);
+  }
+
+  function updateLand(index: number, value: string) {
+    setFormData((current) => {
+      const laender = [...current.laender];
+      laender[index] = value;
+      return { ...current, laender };
+    });
+    setSaveMessage(null);
+  }
+
+  function addLand() {
+    setFormData((current) => ({
+      ...current,
+      laender: [...current.laender, BITTE_WAEHLEN],
+    }));
+    setSaveMessage(null);
+  }
+
+  function removeLand(index: number) {
+    setFormData((current) => ({
+      ...current,
+      laender: current.laender.filter((_, landIndex) => landIndex !== index),
+    }));
+    setSaveMessage(null);
+  }
+
+  function updateRegion(index: number, value: string) {
+    setFormData((current) => {
+      const regionen = [...current.regionen];
+      regionen[index] = value;
+      return { ...current, regionen };
+    });
+    setSaveMessage(null);
+  }
+
+  function addRegion() {
+    setFormData((current) => ({ ...current, regionen: [...current.regionen, ""] }));
+    setSaveMessage(null);
+  }
+
+  function removeRegion(index: number) {
+    setFormData((current) => ({
+      ...current,
+      regionen: current.regionen.filter((_, regionIndex) => regionIndex !== index),
     }));
     setSaveMessage(null);
   }
@@ -112,6 +159,7 @@ export function AllgemeinEditor({ initialData = DEFAULT_ALLGEMEIN_DATA }: Allgem
             onChange={(event) => updateField("kategorie", event.target.value)}
             className={FIELD_CLASS}
           >
+            <option value={BITTE_WAEHLEN}>{BITTE_WAEHLEN}</option>
             {KATEGORIEN.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -128,6 +176,7 @@ export function AllgemeinEditor({ initialData = DEFAULT_ALLGEMEIN_DATA }: Allgem
             onChange={(event) => updateField("erlebniswelt", event.target.value)}
             className={FIELD_CLASS}
           >
+            <option value={BITTE_WAEHLEN}>{BITTE_WAEHLEN}</option>
             {ERLEBNISWELTEN.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -137,34 +186,76 @@ export function AllgemeinEditor({ initialData = DEFAULT_ALLGEMEIN_DATA }: Allgem
         </div>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-2">
-          <FieldLabel htmlFor="allgemein-land">Land</FieldLabel>
-          <select
-            id="allgemein-land"
-            value={formData.land}
-            onChange={(event) => updateField("land", event.target.value)}
-            className={FIELD_CLASS}
-          >
-            {LAENDER.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
+      <fieldset className="space-y-4">
+        <legend className="text-sm font-medium text-ink">Land</legend>
+        {formData.laender.map((land, index) => (
+          <div key={index} className="flex gap-3">
+            <select
+              id={index === 0 ? "allgemein-land" : undefined}
+              value={land}
+              onChange={(event) => updateLand(index, event.target.value)}
+              className={FIELD_CLASS}
+            >
+              <option value={BITTE_WAEHLEN}>{BITTE_WAEHLEN}</option>
+              {LAENDER.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            {formData.laender.length > 0 && (
+              <button
+                type="button"
+                onClick={() => removeLand(index)}
+                className="shrink-0 rounded-xl border border-[var(--mwg-line)] px-3 text-sm text-[var(--mwg-ink-70)] transition-colors hover:border-ink hover:text-ink"
+                aria-label={`Land ${index + 1} entfernen`}
+              >
+                Entfernen
+              </button>
+            )}
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addLand}
+          className="rounded-full border border-[var(--mwg-line)] px-5 py-2.5 text-[14px] font-medium text-[var(--mwg-ink-70)] transition-colors hover:border-ink hover:text-ink"
+        >
+          + Land hinzufügen
+        </button>
+      </fieldset>
 
-        <div className="space-y-2">
-          <FieldLabel htmlFor="allgemein-region">Region</FieldLabel>
-          <input
-            id="allgemein-region"
-            type="text"
-            value={formData.region}
-            onChange={(event) => updateField("region", event.target.value)}
-            className={FIELD_CLASS}
-          />
-        </div>
-      </div>
+      <fieldset className="space-y-4">
+        <legend className="text-sm font-medium text-ink">Region</legend>
+        {formData.regionen.map((region, index) => (
+          <div key={index} className="flex gap-3">
+            <input
+              id={index === 0 ? "allgemein-region" : undefined}
+              type="text"
+              value={region}
+              onChange={(event) => updateRegion(index, event.target.value)}
+              placeholder={index === 0 ? "z. B. Bodensee" : "z. B. Allgäu"}
+              className={FIELD_CLASS}
+            />
+            {formData.regionen.length > 0 && (
+              <button
+                type="button"
+                onClick={() => removeRegion(index)}
+                className="shrink-0 rounded-xl border border-[var(--mwg-line)] px-3 text-sm text-[var(--mwg-ink-70)] transition-colors hover:border-ink hover:text-ink"
+                aria-label={`Region ${index + 1} entfernen`}
+              >
+                Entfernen
+              </button>
+            )}
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addRegion}
+          className="rounded-full border border-[var(--mwg-line)] px-5 py-2.5 text-[14px] font-medium text-[var(--mwg-ink-70)] transition-colors hover:border-ink hover:text-ink"
+        >
+          + Region hinzufügen
+        </button>
+      </fieldset>
 
       <fieldset className="space-y-4">
         <legend className="text-sm font-medium text-ink">Ort</legend>
@@ -175,10 +266,10 @@ export function AllgemeinEditor({ initialData = DEFAULT_ALLGEMEIN_DATA }: Allgem
               type="text"
               value={ort}
               onChange={(event) => updateOrt(index, event.target.value)}
-              placeholder={index === 0 ? "Konstanz" : "z. B. Friedrichshafen"}
+              placeholder={index === 0 ? "z. B. Konstanz" : "z. B. Friedrichshafen"}
               className={FIELD_CLASS}
             />
-            {formData.orte.length > 1 && (
+            {formData.orte.length > 0 && (
               <button
                 type="button"
                 onClick={() => removeOrt(index)}

@@ -5,7 +5,7 @@ import { AdminPrimaryButton, AdminSecondaryButton } from "@/components/admin/adm
 import { HighlightsPreview } from "@/components/admin/HighlightsPreview";
 import {
   createHighlightItem,
-  DEFAULT_HIGHLIGHTS_DATA,
+  EMPTY_HIGHLIGHTS_DATA,
   getNextReihenfolge,
   HIGHLIGHT_ICON_OPTIONS,
   MAX_HIGHLIGHTS,
@@ -35,7 +35,7 @@ interface HighlightsEditorProps {
   initialData?: HighlightsData;
 }
 
-export function HighlightsEditor({ initialData = DEFAULT_HIGHLIGHTS_DATA }: HighlightsEditorProps) {
+export function HighlightsEditor({ initialData = EMPTY_HIGHLIGHTS_DATA }: HighlightsEditorProps) {
   const [savedData, setSavedData] = useState<HighlightsData>(initialData);
   const [formData, setFormData] = useState<HighlightsData>(initialData);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);

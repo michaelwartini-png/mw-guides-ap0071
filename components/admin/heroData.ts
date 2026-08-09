@@ -20,6 +20,16 @@ export type HeroData = {
   rideGuideAvailable: boolean;
 };
 
+export const EMPTY_HERO_DATA: HeroData = {
+  titel: "",
+  untertitel: "",
+  hasHeroImage: false,
+  galerieCount: 0,
+  badges: [],
+  score: "",
+  rideGuideAvailable: false,
+};
+
 export const DEFAULT_HERO_DATA: HeroData = {
   titel: "Katamaran Konstanz – Friedrichshafen",
   untertitel: "In 52 Minuten über den Bodensee.",

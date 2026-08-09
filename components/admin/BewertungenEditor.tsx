@@ -3,7 +3,7 @@
 import { type FormEvent, type ReactNode, useState } from "react";
 import { AdminPrimaryButton, AdminSecondaryButton } from "@/components/admin/adminButtons";
 import {
-  DEFAULT_BEWERTUNGEN_DATA,
+  EMPTY_BEWERTUNGEN_DATA,
   type BewertungenData,
   type PlatformReview,
 } from "@/components/admin/bewertungenData";
@@ -81,7 +81,7 @@ interface BewertungenEditorProps {
 }
 
 export function BewertungenEditor({
-  initialData = DEFAULT_BEWERTUNGEN_DATA,
+  initialData = EMPTY_BEWERTUNGEN_DATA,
 }: BewertungenEditorProps) {
   const [savedData, setSavedData] = useState<BewertungenData>(initialData);
   const [formData, setFormData] = useState<BewertungenData>(initialData);

@@ -55,6 +55,10 @@ function createItem(
   };
 }
 
+export const EMPTY_HIGHLIGHTS_DATA: HighlightsData = {
+  items: [],
+};
+
 export const DEFAULT_HIGHLIGHTS_DATA: HighlightsData = {
   items: [
     createItem({
