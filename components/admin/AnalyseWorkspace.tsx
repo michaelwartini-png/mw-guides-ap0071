@@ -5,6 +5,7 @@ import { AllgemeinEditor } from "@/components/admin/AllgemeinEditor";
 import { BewertungenEditor } from "@/components/admin/BewertungenEditor";
 import { HeroEditor } from "@/components/admin/HeroEditor";
 import { HighlightsEditor } from "@/components/admin/HighlightsEditor";
+import { MWGuidesTippsEditor } from "@/components/admin/MWGuidesTippsEditor";
 import { OffizielleInformationenEditor } from "@/components/admin/OffizielleInformationenEditor";
 import { AdminLink } from "@/components/admin/adminButtons";
 import type { ErlebnisRecord } from "@/components/admin/erlebnisData";
@@ -61,6 +62,11 @@ export function AnalyseWorkspace({ erlebnis }: AnalyseWorkspaceProps) {
             />
           ) : activeItem === "highlights" ? (
             <HighlightsEditor key={`${data.slug}-highlights`} initialData={data.highlights} />
+          ) : activeItem === "mw-guides-tipps" ? (
+            <MWGuidesTippsEditor
+              key={`${data.slug}-tipps`}
+              initialData={data.mwGuidesTipps}
+            />
           ) : (
             <div className="flex min-h-[200px] items-center justify-center px-4 py-10">
               <p className="max-w-md text-center text-[15px] leading-relaxed text-[var(--mwg-ink-70)]">

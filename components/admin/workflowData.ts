@@ -4,7 +4,7 @@ export type WorkflowSectionId =
   | "bewertungen"
   | "offizielle-informationen"
   | "highlights"
-  | "praktische-informationen"
+  | "mw-guides-tipps"
   | "galerie"
   | "videos"
   | "faq";
@@ -33,11 +33,11 @@ export const WORKFLOW_SECTIONS: WorkflowSection[] = [
   },
   { id: "highlights", label: "Highlights", status: "open", fieldsFilled: 0, fieldsTotal: 5 },
   {
-    id: "praktische-informationen",
-    label: "Praktische Informationen",
+    id: "mw-guides-tipps",
+    label: "MW Guides Tipps",
     status: "open",
     fieldsFilled: 0,
-    fieldsTotal: 9,
+    fieldsTotal: 5,
   },
   { id: "galerie", label: "Galerie", status: "open", fieldsFilled: 0, fieldsTotal: 4 },
   { id: "videos", label: "Videos", status: "open", fieldsFilled: 0, fieldsTotal: 3 },
@@ -88,7 +88,7 @@ export const SECTION_ICONS: Record<WorkflowSectionId, string> = {
   bewertungen: "⭐",
   "offizielle-informationen": "🌐",
   highlights: "✨",
-  "praktische-informationen": "ℹ",
+  "mw-guides-tipps": "💡",
   galerie: "🖼",
   videos: "🎬",
   faq: "❓",
@@ -113,11 +113,10 @@ export function getAdjacentSectionId(
 export const PLACEHOLDER_TEXT: Record<
   Exclude<
     WorkflowSectionId,
-    "allgemein" | "hero" | "bewertungen" | "offizielle-informationen" | "highlights"
+    "allgemein" | "hero" | "bewertungen" | "offizielle-informationen" | "highlights" | "mw-guides-tipps"
   >,
   string
 > = {
-  "praktische-informationen": "Hier werden später die praktischen Informationen angezeigt.",
   galerie: "Hier wird später die Galerie angezeigt.",
   videos: "Hier werden später die Videos angezeigt.",
   faq: "Hier werden später die FAQ angezeigt.",

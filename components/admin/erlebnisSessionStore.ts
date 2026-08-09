@@ -7,10 +7,11 @@ import {
 } from "@/components/admin/erlebnisData";
 import { EMPTY_HERO_DATA } from "@/components/admin/heroData";
 import { EMPTY_HIGHLIGHTS_DATA } from "@/components/admin/highlightsData";
+import { EMPTY_MW_GUIDES_TIPPS_DATA } from "@/components/admin/mwGuidesTippsData";
 import { EMPTY_OFFIZIELLE_INFORMATIONEN } from "@/components/admin/offizielleInformationenData";
 import type { WorkflowSection } from "@/components/admin/workflowData";
 
-export const ERLEBNIS_SESSION_STORAGE_KEY = "mwg-erlebnis-records-v2";
+export const ERLEBNIS_SESSION_STORAGE_KEY = "mwg-erlebnis-records-v3";
 
 const NEW_ERLEBNIS_SECTIONS: WorkflowSection[] = [
   { id: "allgemein", label: "Allgemein", status: "open", fieldsFilled: 0, fieldsTotal: 8 },
@@ -25,11 +26,11 @@ const NEW_ERLEBNIS_SECTIONS: WorkflowSection[] = [
   },
   { id: "highlights", label: "Highlights", status: "open", fieldsFilled: 0, fieldsTotal: 5 },
   {
-    id: "praktische-informationen",
-    label: "Praktische Informationen",
+    id: "mw-guides-tipps",
+    label: "MW Guides Tipps",
     status: "open",
     fieldsFilled: 0,
-    fieldsTotal: 9,
+    fieldsTotal: 5,
   },
   { id: "galerie", label: "Galerie", status: "open", fieldsFilled: 0, fieldsTotal: 4 },
   { id: "videos", label: "Videos", status: "open", fieldsFilled: 0, fieldsTotal: 3 },
@@ -154,6 +155,7 @@ export function buildNewErlebnisRecord(input: { name: string }): ErlebnisRecord 
     bewertungen: structuredClone(EMPTY_BEWERTUNGEN_DATA),
     offizielleInformationen: structuredClone(EMPTY_OFFIZIELLE_INFORMATIONEN),
     highlights: structuredClone(EMPTY_HIGHLIGHTS_DATA),
+    mwGuidesTipps: structuredClone(EMPTY_MW_GUIDES_TIPPS_DATA),
     workflowSections: structuredClone(NEW_ERLEBNIS_SECTIONS),
   };
 }
