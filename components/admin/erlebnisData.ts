@@ -18,6 +18,12 @@ import {
   OFFIZIELLE_KATAMARAN,
   OFFIZIELLE_SCHWEBEBAHN,
 } from "@/components/admin/offizielleInformationenData";
+import type { GalerieData } from "@/components/admin/galerieData";
+import {
+  GALERIE_GLACIER,
+  GALERIE_KATAMARAN,
+  GALERIE_SCHWEBEBAHN,
+} from "@/components/admin/galerieData";
 import type { MWGuidesTippsData } from "@/components/admin/mwGuidesTippsData";
 import {
   TIPPS_GLACIER,
@@ -50,6 +56,7 @@ export type ErlebnisRecord = {
   offizielleInformationen: OffizielleInformationenData;
   highlights: HighlightsData;
   mwGuidesTipps: MWGuidesTippsData;
+  galerie: GalerieData;
   workflowSections: WorkflowSection[];
 };
 
@@ -72,7 +79,8 @@ const KATAMARAN_SECTIONS: WorkflowSection[] = [
     fieldsFilled: 0,
     fieldsTotal: 5,
   },
-  { id: "galerie", label: "Galerie", status: "open", fieldsFilled: 0, fieldsTotal: 4 },
+  { id: "galerie", label: "Galerie & Bildverwaltung", status: "open", fieldsFilled: 0, fieldsTotal: 8 },
+  { id: "produkte", label: "Produkte", status: "open", fieldsFilled: 0, fieldsTotal: 6 },
   { id: "videos", label: "Videos", status: "open", fieldsFilled: 0, fieldsTotal: 3 },
   { id: "faq", label: "FAQ", status: "open", fieldsFilled: 0, fieldsTotal: 4 },
 ];
@@ -96,7 +104,8 @@ const SCHWEBEBAHN_SECTIONS: WorkflowSection[] = [
     fieldsFilled: 5,
     fieldsTotal: 5,
   },
-  { id: "galerie", label: "Galerie", status: "completed", fieldsFilled: 4, fieldsTotal: 4 },
+  { id: "galerie", label: "Galerie & Bildverwaltung", status: "completed", fieldsFilled: 8, fieldsTotal: 8 },
+  { id: "produkte", label: "Produkte", status: "open", fieldsFilled: 0, fieldsTotal: 6 },
   { id: "videos", label: "Videos", status: "completed", fieldsFilled: 3, fieldsTotal: 3 },
   { id: "faq", label: "FAQ", status: "completed", fieldsFilled: 4, fieldsTotal: 4 },
 ];
@@ -120,7 +129,8 @@ const GLACIER_SECTIONS: WorkflowSection[] = [
     fieldsFilled: 0,
     fieldsTotal: 5,
   },
-  { id: "galerie", label: "Galerie", status: "open", fieldsFilled: 0, fieldsTotal: 4 },
+  { id: "galerie", label: "Galerie & Bildverwaltung", status: "open", fieldsFilled: 0, fieldsTotal: 8 },
+  { id: "produkte", label: "Produkte", status: "open", fieldsFilled: 0, fieldsTotal: 6 },
   { id: "videos", label: "Videos", status: "open", fieldsFilled: 0, fieldsTotal: 3 },
   { id: "faq", label: "FAQ", status: "open", fieldsFilled: 0, fieldsTotal: 4 },
 ];
@@ -159,6 +169,7 @@ export const ERLEBNISSE: Record<ErlebnisSlug, ErlebnisRecord> = {
     offizielleInformationen: OFFIZIELLE_KATAMARAN,
     highlights: HIGHLIGHTS_KATAMARAN,
     mwGuidesTipps: TIPPS_KATAMARAN,
+    galerie: GALERIE_KATAMARAN,
     workflowSections: KATAMARAN_SECTIONS,
   },
   "wuppertaler-schwebebahn": {
@@ -194,6 +205,7 @@ export const ERLEBNISSE: Record<ErlebnisSlug, ErlebnisRecord> = {
     offizielleInformationen: OFFIZIELLE_SCHWEBEBAHN,
     highlights: HIGHLIGHTS_SCHWEBEBAHN,
     mwGuidesTipps: TIPPS_SCHWEBEBAHN,
+    galerie: GALERIE_SCHWEBEBAHN,
     workflowSections: SCHWEBEBAHN_SECTIONS,
   },
   "glacier-express": {
@@ -229,6 +241,7 @@ export const ERLEBNISSE: Record<ErlebnisSlug, ErlebnisRecord> = {
     offizielleInformationen: OFFIZIELLE_GLACIER,
     highlights: HIGHLIGHTS_GLACIER,
     mwGuidesTipps: TIPPS_GLACIER,
+    galerie: GALERIE_GLACIER,
     workflowSections: GLACIER_SECTIONS,
   },
 };

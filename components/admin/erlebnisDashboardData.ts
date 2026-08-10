@@ -2,6 +2,7 @@ import {
   ERLEBNIS_LIST,
   type ErlebnisRecord,
 } from "@/components/admin/erlebnisData";
+import { getErlebnisprofilCompleteness } from "@/components/admin/products/erlebnisprofilProduct";
 import { loadSessionErlebnisse } from "@/components/admin/erlebnisSessionStore";
 
 export type ErlebnisStatus = "Entwurf" | "In Bearbeitung" | "Veröffentlicht";
@@ -20,13 +21,14 @@ export type DashboardErlebnis = {
 };
 
 function toDashboardErlebnis(record: ErlebnisRecord, isTemporary = false): DashboardErlebnis {
+  const completeness = getErlebnisprofilCompleteness(record).percent;
   return {
     id: record.slug,
     name: record.name,
     kategorie: record.kategorie,
     erlebniswelt: record.erlebniswelt,
     status: record.profileStatus as ErlebnisStatus,
-    progress: record.progress,
+    progress: completeness > 0 ? completeness : record.progress,
     lastModifiedAt: record.lastModifiedAt,
     lastModifiedLabel: record.lastModifiedLabel,
     isTemporary,
@@ -42,8 +44,22 @@ export function toDashboardErlebnisFromRecord(record: ErlebnisRecord): Dashboard
 }
 
 export function getInitialDashboardErlebnisse(): DashboardErlebnis[] {
-  const sessionRecords = Object.values(loadSessionErlebnisse()).map(toDashboardErlebnisFromRecord);
-  return [...DASHBOARD_ERLEBNISSE, ...sessionRecords];
+  const session = loadSessionErlebnisse();
+
+  const mergedSeeds = ERLEBNIS_LIST.map((seed) => {
+    const sessionRecord = session[seed.slug];
+    if (sessionRecord) {
+      return toDashboardErlebnis(sessionRecord, false);
+    }
+    return toDashboardErlebnis(seed);
+  });
+
+  const sessionOnlySlugs = new Set(ERLEBNIS_LIST.map((record) => record.slug));
+  const sessionOnly = Object.values(session)
+    .filter((record) => !sessionOnlySlugs.has(record.slug))
+    .map((record) => toDashboardErlebnisFromRecord(record));
+
+  return [...mergedSeeds, ...sessionOnly];
 }
 
 export type ErlebnisFilter = "Alle" | ErlebnisStatus;

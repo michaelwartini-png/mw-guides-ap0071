@@ -29,7 +29,8 @@ const WORKFLOW_SECTION_LABELS: Record<WorkflowSectionId, string> = {
   "offizielle-informationen": "Offizielle Informationen",
   highlights: "Highlights",
   "mw-guides-tipps": "MW Guides Tipps",
-  galerie: "Galerie",
+  galerie: "Galerie & Bildverwaltung",
+  produkte: "Produkte",
   videos: "Videos",
   faq: "FAQ",
 };
@@ -42,6 +43,7 @@ const WORKFLOW_SECTION_INDEX: Record<WorkflowSectionId, number> = {
   highlights: 4,
   "mw-guides-tipps": 5,
   galerie: 6,
-  videos: 7,
-  faq: 8,
+  produkte: 7,
+  videos: 8,
+  faq: 9,
 };

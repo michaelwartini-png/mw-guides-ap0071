@@ -31,7 +31,8 @@ export type MWGuidesTippItem = {
   ueberschrift: string;
   beschreibung: string;
   prioritaet: TippPrioritaet;
-  hasBild: boolean;
+  /** AP-0018.3 — Referenz auf Galerie-Bild, kein eigener Upload. */
+  galerieBildId: string | null;
   reihenfolge: number;
   aktiv: boolean;
 };
@@ -73,7 +74,7 @@ function createItem(
     ueberschrift: partial.ueberschrift,
     beschreibung: partial.beschreibung,
     prioritaet: partial.prioritaet,
-    hasBild: partial.hasBild,
+    galerieBildId: partial.galerieBildId ?? null,
     reihenfolge: partial.reihenfolge,
     aktiv: partial.aktiv,
   };
@@ -93,7 +94,7 @@ export function createStandardTipp(thema: StandardTippThema, reihenfolge: number
     ueberschrift: label,
     beschreibung: "",
     prioritaet: "",
-    hasBild: false,
+    galerieBildId: null,
     reihenfolge,
     aktiv: true,
   });
@@ -106,7 +107,7 @@ export function createFreierTipp(reihenfolge: number): MWGuidesTippItem {
     ueberschrift: "",
     beschreibung: "",
     prioritaet: "",
-    hasBild: false,
+    galerieBildId: null,
     reihenfolge,
     aktiv: true,
   });
@@ -144,7 +145,7 @@ export const TIPPS_KATAMARAN: MWGuidesTippsData = {
       beschreibung:
         "Auf der Fahrt Richtung Friedrichshafen links sitzen – dort liegt die Sonnenseite und der Blick auf den Schweizer Uferbereich ist am schönsten.",
       prioritaet: "hoch",
-      hasBild: true,
+      galerieBildId: "gk1",
       reihenfolge: 1,
       aktiv: true,
     }),
@@ -156,7 +157,7 @@ export const TIPPS_KATAMARAN: MWGuidesTippsData = {
       beschreibung:
         "Vom offenen Deck kurz vor der Ankunft in Friedrichshafen: Zeppelin im Hafen und Alpenkette im Hintergrund.",
       prioritaet: "mittel",
-      hasBild: false,
+      galerieBildId: null,
       reihenfolge: 2,
       aktiv: true,
     }),
@@ -167,7 +168,7 @@ export const TIPPS_KATAMARAN: MWGuidesTippsData = {
       beschreibung:
         "Nachmittags Richtung Konstanz lohnt sich die rechte Seite – besonders bei klarem Wetter für den Blick auf Mainau und die Alpen.",
       prioritaet: "",
-      hasBild: false,
+      galerieBildId: null,
       reihenfolge: 3,
       aktiv: true,
     }),
@@ -179,7 +180,7 @@ export const TIPPS_KATAMARAN: MWGuidesTippsData = {
       beschreibung:
         "Katamaran morgens nach Friedrichshafen, Zeppelinmuseum und dann mit der Fähre zurück – perfekter Halbtages-Trip.",
       prioritaet: "",
-      hasBild: false,
+      galerieBildId: null,
       reihenfolge: 4,
       aktiv: true,
     }),
@@ -189,7 +190,7 @@ export const TIPPS_KATAMARAN: MWGuidesTippsData = {
       ueberschrift: "Sonntag Strandsegler beobachten",
       beschreibung: "In Konstanz am Hafen kurz verweilen – am Sonntagvormittag besonders lebendig.",
       prioritaet: "niedrig",
-      hasBild: false,
+      galerieBildId: null,
       reihenfolge: 5,
       aktiv: false,
     }),
@@ -206,7 +207,7 @@ export const TIPPS_SCHWEBEBAHN: MWGuidesTippsData = {
       beschreibung:
         "Früh morgens oder gegen Abend: weniger Berufspendler, besseres Licht für Fotos aus dem schwebenden Wagen.",
       prioritaet: "hoch",
-      hasBild: false,
+      galerieBildId: null,
       reihenfolge: 1,
       aktiv: true,
     }),
@@ -218,7 +219,7 @@ export const TIPPS_SCHWEBEBAHN: MWGuidesTippsData = {
       beschreibung:
         "In der Kurve über der Wupper rechts hinten platzieren – von dort sieht man am weitesten ins Tal.",
       prioritaet: "hoch",
-      hasBild: true,
+      galerieBildId: "gs3",
       reihenfolge: 2,
       aktiv: true,
     }),
@@ -230,7 +231,7 @@ export const TIPPS_SCHWEBEBAHN: MWGuidesTippsData = {
       beschreibung:
         "Kombination mit dem Verkehrsmuseum Wuppertal – ideal als Einstieg, bevor man die Linie komplett befährt.",
       prioritaet: "",
-      hasBild: false,
+      galerieBildId: null,
       reihenfolge: 3,
       aktiv: true,
     }),
@@ -240,7 +241,7 @@ export const TIPPS_SCHWEBEBAHN: MWGuidesTippsData = {
       ueberschrift: "Vom Zoo/Varresbecker Platz einsteigen",
       beschreibung: "Ruhigere Haltestelle als Hauptbahnhof – mehr Zeit, einen Fensterplatz zu ergattern.",
       prioritaet: "",
-      hasBild: false,
+      galerieBildId: null,
       reihenfolge: 4,
       aktiv: true,
     }),
@@ -257,7 +258,7 @@ export const TIPPS_GLACIER: MWGuidesTippsData = {
       beschreibung:
         "Links in Fahrtrichtung von Zermatt nach St. Moritz – Panoramafenster zum Mattertal und den Gletscherregionen.",
       prioritaet: "hoch",
-      hasBild: true,
+      galerieBildId: "gg1",
       reihenfolge: 1,
       aktiv: true,
     }),
@@ -269,7 +270,7 @@ export const TIPPS_GLACIER: MWGuidesTippsData = {
       beschreibung:
         "Die volle Strecke braucht fast einen Tag – lieber früh starten und Puffer für Fotostopps einplanen.",
       prioritaet: "mittel",
-      hasBild: false,
+      galerieBildId: null,
       reihenfolge: 2,
       aktiv: true,
     }),
@@ -280,7 +281,7 @@ export const TIPPS_GLACIER: MWGuidesTippsData = {
       beschreibung:
         "Bei klarer Sicht rechtfertigt die Excellence Class den Aufpreis – Service und Aussicht sind dann unschlagbar.",
       prioritaet: "",
-      hasBild: false,
+      galerieBildId: null,
       reihenfolge: 3,
       aktiv: true,
     }),

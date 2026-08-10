@@ -3,12 +3,14 @@ import {
   HIGHLIGHT_ICON_EMOJI,
   type HighlightsData,
 } from "@/components/admin/highlightsData";
+import { getGalerieBildById, type GalerieBild } from "@/components/admin/galerieData";
 
 interface HighlightsPreviewProps {
   data: HighlightsData;
+  galerieItems?: GalerieBild[];
 }
 
-export function HighlightsPreview({ data }: HighlightsPreviewProps) {
+export function HighlightsPreview({ data, galerieItems = [] }: HighlightsPreviewProps) {
   const activeItems = getActiveHighlights(data.items);
   const inactiveCount = data.items.filter((item) => !item.aktiv).length;
 
@@ -26,38 +28,42 @@ export function HighlightsPreview({ data }: HighlightsPreviewProps) {
 
         {activeItems.length > 0 ? (
           <ul className="mt-4 space-y-4">
-            {activeItems.map((item) => (
-              <li
-                key={item.id}
-                className="overflow-hidden rounded-xl border border-[var(--mwg-line)] bg-paper"
-              >
-                {item.hasBild && (
-                  <div className="flex aspect-[16/7] items-center justify-center bg-gradient-to-br from-accent/15 to-accent/5">
-                    <p className="font-mono text-[10px] uppercase tracking-wider text-stone">
-                      Bild-Platzhalter
-                    </p>
-                  </div>
-                )}
-                <div className="space-y-1.5 p-3.5">
-                  <div className="flex items-start gap-2">
-                    <span aria-hidden="true" className="mt-0.5 shrink-0 text-base">
-                      {HIGHLIGHT_ICON_EMOJI[item.icon]}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[14px] font-medium leading-snug text-ink">
-                        {item.titel || "—"}
-                      </p>
-                      {item.kurzbeschreibung.trim() && (
-                        <p className="mt-1 text-[12px] leading-relaxed text-[var(--mwg-ink-70)]">
-                          {item.kurzbeschreibung}
+            {activeItems.map((item) => {
+              const bild = getGalerieBildById(galerieItems, item.galerieBildId);
+              return (
+                <li
+                  key={item.id}
+                  className="overflow-hidden rounded-xl border border-[var(--mwg-line)] bg-paper"
+                >
+                  {bild?.bildUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={bild.bildUrl}
+                      alt={bild.altText || bild.titel}
+                      className="aspect-[16/7] w-full object-cover"
+                    />
+                  )}
+                  <div className="space-y-1.5 p-3.5">
+                    <div className="flex items-start gap-2">
+                      <span aria-hidden="true" className="mt-0.5 shrink-0 text-base">
+                        {HIGHLIGHT_ICON_EMOJI[item.icon]}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[14px] font-medium leading-snug text-ink">
+                          {item.titel || "—"}
                         </p>
-                      )}
+                        {item.kurzbeschreibung.trim() && (
+                          <p className="mt-1 text-[12px] leading-relaxed text-[var(--mwg-ink-70)]">
+                            {item.kurzbeschreibung}
+                          </p>
+                        )}
+                      </div>
                     </div>
+                    <p className="text-[11px] text-stone">Reihenfolge {item.reihenfolge}</p>
                   </div>
-                  <p className="text-[11px] text-stone">Reihenfolge {item.reihenfolge}</p>
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <p className="mt-4 text-[13px] text-[var(--mwg-ink-70)]">

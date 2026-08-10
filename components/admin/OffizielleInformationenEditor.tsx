@@ -1,7 +1,10 @@
 "use client";
 
-import { type FormEvent, type ReactNode, useState } from "react";
+import { type FormEvent, type ReactNode, useCallback, useState } from "react";
 import { AdminPrimaryButton, AdminSecondaryButton } from "@/components/admin/adminButtons";
+import { EditorRedakteurPanel } from "@/components/admin/EditorRedakteurPanel";
+import type { EditorRxProps } from "@/components/admin/redakteurExperienceData";
+import { useEditorRxState } from "@/components/admin/useEditorRxState";
 import {
   BARRIEREFreiheit_OPTIONS,
   EMPTY_OFFIZIELLE_INFORMATIONEN,
@@ -51,12 +54,16 @@ function OpenLinkButton({
   );
 }
 
-interface OffizielleInformationenEditorProps {
+interface OffizielleInformationenEditorProps extends EditorRxProps {
   initialData?: OffizielleInformationenData;
+  onPersist?: (data: OffizielleInformationenData) => void;
 }
 
 export function OffizielleInformationenEditor({
   initialData = EMPTY_OFFIZIELLE_INFORMATIONEN,
+  onPersist,
+  onDirtyChange,
+  registerActions,
 }: OffizielleInformationenEditorProps) {
   const [savedData, setSavedData] = useState<OffizielleInformationenData>(initialData);
   const [formData, setFormData] = useState<OffizielleInformationenData>(initialData);
@@ -117,22 +124,35 @@ export function OffizielleInformationenEditor({
     setSaveMessage(null);
   }
 
-  function handleSave(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSavedData(formData);
-    setSaveMessage("Änderungen wurden gespeichert.");
-  }
-
   function handleDiscard() {
     setFormData(savedData);
     setSaveMessage(null);
+    onDirtyChange?.(false);
   }
+
+  const persistSave = useCallback(() => {
+    setSavedData(formData);
+    onPersist?.(formData);
+    onDirtyChange?.(false);
+    setSaveMessage("Änderungen wurden gespeichert.");
+  }, [formData, onDirtyChange, onPersist]);
+
+  function handleSave(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    persistSave();
+  }
+
+  useEditorRxState(formData, savedData, onDirtyChange, registerActions, {
+    save: persistSave,
+    discard: handleDiscard,
+  });
 
   const { standortAnreise } = formData;
 
   return (
     <div className="grid gap-8 2xl:grid-cols-[minmax(0,1fr)_260px]">
       <form onSubmit={handleSave} className="space-y-8">
+        <EditorRedakteurPanel section="offizielle-informationen" />
         {saveMessage && (
           <div
             role="status"

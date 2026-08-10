@@ -1,7 +1,12 @@
 "use client";
 
-import { type FormEvent, type ReactNode, useMemo, useState } from "react";
+import { type FormEvent, type ReactNode, useCallback, useMemo, useState } from "react";
 import { AdminPrimaryButton, AdminSecondaryButton } from "@/components/admin/adminButtons";
+import { EditorRedakteurPanel } from "@/components/admin/EditorRedakteurPanel";
+import { GalerieBildPicker } from "@/components/admin/GalerieBildPicker";
+import type { GalerieBild } from "@/components/admin/galerieData";
+import type { EditorRxProps } from "@/components/admin/redakteurExperienceData";
+import { useEditorRxState } from "@/components/admin/useEditorRxState";
 import { MWGuidesTippsPreview } from "@/components/admin/MWGuidesTippsPreview";
 import {
   createFreierTipp,
@@ -32,15 +37,34 @@ function FieldLabel({ htmlFor, children }: { htmlFor: string; children: ReactNod
   );
 }
 
-interface MWGuidesTippsEditorProps {
+interface MWGuidesTippsEditorProps extends EditorRxProps {
   initialData?: MWGuidesTippsData;
+  galerieItems?: GalerieBild[];
+  onPersist?: (data: MWGuidesTippsData) => void;
+}
+
+function normalizeTippsData(data: MWGuidesTippsData): MWGuidesTippsData {
+  return {
+    items: data.items.map((item) => {
+      const legacy = item as MWGuidesTippsData["items"][number] & { hasBild?: boolean };
+      return {
+        ...legacy,
+        galerieBildId: legacy.galerieBildId ?? null,
+      };
+    }),
+  };
 }
 
 export function MWGuidesTippsEditor({
   initialData = EMPTY_MW_GUIDES_TIPPS_DATA,
+  galerieItems = [],
+  onPersist,
+  onDirtyChange,
+  registerActions,
 }: MWGuidesTippsEditorProps) {
-  const [savedData, setSavedData] = useState<MWGuidesTippsData>(initialData);
-  const [formData, setFormData] = useState<MWGuidesTippsData>(initialData);
+  const normalizedInitial = useMemo(() => normalizeTippsData(initialData), [initialData]);
+  const [savedData, setSavedData] = useState<MWGuidesTippsData>(normalizedInitial);
+  const [formData, setFormData] = useState<MWGuidesTippsData>(normalizedInitial);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [selectedThema, setSelectedThema] = useState<StandardTippThema>(
     STANDARD_TIPP_THEMEN[0].id,
@@ -73,20 +97,33 @@ export function MWGuidesTippsEditor({
     updateItems(swapTippOrder(formData.items, id, direction));
   }
 
-  function handleSave(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSavedData(formData);
-    setSaveMessage("Änderungen wurden gespeichert.");
-  }
-
   function handleDiscard() {
     setFormData(savedData);
     setSaveMessage(null);
+    onDirtyChange?.(false);
   }
+
+  const persistSave = useCallback(() => {
+    setSavedData(formData);
+    onPersist?.(formData);
+    onDirtyChange?.(false);
+    setSaveMessage("Änderungen wurden gespeichert.");
+  }, [formData, onDirtyChange, onPersist]);
+
+  function handleSave(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    persistSave();
+  }
+
+  useEditorRxState(formData, savedData, onDirtyChange, registerActions, {
+    save: persistSave,
+    discard: handleDiscard,
+  });
 
   return (
     <div className="grid gap-8 2xl:grid-cols-[minmax(0,1fr)_280px]">
       <form onSubmit={handleSave} className="space-y-6">
+        <EditorRedakteurPanel section="mw-guides-tipps" />
         {saveMessage && (
           <div
             role="status"
@@ -215,31 +252,13 @@ export function MWGuidesTippsEditor({
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <p className="text-sm font-medium text-ink">Bild (optional)</p>
-                <div className="flex aspect-[16/7] items-center justify-center rounded-xl border border-dashed border-[var(--mwg-line)] bg-paper">
-                  {item.hasBild ? (
-                    <p className="text-[13px] text-[var(--mwg-ink-70)]">Bild-Platzhalter</p>
-                  ) : (
-                    <p className="text-[13px] text-stone">Kein Bild ausgewählt</p>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <AdminSecondaryButton
-                    type="button"
-                    onClick={() => updateItem(item.id, { hasBild: true })}
-                  >
-                    Bild auswählen
-                  </AdminSecondaryButton>
-                  <AdminSecondaryButton
-                    type="button"
-                    onClick={() => updateItem(item.id, { hasBild: false })}
-                    disabled={!item.hasBild}
-                  >
-                    Bild entfernen
-                  </AdminSecondaryButton>
-                </div>
-              </div>
+              <GalerieBildPicker
+                galerieItems={galerieItems}
+                value={item.galerieBildId}
+                onChange={(galerieBildId) => updateItem(item.id, { galerieBildId })}
+                idPrefix={`tipp-${item.id}`}
+                label="Bild (optional)"
+              />
 
               <label className="flex cursor-pointer items-center gap-3 text-[14.5px]">
                 <input
@@ -286,7 +305,7 @@ export function MWGuidesTippsEditor({
         </div>
       </form>
 
-      <MWGuidesTippsPreview data={formData} />
+      <MWGuidesTippsPreview data={formData} galerieItems={galerieItems} />
     </div>
   );
 }

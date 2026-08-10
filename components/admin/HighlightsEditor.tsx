@@ -1,7 +1,12 @@
 "use client";
 
-import { type FormEvent, type ReactNode, useMemo, useState } from "react";
+import { type FormEvent, type ReactNode, useCallback, useMemo, useState } from "react";
 import { AdminPrimaryButton, AdminSecondaryButton } from "@/components/admin/adminButtons";
+import { EditorRedakteurPanel } from "@/components/admin/EditorRedakteurPanel";
+import { GalerieBildPicker } from "@/components/admin/GalerieBildPicker";
+import type { GalerieBild } from "@/components/admin/galerieData";
+import type { EditorRxProps } from "@/components/admin/redakteurExperienceData";
+import { useEditorRxState } from "@/components/admin/useEditorRxState";
 import { HighlightsPreview } from "@/components/admin/HighlightsPreview";
 import {
   createHighlightItem,
@@ -31,13 +36,34 @@ function FieldLabel({ htmlFor, children }: { htmlFor: string; children: ReactNod
   );
 }
 
-interface HighlightsEditorProps {
+interface HighlightsEditorProps extends EditorRxProps {
   initialData?: HighlightsData;
+  galerieItems?: GalerieBild[];
+  onPersist?: (data: HighlightsData) => void;
 }
 
-export function HighlightsEditor({ initialData = EMPTY_HIGHLIGHTS_DATA }: HighlightsEditorProps) {
-  const [savedData, setSavedData] = useState<HighlightsData>(initialData);
-  const [formData, setFormData] = useState<HighlightsData>(initialData);
+function normalizeHighlightsData(data: HighlightsData): HighlightsData {
+  return {
+    items: data.items.map((item) => {
+      const legacy = item as HighlightItem & { hasBild?: boolean };
+      return {
+        ...legacy,
+        galerieBildId: legacy.galerieBildId ?? (legacy.hasBild ? null : null),
+      };
+    }),
+  };
+}
+
+export function HighlightsEditor({
+  initialData = EMPTY_HIGHLIGHTS_DATA,
+  galerieItems = [],
+  onPersist,
+  onDirtyChange,
+  registerActions,
+}: HighlightsEditorProps) {
+  const normalizedInitial = useMemo(() => normalizeHighlightsData(initialData), [initialData]);
+  const [savedData, setSavedData] = useState<HighlightsData>(normalizedInitial);
+  const [formData, setFormData] = useState<HighlightsData>(normalizedInitial);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
 
   const sortedItems = useMemo(() => sortHighlights(formData.items), [formData.items]);
@@ -65,20 +91,33 @@ export function HighlightsEditor({ initialData = EMPTY_HIGHLIGHTS_DATA }: Highli
     updateItems(swapHighlightOrder(formData.items, id, direction));
   }
 
-  function handleSave(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSavedData(formData);
-    setSaveMessage("Änderungen wurden gespeichert.");
-  }
-
   function handleDiscard() {
     setFormData(savedData);
     setSaveMessage(null);
+    onDirtyChange?.(false);
   }
+
+  const persistSave = useCallback(() => {
+    setSavedData(formData);
+    onPersist?.(formData);
+    onDirtyChange?.(false);
+    setSaveMessage("Änderungen wurden gespeichert.");
+  }, [formData, onDirtyChange, onPersist]);
+
+  function handleSave(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    persistSave();
+  }
+
+  useEditorRxState(formData, savedData, onDirtyChange, registerActions, {
+    save: persistSave,
+    discard: handleDiscard,
+  });
 
   return (
     <div className="grid gap-8 2xl:grid-cols-[minmax(0,1fr)_280px]">
       <form onSubmit={handleSave} className="space-y-6">
+        <EditorRedakteurPanel section="highlights" />
         {saveMessage && (
           <div
             role="status"
@@ -90,7 +129,7 @@ export function HighlightsEditor({ initialData = EMPTY_HIGHLIGHTS_DATA }: Highli
 
         <p className="text-[13px] text-stone">
           Highlights erscheinen später auf der Erlebnisprofilseite unter „Das Erlebnis“ – als
-          Merkmale mit Icon und optional mit Bild.
+          Merkmale mit Icon und optional mit Bild aus der Galerie (eine Referenz, kein Upload).
         </p>
 
         <div className="space-y-4">
@@ -175,31 +214,12 @@ export function HighlightsEditor({ initialData = EMPTY_HIGHLIGHTS_DATA }: Highli
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <p className="text-sm font-medium text-ink">Bild</p>
-                <div className="flex aspect-[16/7] items-center justify-center rounded-xl border border-dashed border-[var(--mwg-line)] bg-paper">
-                  {item.hasBild ? (
-                    <p className="text-[13px] text-[var(--mwg-ink-70)]">Bild (Platzhalter)</p>
-                  ) : (
-                    <p className="text-[13px] text-stone">Kein Bild ausgewählt</p>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <AdminSecondaryButton
-                    type="button"
-                    onClick={() => updateItem(item.id, { hasBild: true })}
-                  >
-                    Bild auswählen
-                  </AdminSecondaryButton>
-                  <AdminSecondaryButton
-                    type="button"
-                    onClick={() => updateItem(item.id, { hasBild: false })}
-                    disabled={!item.hasBild}
-                  >
-                    Bild entfernen
-                  </AdminSecondaryButton>
-                </div>
-              </div>
+              <GalerieBildPicker
+                galerieItems={galerieItems}
+                value={item.galerieBildId}
+                onChange={(galerieBildId) => updateItem(item.id, { galerieBildId })}
+                idPrefix={`highlight-${item.id}`}
+              />
 
               <label className="flex cursor-pointer items-center gap-3 text-[14.5px]">
                 <input
@@ -256,7 +276,7 @@ export function HighlightsEditor({ initialData = EMPTY_HIGHLIGHTS_DATA }: Highli
         </div>
       </form>
 
-      <HighlightsPreview data={formData} />
+      <HighlightsPreview data={formData} galerieItems={galerieItems} />
     </div>
   );
 }

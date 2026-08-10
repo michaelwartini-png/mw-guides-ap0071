@@ -5,13 +5,14 @@ import {
   getErlebnisBySlug,
   type ErlebnisRecord,
 } from "@/components/admin/erlebnisData";
+import { EMPTY_GALERIE_DATA } from "@/components/admin/galerieData";
 import { EMPTY_HERO_DATA } from "@/components/admin/heroData";
 import { EMPTY_HIGHLIGHTS_DATA } from "@/components/admin/highlightsData";
 import { EMPTY_MW_GUIDES_TIPPS_DATA } from "@/components/admin/mwGuidesTippsData";
 import { EMPTY_OFFIZIELLE_INFORMATIONEN } from "@/components/admin/offizielleInformationenData";
 import type { WorkflowSection } from "@/components/admin/workflowData";
 
-export const ERLEBNIS_SESSION_STORAGE_KEY = "mwg-erlebnis-records-v3";
+export const ERLEBNIS_SESSION_STORAGE_KEY = "mwg-erlebnis-records-v4";
 
 const NEW_ERLEBNIS_SECTIONS: WorkflowSection[] = [
   { id: "allgemein", label: "Allgemein", status: "open", fieldsFilled: 0, fieldsTotal: 8 },
@@ -32,7 +33,8 @@ const NEW_ERLEBNIS_SECTIONS: WorkflowSection[] = [
     fieldsFilled: 0,
     fieldsTotal: 5,
   },
-  { id: "galerie", label: "Galerie", status: "open", fieldsFilled: 0, fieldsTotal: 4 },
+  { id: "galerie", label: "Galerie & Bildverwaltung", status: "open", fieldsFilled: 0, fieldsTotal: 8 },
+  { id: "produkte", label: "Produkte", status: "open", fieldsFilled: 0, fieldsTotal: 6 },
   { id: "videos", label: "Videos", status: "open", fieldsFilled: 0, fieldsTotal: 3 },
   { id: "faq", label: "FAQ", status: "open", fieldsFilled: 0, fieldsTotal: 4 },
 ];
@@ -89,7 +91,7 @@ export function getAllKnownSlugs(): Set<string> {
 }
 
 export function resolveErlebnisRecord(slug: string): ErlebnisRecord | undefined {
-  return getErlebnisBySlug(slug) ?? getSessionErlebnisBySlug(slug);
+  return getSessionErlebnisBySlug(slug) ?? getErlebnisBySlug(slug);
 }
 
 function getUniqueSlug(baseName: string): string {
@@ -156,6 +158,7 @@ export function buildNewErlebnisRecord(input: { name: string }): ErlebnisRecord 
     offizielleInformationen: structuredClone(EMPTY_OFFIZIELLE_INFORMATIONEN),
     highlights: structuredClone(EMPTY_HIGHLIGHTS_DATA),
     mwGuidesTipps: structuredClone(EMPTY_MW_GUIDES_TIPPS_DATA),
+    galerie: structuredClone(EMPTY_GALERIE_DATA),
     workflowSections: structuredClone(NEW_ERLEBNIS_SECTIONS),
   };
 }

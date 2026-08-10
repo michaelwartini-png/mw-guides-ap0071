@@ -4,9 +4,11 @@ import {
   PRIORITAET_OPTIONS,
   type MWGuidesTippsData,
 } from "@/components/admin/mwGuidesTippsData";
+import { getGalerieBildById, type GalerieBild } from "@/components/admin/galerieData";
 
 interface MWGuidesTippsPreviewProps {
   data: MWGuidesTippsData;
+  galerieItems?: GalerieBild[];
 }
 
 function prioritaetLabel(value: string): string | null {
@@ -14,7 +16,7 @@ function prioritaetLabel(value: string): string | null {
   return option?.value ? option.label : null;
 }
 
-export function MWGuidesTippsPreview({ data }: MWGuidesTippsPreviewProps) {
+export function MWGuidesTippsPreview({ data, galerieItems = [] }: MWGuidesTippsPreviewProps) {
   const activeItems = getActiveTipps(data.items);
   const inactiveCount = data.items.filter((item) => !item.aktiv).length;
 
@@ -32,43 +34,47 @@ export function MWGuidesTippsPreview({ data }: MWGuidesTippsPreviewProps) {
 
         {activeItems.length > 0 ? (
           <ol className="mt-4 space-y-4">
-            {activeItems.map((item) => (
-              <li
-                key={item.id}
-                className="overflow-hidden rounded-xl border border-[var(--mwg-line)] bg-paper"
-              >
-                {item.hasBild && (
-                  <div className="flex aspect-[16/7] items-center justify-center bg-gradient-to-br from-accent/15 to-accent/5">
-                    <p className="font-mono text-[10px] uppercase tracking-wider text-stone">
-                      Bild-Platzhalter
-                    </p>
-                  </div>
-                )}
-                <div className="space-y-1.5 p-3.5">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">
-                      {item.typ === "standard" ? "Standard" : "Frei"}
-                    </span>
-                    {item.prioritaet && (
-                      <span className="rounded-full bg-[var(--mwg-line)] px-2 py-0.5 text-[10px] font-medium text-stone">
-                        {prioritaetLabel(item.prioritaet)}
+            {activeItems.map((item) => {
+              const bild = getGalerieBildById(galerieItems, item.galerieBildId);
+              return (
+                <li
+                  key={item.id}
+                  className="overflow-hidden rounded-xl border border-[var(--mwg-line)] bg-paper"
+                >
+                  {bild?.bildUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={bild.bildUrl}
+                      alt={bild.altText || bild.titel}
+                      className="aspect-[16/7] w-full object-cover"
+                    />
+                  )}
+                  <div className="space-y-1.5 p-3.5">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">
+                        {item.typ === "standard" ? "Standard" : "Frei"}
                       </span>
+                      {item.prioritaet && (
+                        <span className="rounded-full bg-[var(--mwg-line)] px-2 py-0.5 text-[10px] font-medium text-stone">
+                          {prioritaetLabel(item.prioritaet)}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[14px] font-medium leading-snug text-ink">
+                      {item.ueberschrift || "—"}
+                    </p>
+                    {item.typ === "standard" && item.thema && (
+                      <p className="text-[12px] text-stone">Thema: {getThemaLabel(item.thema)}</p>
+                    )}
+                    {item.beschreibung.trim() && (
+                      <p className="whitespace-pre-line text-[13px] leading-relaxed text-[var(--mwg-ink-70)]">
+                        {item.beschreibung}
+                      </p>
                     )}
                   </div>
-                  <p className="text-[14px] font-medium leading-snug text-ink">
-                    {item.ueberschrift || "—"}
-                  </p>
-                  {item.typ === "standard" && item.thema && (
-                    <p className="text-[12px] text-stone">Thema: {getThemaLabel(item.thema)}</p>
-                  )}
-                  {item.beschreibung.trim() && (
-                    <p className="whitespace-pre-line text-[13px] leading-relaxed text-[var(--mwg-ink-70)]">
-                      {item.beschreibung}
-                    </p>
-                  )}
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ol>
         ) : (
           <p className="mt-4 text-[13px] text-stone">Noch keine aktiven Tipps.</p>

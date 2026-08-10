@@ -1,7 +1,10 @@
 "use client";
 
-import { type FormEvent, type ReactNode, useState } from "react";
+import { type FormEvent, type ReactNode, useCallback, useState } from "react";
 import { AdminPrimaryButton, AdminSecondaryButton } from "@/components/admin/adminButtons";
+import { EditorRedakteurPanel } from "@/components/admin/EditorRedakteurPanel";
+import type { EditorRxProps } from "@/components/admin/redakteurExperienceData";
+import { useEditorRxState } from "@/components/admin/useEditorRxState";
 import {
   BITTE_WAEHLEN,
   EMPTY_ALLGEMEIN_DATA,
@@ -23,11 +26,17 @@ function FieldLabel({ htmlFor, children }: { htmlFor: string; children: ReactNod
   );
 }
 
-interface AllgemeinEditorProps {
+interface AllgemeinEditorProps extends EditorRxProps {
   initialData?: AllgemeinData;
+  onPersist?: (data: AllgemeinData) => void;
 }
 
-export function AllgemeinEditor({ initialData = EMPTY_ALLGEMEIN_DATA }: AllgemeinEditorProps) {
+export function AllgemeinEditor({
+  initialData = EMPTY_ALLGEMEIN_DATA,
+  onPersist,
+  onDirtyChange,
+  registerActions,
+}: AllgemeinEditorProps) {
   const [savedData, setSavedData] = useState<AllgemeinData>(initialData);
   const [formData, setFormData] = useState<AllgemeinData>(initialData);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
@@ -106,19 +115,32 @@ export function AllgemeinEditor({ initialData = EMPTY_ALLGEMEIN_DATA }: Allgemei
     setSaveMessage(null);
   }
 
-  function handleSave(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSavedData(formData);
-    setSaveMessage("Änderungen wurden gespeichert.");
-  }
-
   function handleDiscard() {
     setFormData(savedData);
     setSaveMessage(null);
+    onDirtyChange?.(false);
   }
+
+  const persistSave = useCallback(() => {
+    setSavedData(formData);
+    onPersist?.(formData);
+    onDirtyChange?.(false);
+    setSaveMessage("Änderungen wurden gespeichert.");
+  }, [formData, onDirtyChange, onPersist]);
+
+  function handleSave(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    persistSave();
+  }
+
+  useEditorRxState(formData, savedData, onDirtyChange, registerActions, {
+    save: persistSave,
+    discard: handleDiscard,
+  });
 
   return (
     <form onSubmit={handleSave} className="space-y-8">
+      <EditorRedakteurPanel section="allgemein" />
       {saveMessage && (
         <div
           role="status"
