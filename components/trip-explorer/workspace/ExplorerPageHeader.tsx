@@ -45,7 +45,7 @@ export function ExplorerPageHeader({
               </p>
             </div>
           </div>
-          <ExplorerProgressStepper currentStep={2} />
+          <ExplorerProgressStepper currentStep={2} tripSlug={tripSlug} />
         </div>
       </div>
     </div>
