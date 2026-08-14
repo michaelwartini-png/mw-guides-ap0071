@@ -13,6 +13,7 @@
 | Version | Datum | Änderung |
 |---|---|---|
 | 1.0 | Aug 2026 | Erstfreigabe — Konsolidierung aller Produktions- und Architekturdokumentation nach Abschluss der Meilensteine v0.1 und v0.2 |
+| 1.0.1 | Aug 2026 | AP-MR001 Meine Reise V1 — öffentliche Route `/meine-reise` dokumentiert |
 
 ---
 
@@ -745,14 +746,16 @@ Entscheidungen über neue Arbeitspakete **erst nach Abschluss** des Produktionsp
 | Ride Guides | `/touren`, `/touren/[slug]` | `content/tours.ts` | Live (4 Touren + Roadmap) |
 | Explore Trips | `/explore-trips`, `/explore-trips/[slug]` | `content/exploreTrips.ts` | Live (3 echte Trips + Roadmap) |
 | Explore Trip Explorer | `/explore-trips/[slug]/explorer/...` | `content/erlebnisdetails.ts` + Explorer | Live (Bodensee) |
+| Meine Reise | `/meine-reise` | `content/meineReise.ts` | Live V1 (Bodensee Unlimited, eingefroren) |
 
 ## 8.2 Navigation (AP-002.2)
 
-**Hauptnavigation (3 Punkte):**
+**Hauptnavigation:**
 
-1. Ride Guides
-2. Explore Trips
-3. Über MW Guides
+1. Explore Trips
+2. Ride Guides
+3. Meine Reise (`/meine-reise` — AP-MR001, V1 eingefroren)
+4. Über MW Guides
 
 **Fußzeile:** Reiseziele, Fotospots, Blog (Platzhalter-Routen, vollständig erreichbar).
 
@@ -808,6 +811,21 @@ Gemeinsame Taxonomie in `types/taxonomy.ts`:
 - **Hosting:** Netlify (`netlify.toml`, `@netlify/plugin-nextjs`)
 - **Build:** `npm run build` (statisches Prerendering)
 - **Env:** `NEXT_PUBLIC_SITE_URL` (Standard: `https://mw-guides.de`)
+
+## 8.8 Meine Reise V1 (AP-MR001) ✅
+
+**Status:** Fachlich abgeschlossen und als Version 1.0 eingefroren (August 2026)  
+**Meilenstein:** `v0.8.0`  
+**Route:** `/meine-reise`  
+**Dokumentation:** `docs/AP-MR001-meine-reise.md`
+
+Persönlicher Reiseassistent nach Erwerb des Premium Guides. Referenzreise:
+Bodensee Unlimited. Kein Login, kein Checkout, keine Persistenz.
+
+- Sidebar nur Navigation; Bearbeitung nur in den Dashboard-Bereichen
+- Genau ein Primary-CTA: Premium Guide öffnen
+- Offline-Hinweis ausschließlich am Premium Guide in den Unterlagen
+- „Nach der Reise“ vor Abreise reduziert sichtbar
 
 ---
 
@@ -1125,6 +1143,7 @@ Priorisiert laut AP-002-Strategie:
 | `docs/AP-001.1-hero-headlines.md` | Hero-Alternativen | — (historisch) |
 | `README.md` | Technischer Setup, Projektstruktur | 7, 8 |
 | `CHANGELOG.md` | Versionshistorie Public Website | 8 |
+| `docs/AP-MR001-meine-reise.md` | Meine Reise V1 Dashboard | 8 |
 | Git-Tags `v0.1-production-platform`, `v0.2-unified-renderer` | Meilenstein-Commits | 1, 5, 6 |
 
 ## B. Wichtige Dateipfade
@@ -1141,6 +1160,7 @@ Priorisiert laut AP-002-Strategie:
 | Public Legacy | `content/erlebnisdetails.ts` |
 | Public Explore Trips | `content/exploreTrips.ts` |
 | Public Ride Guides | `content/tours.ts` |
+| Meine Reise V1 | `app/meine-reise/page.tsx`, `content/meineReise.ts` |
 
 ## C. Glossar
 

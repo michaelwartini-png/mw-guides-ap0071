@@ -18,6 +18,13 @@ IA-Korrektur in AP-002.2 stehen in
 und
 [`docs/AP-002.2-ia-simplification.md`](./docs/AP-002.2-ia-simplification.md).
 
+## Projektdokumentation
+
+- **Band 0 — Projektüberblick:** dieser README (Setup, Struktur, Design-System)
+- **Band 1 — Production Handbook:** [`docs/MW-Guides-Production-Handbook-V1.0.md`](./docs/MW-Guides-Production-Handbook-V1.0.md)
+
+Aktuelles Arbeitspaket: [`docs/AP-MR001-meine-reise.md`](./docs/AP-MR001-meine-reise.md) (Meine Reise V1, eingefroren).
+
 ## Voraussetzungen
 
 - Node.js 20 oder neuer
@@ -78,6 +85,7 @@ mw-guides/
 │   ├── not-found.tsx       # 404-Seite
 │   ├── touren/             # "Ride Guides"-Hub (nach Kategorie gruppiert) + /touren/[slug] Detailseite
 │   ├── explore-trips/       # "Explore Trips"-Übersicht + /explore-trips/[slug] Detailseite (inkl. der drei migrierten Ex-"Reiseideen"-Artikel)
+│   ├── meine-reise/         # Persönlicher Reiseassistent (AP-MR001, V1 eingefroren)
 │   ├── reiseziele/         # Platzhalter-Route
 │   ├── fotospots/          # Platzhalter-Route
 │   ├── blog/                # Platzhalter-Route
@@ -91,6 +99,7 @@ mw-guides/
 │   ├── sections/              # BrandIdea, WhyMWGuides, EveryCityHasAStory, HowItWorks, TravelerMoments, ExploreTripsSection
 │   ├── about/                  # AboutHero, AboutIntro, AboutCta (Über-uns-Seite)
 │   ├── editorial/               # EditorialBlock (Bild+Text, geteilt zwischen Über-uns- und Explore-Trips-Seiten)
+│   ├── meine-reise/            # Meine-Reise-Dashboard (AP-MR001)
 │   ├── ui/                     # Logo, Button, LanguageSwitch, Reveal (generische Bausteine)
 │   └── footer/                  # Footer
 ├── content/                # Statische Inhalte (Touren, Explore Trips, Ride-Guide-Roadmap, Navigation)

@@ -3,6 +3,23 @@
 Alle nennenswerten Änderungen an diesem Projekt werden in dieser Datei
 dokumentiert. Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
+## [0.8.0] — Meine Reise V1
+
+Persönlicher Reiseassistent nach dem freigegebenen Dashboard-Mockup.
+Meine Reise gilt als Version 1.0 eingefroren. Kein Login, kein Checkout,
+keine neuen Produktfunktionen.
+
+- Route `/meine-reise` zeigt das Dashboard der Referenzreise Bodensee Unlimited.
+- Premium im Hero ist bestätigt und ruhig: Status, Kurztext, Vorteile nur auf Abruf.
+- Sidebar navigiert nur; Bearbeitung liegt in den Dashboard-Bereichen.
+- Reiseplan ist das Herzstück (breiter, mehr Weißraum, stärkere Timeline, Tickets am Programmpunkt).
+- „Nach der Reise“ bleibt vor Abreise sichtbar, aber reduziert.
+- Aufgaben ohne Mehrwert (z. B. Wetter beobachten) entfallen.
+- Offline-Hinweis nur am Premium Guide in den Unterlagen.
+- Genau ein Primary-CTA: Premium Guide öffnen. Secondary: Reise bearbeiten.
+
+Dokumentation: [`docs/AP-MR001-meine-reise.md`](./docs/AP-MR001-meine-reise.md)
+
 ## [0.7.0] — Trip Explorer ET-01 bis ET-05 abgeschlossen
 
 Die Produktarchitektur des Trip Explorers ist vollständig (Referenzreise:
@@ -49,10 +66,6 @@ Abschluss des Trip Explorers: der Nutzer wählt digitale Reisebegleiter.
 - Reisekosten und MW-Guides-Produktpreis klar getrennt.
 - Hinweis: MW Guides verkauft keine Reisen.
 - Kein Zahlungsprozess, kein Login, keine Implementierung von Meine Reise.
-
-### Nächster Fokus
-
-Meine Reise als persönlicher Reiseassistent.
 
 ## [0.6.0] — AP-002.2 — Informationsarchitektur der Startseite geschärft
 
