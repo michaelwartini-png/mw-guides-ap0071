@@ -2,13 +2,15 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/footer/Footer";
+import { ErlebnisprofilBreadcrumbs } from "@/components/erlebnisprofil/ErlebnisprofilBreadcrumbs";
 import { HeroSection } from "@/components/explore-trips/landing/HeroSection";
 import { USPBar } from "@/components/explore-trips/landing/USPBar";
 import { ConceptSection } from "@/components/explore-trips/landing/ConceptSection";
 import { ErlebnisweltGrid } from "@/components/explore-trips/landing/ErlebnisweltGrid";
-import { RideGuideSection } from "@/components/explore-trips/landing/RideGuideSection";
+import { ErlebnisbausteinSection } from "@/components/explore-trips/landing/ErlebnisbausteinSection";
 import { BenefitsSection } from "@/components/explore-trips/landing/BenefitsSection";
 import { CTASection } from "@/components/explore-trips/landing/CTASection";
+import { getHighlightBySlug } from "@/content/explorerHighlights";
 import type { ExploreTrip } from "@/types/exploreTrip";
 import type { TripExplorer, TripExplorerErlebniswelt } from "@/types/tripExplorer";
 
@@ -30,9 +32,14 @@ function resolveErlebniswelten(
     .filter((w): w is TripExplorerErlebniswelt => w !== undefined);
 }
 
+function weltTitleForSlug(explorer: TripExplorer, weltSlug: string): string | undefined {
+  const welt = explorer.erlebniswelten.find((w) => w.slug === weltSlug);
+  return welt?.explorerTitle ?? welt?.title;
+}
+
 /**
- * AP-010.2 — Ebene 1 master template. Seven fixed sections, all content
- * from ExploreTrip.landing + TripExplorer. Reused by every Explore Trip.
+ * AP-010.2 / AP-ET002 — Ebene 1 master template. Seven fixed sections, all
+ * content from ExploreTrip.landing + TripExplorer. Reused by every Explore Trip.
  */
 export function ExploreTripPage({ trip, tripExplorer }: ExploreTripPageProps) {
   const landing = trip.landing!;
@@ -45,18 +52,35 @@ export function ExploreTripPage({ trip, tripExplorer }: ExploreTripPageProps) {
   const conceptIntro = landing.conceptIntro ?? landing.whyIntro ?? "";
   const erlebnisweltenHeading =
     landing.erlebnisweltenHeading ?? "Wähle deine Erlebniswelten";
-  const rideGuidesHeading =
-    landing.rideGuidesHeading ??
-    (landing.rideGuidesRegion
-      ? `Ride Guides – Deine Touren ${landing.rideGuidesRegion}`
-      : "Ride Guides");
 
   const explorerHref = `/explore-trips/${trip.slug}/explorer`;
+
+  const highlightCards = landing.highlightsFromExplorer.flatMap((slug) => {
+    const highlight = getHighlightBySlug(trip.slug, slug);
+    if (!highlight) return [];
+    return [
+      {
+        slug: highlight.slug,
+        title: highlight.title,
+        description: highlight.description,
+        image: highlight.image,
+        imageAlt: highlight.imageAlt,
+        category: weltTitleForSlug(tripExplorer, highlight.erlebnisweltSlug),
+        href: `/explore-trips/${trip.slug}/explorer/erlebnis/${highlight.slug}`,
+      },
+    ];
+  });
 
   return (
     <>
       <Header />
       <main className="flex-1">
+        <ErlebnisprofilBreadcrumbs
+          items={[
+            { label: "Europa", href: "/explore-trips" },
+            { label: trip.title },
+          ]}
+        />
         <HeroSection
           trip={trip}
           languageHint={landing.languageHint}
@@ -69,6 +93,8 @@ export function ExploreTripPage({ trip, tripExplorer }: ExploreTripPageProps) {
         <ConceptSection
           heading={landing.conceptHeading}
           intro={conceptIntro}
+          explainerHeading={landing.conceptExplainerHeading}
+          explainer={landing.conceptExplainer}
           conceptLink={landing.conceptLink}
           conceptIllustration={landing.conceptIllustration}
         />
@@ -81,10 +107,10 @@ export function ExploreTripPage({ trip, tripExplorer }: ExploreTripPageProps) {
           cardHref={explorerHref}
         />
 
-        <RideGuideSection
-          heading={rideGuidesHeading}
-          rideGuides={landing.rideGuides}
-          viewAll={landing.rideGuidesViewAll}
+        <ErlebnisbausteinSection
+          heading={landing.highlightsHeading}
+          items={highlightCards}
+          viewAll={landing.highlightsViewAll}
         />
 
         <BenefitsSection items={landing.platformUsps} />

@@ -127,10 +127,10 @@ function duplicateDisplayName(name: string): string {
   return `${name.replace(/ \(Kopie\)$/, "")} (Kopie)`;
 }
 
-export function buildNewErlebnisRecord(input: { name: string }): ErlebnisRecord {
+export function buildNewErlebnisRecord(input: { name: string; slug: string }): ErlebnisRecord {
   const now = new Date();
   const displayName = input.name.trim() || "Neues Erlebnis";
-  const slug = getUniqueSlug(displayName);
+  const slug = input.slug;
   const timestamp = formatTimestamp(now);
 
   return {
@@ -163,28 +163,35 @@ export function buildNewErlebnisRecord(input: { name: string }): ErlebnisRecord 
   };
 }
 
-export function buildDuplicateErlebnisRecord(source: ErlebnisRecord): ErlebnisRecord {
+export function buildDuplicateErlebnisRecord(
+  source: ErlebnisRecord,
+  duplicateSlug: string,
+): ErlebnisRecord {
   const duplicate: ErlebnisRecord = structuredClone(source);
-  duplicate.slug = getDuplicateSlug(source.slug);
+  duplicate.slug = duplicateSlug;
   duplicate.name = duplicateDisplayName(source.name);
   duplicate.profileStatus = "Entwurf";
   duplicate.allgemein.name = duplicateDisplayName(source.allgemein.name);
   duplicate.allgemein.status = "Entwurf";
+  delete duplicate.publishedAt;
 
   return duplicate;
 }
 
-export function registerNewErlebnis(input: { name: string }): ErlebnisRecord {
+export function registerNewErlebnis(input: { name: string; slug: string }): ErlebnisRecord {
   const record = buildNewErlebnisRecord(input);
   saveSessionErlebnis(record);
   return record;
 }
 
-export function registerDuplicateErlebnis(sourceSlug: string): ErlebnisRecord | undefined {
+export function registerDuplicateErlebnis(
+  sourceSlug: string,
+  duplicateSlug: string,
+): ErlebnisRecord | undefined {
   const source = resolveErlebnisRecord(sourceSlug);
   if (!source) return undefined;
 
-  const record = buildDuplicateErlebnisRecord(source);
+  const record = buildDuplicateErlebnisRecord(source, duplicateSlug);
   saveSessionErlebnis(record);
   return record;
 }

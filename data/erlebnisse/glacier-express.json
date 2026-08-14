@@ -1,0 +1,349 @@
+{
+  "slug": "glacier-express",
+  "name": "Glacier Express",
+  "kategorie": "Bahn",
+  "erlebniswelt": "Bahn",
+  "profileStatus": "Entwurf",
+  "progress": 8,
+  "lastModifiedAt": "2026-08-03T11:10:00",
+  "lastModifiedLabel": "03.08.2026 · 11:10 Uhr",
+  "lastSaved": {
+    "date": "03.08.2026",
+    "time": "11:10 Uhr"
+  },
+  "allgemein": {
+    "name": "Glacier Express",
+    "untertitel": "Die langsamste Expresszug der Welt",
+    "kategorie": "Bahn",
+    "erlebniswelt": "Bahn",
+    "laender": [
+      "Schweiz"
+    ],
+    "regionen": [
+      "Alpen"
+    ],
+    "orte": [
+      "Zermatt",
+      "St. Moritz"
+    ],
+    "status": "Entwurf"
+  },
+  "hero": {
+    "titel": "Glacier Express",
+    "untertitel": "Von Gletscher zu Gletscher durch die Schweizer Alpen.",
+    "hasHeroImage": true,
+    "galerieCount": 2,
+    "badges": [
+      "Panoramablick",
+      "Ganzjährig"
+    ],
+    "score": "8.8",
+    "rideGuideAvailable": false
+  },
+  "bewertungen": {
+    "mwgScore": "8.8",
+    "kurzbegruendung": "Spektakuläre Alpenüberquerung mit hohem Komfort, aber premium Preisniveau.",
+    "scoreCategories": [
+      {
+        "label": "Komfort",
+        "value": "9.5"
+      },
+      {
+        "label": "Aussicht",
+        "value": "9.8"
+      },
+      {
+        "label": "Einzigartigkeit",
+        "value": "8.5"
+      },
+      {
+        "label": "Fotopotenzial",
+        "value": "9.0"
+      }
+    ],
+    "google": {
+      "bewertung": "4.8",
+      "anzahl": "2156",
+      "link": "https://maps.google.com/"
+    },
+    "tripadvisor": {
+      "bewertung": "4.0",
+      "anzahl": "1906",
+      "link": "https://www.tripadvisor.de/"
+    },
+    "weiterePlattformen": {
+      "holidayCheck": {
+        "bewertung": "",
+        "anzahl": "",
+        "link": ""
+      },
+      "trustpilot": {
+        "bewertung": "4.1",
+        "anzahl": "28",
+        "link": "https://www.trustpilot.com/"
+      },
+      "yelp": {
+        "bewertung": "",
+        "anzahl": "",
+        "link": ""
+      }
+    }
+  },
+  "offizielleInformationen": {
+    "betreiber": "Glacier Express AG",
+    "betreiberWebseiteGleichOffiziell": true,
+    "betreiberWebseite": "https://www.glacierexpress.ch",
+    "offizielleWebseite": "https://www.glacierexpress.ch",
+    "fahrplan": "Täglicher Verkehr in der Sommersaison.\n\nWinterfahrplan mit\nreduzierten Verbindungen.",
+    "preise": "Erwachsene: ab 159 CHF (2. Klasse)\nKinder: ermäßigt\nExcellence Class: ab 470 CHF\nSitzplatzreservierung empfohlen",
+    "ticketshop": "https://www.glacierexpress.ch/buchen",
+    "standortAnreise": {
+      "adresse": "Bahnhofplatz, 3920 Zermatt",
+      "gpsBreitengrad": "46.0207",
+      "gpsLaengengrad": "7.7491",
+      "kartenlink": "https://maps.google.com/?q=46.0207,7.7491",
+      "navigation": "",
+      "anreiseHinweise": ""
+    },
+    "telefon": "+41 81 288 65 65",
+    "email": "info@glacierexpress.ch",
+    "kontaktseite": "https://www.glacierexpress.ch/kontakt",
+    "barrierefreiheit": {
+      "rollstuhlgerecht": true,
+      "kinderwagen": false,
+      "fahrradmitnahme": false,
+      "hunde": false,
+      "wc": true
+    }
+  },
+  "highlights": {
+    "items": [
+      {
+        "id": "g1",
+        "titel": "Panorama durch die Schweizer Alpen",
+        "kurzbeschreibung": "Spektakuläre Aussicht auf Gletscher, Täler und Bergdörfer.",
+        "icon": "view",
+        "galerieBildId": "gg1",
+        "reihenfolge": 1,
+        "aktiv": true
+      },
+      {
+        "id": "g2",
+        "titel": "Gourmet-Service an Bord",
+        "kurzbeschreibung": "Excellence Class und à-la-carte-Angebot während der Fahrt.",
+        "icon": "food",
+        "galerieBildId": "gg2",
+        "reihenfolge": 2,
+        "aktiv": true
+      },
+      {
+        "id": "g3",
+        "titel": "Zermatt – St. Moritz",
+        "kurzbeschreibung": "Die langsamste Expressfahrt der Welt verbindet zwei Alpen-Icons.",
+        "icon": "city",
+        "galerieBildId": null,
+        "reihenfolge": 3,
+        "aktiv": true
+      }
+    ]
+  },
+  "mwGuidesTipps": {
+    "items": [
+      {
+        "id": "tg1",
+        "typ": "standard",
+        "thema": "beste-sitzplaetze",
+        "ueberschrift": "Beste Sitzplätze",
+        "beschreibung": "Links in Fahrtrichtung von Zermatt nach St. Moritz – Panoramafenster zum Mattertal und den Gletscherregionen.",
+        "prioritaet": "hoch",
+        "galerieBildId": "gg1",
+        "reihenfolge": 1,
+        "aktiv": true
+      },
+      {
+        "id": "tg2",
+        "typ": "standard",
+        "thema": "dauer",
+        "ueberschrift": "Dauer",
+        "beschreibung": "Die volle Strecke braucht fast einen Tag – lieber früh starten und Puffer für Fotostopps einplanen.",
+        "prioritaet": "mittel",
+        "galerieBildId": null,
+        "reihenfolge": 2,
+        "aktiv": true
+      },
+      {
+        "id": "tg3",
+        "typ": "frei",
+        "ueberschrift": "Excellence Class lohnt sich bei Sonne",
+        "beschreibung": "Bei klarer Sicht rechtfertigt die Excellence Class den Aufpreis – Service und Aussicht sind dann unschlagbar.",
+        "prioritaet": "",
+        "galerieBildId": null,
+        "reihenfolge": 3,
+        "aktiv": true
+      }
+    ]
+  },
+  "galerie": {
+    "items": [
+      {
+        "id": "gg1",
+        "bildUrl": "/images/explore-trips/wachau.jpg",
+        "titel": "Landwasserviadukt",
+        "kurzbeschreibung": "Das ikonische Viadukt – Pflichtmotiv für jedes Glacier-Express-Profil.",
+        "fotograf": "Rhaetian Railway",
+        "quelle": "Offizielle Pressestelle",
+        "lizenz": "Pressefreigabe RhB",
+        "copyright": "© Rhätische Bahn",
+        "altText": "Roter Glacier Express auf dem Landwasserviadukt",
+        "reihenfolge": 1,
+        "aktiv": true,
+        "kategorien": [
+          "hero",
+          "galerie",
+          "explore-trip",
+          "handout"
+        ],
+        "bildtyp": "offizielles-pressefoto",
+        "pflichtbild": true,
+        "aufnahmeort": "Filisur, Graubünden",
+        "gps": "46.68, 9.67",
+        "aufnahmedatum": "2024-09-18",
+        "blickrichtung": "Nord",
+        "jahreszeit": "herbst",
+        "sternBewertung": 5,
+        "mwGuidesBildscore": 99,
+        "kiQuelle": "",
+        "kiStatus": "freigegeben"
+      },
+      {
+        "id": "gg2",
+        "bildUrl": "/images/explore-trips/mailand-natur.jpg",
+        "titel": "Alpenpanorama im Zug",
+        "kurzbeschreibung": "Panoramafenster mit Blick auf Gletscherregionen.",
+        "fotograf": "MW Guides",
+        "quelle": "Eigenaufnahme",
+        "lizenz": "© MW Guides",
+        "copyright": "© MW Guides",
+        "altText": "Alpenpanorama durch Panoramafenster im Glacier Express",
+        "reihenfolge": 2,
+        "aktiv": true,
+        "kategorien": [
+          "galerie",
+          "highlight"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "Oberalp Pass",
+        "gps": "",
+        "aufnahmedatum": "2025-03-10",
+        "blickrichtung": "Süd",
+        "jahreszeit": "winter",
+        "sternBewertung": 4,
+        "mwGuidesBildscore": 85,
+        "kiQuelle": "",
+        "kiStatus": "geprueft"
+      },
+      {
+        "id": "gg3",
+        "bildUrl": "/images/explore-trips/mailand-hero.jpg",
+        "titel": "Glacier Express Excellence Class",
+        "kurzbeschreibung": "Innenraum der Excellence Class – ideal für Handouts.",
+        "fotograf": "Glacier Express AG",
+        "quelle": "Betreiber",
+        "lizenz": "Pressefreigabe",
+        "copyright": "© Glacier Express AG",
+        "altText": "Luxuriöser Innenraum der Excellence Class",
+        "reihenfolge": 3,
+        "aktiv": true,
+        "kategorien": [
+          "galerie",
+          "handout",
+          "social-media"
+        ],
+        "bildtyp": "betreiberfoto",
+        "pflichtbild": false,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 3,
+        "mwGuidesBildscore": 70,
+        "kiQuelle": "Foto-Agent Vorschlag",
+        "kiStatus": "neu"
+      }
+    ]
+  },
+  "workflowSections": [
+    {
+      "id": "allgemein",
+      "label": "Allgemein",
+      "status": "open",
+      "fieldsFilled": 1,
+      "fieldsTotal": 8
+    },
+    {
+      "id": "hero",
+      "label": "Hero",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 8
+    },
+    {
+      "id": "bewertungen",
+      "label": "Bewertungen",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 6
+    },
+    {
+      "id": "offizielle-informationen",
+      "label": "Offizielle Informationen",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 7
+    },
+    {
+      "id": "highlights",
+      "label": "Highlights",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 5
+    },
+    {
+      "id": "mw-guides-tipps",
+      "label": "MW Guides Tipps",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 5
+    },
+    {
+      "id": "galerie",
+      "label": "Galerie & Bildverwaltung",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 8
+    },
+    {
+      "id": "produkte",
+      "label": "Produkte",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 6
+    },
+    {
+      "id": "videos",
+      "label": "Videos",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 3
+    },
+    {
+      "id": "faq",
+      "label": "FAQ",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 4
+    }
+  ]
+}

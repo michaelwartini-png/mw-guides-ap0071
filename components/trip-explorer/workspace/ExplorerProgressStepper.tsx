@@ -12,7 +12,7 @@ const STEPS: Array<{
   { id: 2, label: "Auswählen", path: (slug: string) => `/explore-trips/${slug}/explorer` },
   { id: 3, label: "Plan erstellen" },
   { id: 4, label: "Überprüfen", path: (slug: string) => `/explore-trips/${slug}/explorer/ueberpruefen` },
-  { id: 5, label: "Reisebegleiter" },
+  { id: 5, label: "Reisebegleiter", path: (slug: string) => `/explore-trips/${slug}/explorer/reisebegleiter` },
 ];
 
 interface ExplorerProgressStepperProps {

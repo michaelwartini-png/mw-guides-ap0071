@@ -6,7 +6,7 @@ interface IllustrationMapProps extends ExploreTripConceptIllustration {}
 const MAP_FRAME =
   "relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-[var(--mwg-line)] bg-[#fdf8f0] shadow-[0_16px_52px_-18px_rgba(26,26,24,0.16),0_4px_16px_-6px_rgba(26,26,24,0.08)]";
 
-/** AP-010.3 — Narrative concept illustration map (Ebene 1 standard, swappable per trip). */
+/** Designprinzip 01 — narrative concept illustration (the visual signature of an Explore Trip). */
 export function IllustrationMap({ src, alt }: IllustrationMapProps) {
   return (
     <figure className="w-full">

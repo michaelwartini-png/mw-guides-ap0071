@@ -4,12 +4,7 @@ import { HeroBackground } from "@/components/hero/HeroBackground";
 import { Reveal } from "@/components/ui/Reveal";
 
 /**
- * AP-008.1: the CTA previously read "Touren entdecken" and linked to
- * `#touren` (the Ride Guides section) — a label from before the Ride
- * Guides rename, and a link that silently skipped past Explore Trips,
- * undermining AP-007's "Inspiration before product" homepage order. Now
- * points to Explore Trips (`#explore-trips`, added in ExploreTripsSection)
- * with wording that doesn't presuppose either content world.
+ * Homepage hero. AP-PP000.3: the only primary CTA names the main product.
  */
 export function Hero() {
   return (
@@ -26,8 +21,8 @@ export function Hero() {
             des Reiseführers.
           </h1>
           <div className="mt-10">
-            <Button href="#explore-trips" variant="accent">
-              Reisen entdecken
+            <Button href="/explore-trips" variant="accent">
+              Explore Trips entdecken
             </Button>
           </div>
         </Reveal>

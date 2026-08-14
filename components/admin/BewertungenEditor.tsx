@@ -7,6 +7,7 @@ import type { EditorRxProps } from "@/components/admin/redakteurExperienceData";
 import { useEditorRxState } from "@/components/admin/useEditorRxState";
 import {
   EMPTY_BEWERTUNGEN_DATA,
+  normalizeBewertungenData,
   type BewertungenData,
   type PlatformReview,
 } from "@/components/admin/bewertungenData";
@@ -90,8 +91,9 @@ export function BewertungenEditor({
   onDirtyChange,
   registerActions,
 }: BewertungenEditorProps) {
-  const [savedData, setSavedData] = useState<BewertungenData>(initialData);
-  const [formData, setFormData] = useState<BewertungenData>(initialData);
+  const normalizedInitial = normalizeBewertungenData(initialData);
+  const [savedData, setSavedData] = useState<BewertungenData>(normalizedInitial);
+  const [formData, setFormData] = useState<BewertungenData>(normalizedInitial);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [weitereOpen, setWeitereOpen] = useState(false);
 

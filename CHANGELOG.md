@@ -3,6 +3,57 @@
 Alle nennenswerten Änderungen an diesem Projekt werden in dieser Datei
 dokumentiert. Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
+## [0.7.0] — Trip Explorer ET-01 bis ET-05 abgeschlossen
+
+Die Produktarchitektur des Trip Explorers ist vollständig (Referenzreise:
+Bodensee Unlimited). MW Guides verkauft keine Reisen, sondern digitale
+Reisebegleiter. ET-05 gilt als Version 1.1 eingefroren.
+
+### ET-01 — Explore Trips Europa
+
+Inspiration und Auswahl über Europakarte und Trip-Karten. Keine Buchung,
+keine Tickets, keine Ride Guides auf dieser Ebene.
+
+### ET-02 — Trip Explorer
+
+Kein Redesign: Hero, Erlebniswelten und Konzeptillustration bleiben.
+Die Seite erklärt, was ein Trip Explorer ist, und zeigt Erlebnisbausteine
+statt Ride Guides.
+
+- Kernbotschaft *Reise jenseits des Reiseführers* plus Nutzen „Zeit sparen“.
+- Explore Trips bestehen aus Erlebnisbausteinen; Ride Guides sind optional
+  erst am Baustein.
+
+### ET-03 — Erlebnisprofil
+
+Kein Redesign: Layout, Hero-Konzept, Score, Karte und Navigation bleiben.
+Die Katamaran-Seite ist die Master-Vorlage für künftige Erlebnisbausteine.
+
+- Ride Guide nur bei existierendem Guide, keine Platzhalter.
+- Tickets immer über die offizielle Anbieterseite.
+- Fehlende optionale Module werden vollständig ausgeblendet.
+
+### ET-04 — Reise überprüfen
+
+Überprüfung vor der Bestätigung: Sidebar im Review-Modus, klarer Übergang
+zum Reisebegleiter, transparente Angaben zu Budget, Reisezeitraum und
+Unterkunft. Keine Buchung.
+
+### ET-05 — Reisebegleiter auswählen (V1.1)
+
+Abschluss des Trip Explorers: der Nutzer wählt digitale Reisebegleiter.
+
+- Explore Trip Handout immer kostenlos enthalten, ohne Zugang zu Meine Reise.
+- Explore Trip Premium Guide 4,99 €, inkl. Meine Reise als Premium-Vorteil.
+- Ride Guides nur, wenn für die Reise echte Guides existieren (Bodensee: keine).
+- Reisekosten und MW-Guides-Produktpreis klar getrennt.
+- Hinweis: MW Guides verkauft keine Reisen.
+- Kein Zahlungsprozess, kein Login, keine Implementierung von Meine Reise.
+
+### Nächster Fokus
+
+Meine Reise als persönlicher Reiseassistent.
+
 ## [0.6.0] — AP-002.2 — Informationsarchitektur der Startseite geschärft
 
 Korrektur des größten UX-Problems aus AP-002: Ride Guides und Explore

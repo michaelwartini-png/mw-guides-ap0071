@@ -18,8 +18,8 @@ export function AboutCta({ paragraphs }: AboutCtaProps) {
           </p>
         ))}
         <div className="mt-10">
-          <Button href="/touren" variant="accent">
-            Touren entdecken
+          <Button href="/explore-trips" variant="accent">
+            Explore Trips entdecken
           </Button>
         </div>
       </Reveal>

@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Star } from "lucide-react";
 import type { ErlebnisprofilReview } from "@/components/admin/products/erlebnisprofilProduct";
-import { ErlebnisprofilSectionHeading } from "@/components/erlebnisprofil/ErlebnisprofilSectionHeading";
 import { PlatformLogo } from "@/components/erlebnisprofil/PlatformLogo";
 import { parseRating } from "@/components/erlebnisprofil/utils";
 
@@ -15,19 +14,16 @@ export function ReviewsSection({ mwgScore, reviews, headingMeta }: ReviewsSectio
   if (!mwgScore && reviews.length === 0) return null;
 
   return (
-    <section className="mt-16">
-      <ErlebnisprofilSectionHeading
-        eyebrow="Bewertungen"
-        title="Was Gäste und MW Guides sagen"
-        meta={headingMeta}
-      />
-      <div className="mt-8 flex flex-wrap gap-4">
+    <section className="mx-auto mt-12 max-w-[1240px] px-6 lg:mt-16 lg:px-10">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">{headingMeta}</div>
+      <h2 className="font-display text-[22px] font-medium">Bewertungen im Überblick</h2>
+      <div className="mt-5 flex flex-wrap gap-4">
         {mwgScore ? (
-          <div className="min-w-[180px] rounded-2xl border border-[var(--mwg-line)] bg-gradient-to-br from-accent/8 to-white px-6 py-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--mwg-ink-45)]">
+          <div className="min-w-[160px] rounded-xl border border-[var(--mwg-line)] bg-[var(--mwg-paper-raised)] px-5 py-4">
+            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--mwg-ink-45)]">
               MW Guides Score
             </p>
-            <p className="mt-2 font-display text-[42px] font-medium leading-none text-accent">
+            <p className="mt-2 font-display text-[36px] font-medium leading-none text-[var(--mwg-ink)]">
               {mwgScore.replace(".", ",")}
             </p>
             <p className="mt-1 text-[13px] text-[var(--mwg-ink-70)]">von 10</p>
@@ -38,19 +34,19 @@ export function ReviewsSection({ mwgScore, reviews, headingMeta }: ReviewsSectio
           return (
             <div
               key={review.source}
-              className="min-w-[180px] rounded-2xl border border-[var(--mwg-line)] bg-[var(--mwg-paper-raised)] px-6 py-5"
+              className="min-w-[160px] rounded-xl border border-[var(--mwg-line)] bg-[var(--mwg-paper-raised)] px-5 py-4"
             >
               <PlatformLogo source={review.source} />
-              <p className="mt-3 font-display text-[36px] font-medium leading-none">
+              <p className="mt-2 font-display text-[28px] font-medium leading-none">
                 {review.rating.replace(".", ",")}
-                <span className="text-[16px] text-[var(--mwg-ink-45)]"> / 5</span>
+                <span className="text-[14px] text-[var(--mwg-ink-45)]"> / 5</span>
               </p>
               {rating !== null ? (
                 <div className="mt-2 flex gap-0.5">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      size={14}
+                      size={13}
                       className={
                         i < Math.round(rating)
                           ? "fill-amber-400 text-amber-400"
@@ -62,7 +58,7 @@ export function ReviewsSection({ mwgScore, reviews, headingMeta }: ReviewsSectio
                 </div>
               ) : null}
               {review.count ? (
-                <p className="mt-2 text-[13px] text-[var(--mwg-ink-70)]">{review.count} Bewertungen</p>
+                <p className="mt-2 text-[12px] text-[var(--mwg-ink-70)]">{review.count} Bewertungen</p>
               ) : null}
             </div>
           );

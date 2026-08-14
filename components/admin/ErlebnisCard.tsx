@@ -14,7 +14,8 @@ function StatusBadge({ status }: { status: DashboardErlebnis["status"] }) {
       className={cn(
         "inline-flex rounded-full px-2.5 py-0.5 text-[12px] font-medium",
         status === "Veröffentlicht" && "bg-accent/10 text-accent",
-        status === "In Bearbeitung" && "bg-amber-400/15 text-[var(--mwg-ink)]",
+        status === "In Prüfung" && "bg-amber-400/15 text-[var(--mwg-ink)]",
+        status === "Archiviert" && "bg-stone/10 text-stone",
         status === "Entwurf" && "bg-[var(--mwg-line)] text-[var(--mwg-ink-70)]",
       )}
     >

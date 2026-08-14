@@ -173,15 +173,27 @@ export const TIPPS_KATAMARAN: MWGuidesTippsData = {
       aktiv: true,
     }),
     createItem({
-      id: "tk4",
+      id: "tk6",
       typ: "standard",
       thema: "kombinationen",
       ueberschrift: "Kombinationen",
       beschreibung:
-        "Katamaran morgens nach Friedrichshafen, Zeppelinmuseum und dann mit der Fähre zurück – perfekter Halbtages-Trip.",
+        "Zeppelin-Museum, Konstanz Altstadt und Schifffahrt Meersburg lassen sich gut mit der Überfahrt verbinden.",
       prioritaet: "",
       galerieBildId: null,
       reihenfolge: 4,
+      aktiv: true,
+    }),
+    createItem({
+      id: "tk4",
+      typ: "standard",
+      thema: "kombinationen",
+      ueberschrift: "So könnte dein perfekter Tag aussehen",
+      beschreibung:
+        "Katamaran morgens nach Friedrichshafen, Zeppelinmuseum und dann mit der Fähre zurück – perfekter Halbtages-Trip.",
+      prioritaet: "",
+      galerieBildId: null,
+      reihenfolge: 5,
       aktiv: true,
     }),
     createItem({
@@ -191,7 +203,7 @@ export const TIPPS_KATAMARAN: MWGuidesTippsData = {
       beschreibung: "In Konstanz am Hafen kurz verweilen – am Sonntagvormittag besonders lebendig.",
       prioritaet: "niedrig",
       galerieBildId: null,
-      reihenfolge: 5,
+      reihenfolge: 6,
       aktiv: false,
     }),
   ],

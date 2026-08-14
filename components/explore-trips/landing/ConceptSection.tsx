@@ -10,14 +10,18 @@ import type {
 interface ConceptSectionProps {
   heading: string;
   intro: string;
+  explainerHeading?: string;
+  explainer?: string;
   conceptLink?: ExploreTripLandingCta;
   conceptIllustration: ExploreTripConceptIllustration;
 }
 
-/** AP-010.2 — Section 3: concept copy (left) + illustration map (right). */
+/** AP-010.2 / AP-ET002 — Section 3: concept copy (left) + illustration map (right). */
 export function ConceptSection({
   heading,
   intro,
+  explainerHeading,
+  explainer,
   conceptLink,
   conceptIllustration,
 }: ConceptSectionProps) {
@@ -30,6 +34,16 @@ export function ConceptSection({
           <p className="mt-6 max-w-[54ch] text-[17px] leading-[1.75] text-[var(--mwg-ink-70)]">
             {intro}
           </p>
+          {explainerHeading && explainer && (
+            <div className="mt-8 max-w-[54ch]">
+              <h3 className="font-display text-[22px] font-medium leading-snug tracking-[-0.015em] text-[var(--mwg-ink)]">
+                {explainerHeading}
+              </h3>
+              <p className="mt-3 text-[17px] leading-[1.75] text-[var(--mwg-ink-70)]">
+                {explainer}
+              </p>
+            </div>
+          )}
           {conceptLink && (
             <Button href={conceptLink.href} variant="ghost-dark" className="mt-8 px-7 py-3.5">
               {conceptLink.label}

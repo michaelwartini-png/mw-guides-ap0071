@@ -1,27 +1,26 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AdminPrimaryLink, AdminSecondaryButton } from "@/components/admin/adminButtons";
 import { ErlebnisCard } from "@/components/admin/ErlebnisCard";
 import {
-  DASHBOARD_ERLEBNISSE,
   filterErlebnisse,
   getDashboardStats,
-  getInitialDashboardErlebnisse,
   sortErlebnisse,
-  toDashboardErlebnisFromRecord,
+  toDashboardErlebnis,
   type DashboardErlebnis,
   type ErlebnisFilter,
   type ErlebnisSort,
 } from "@/components/admin/erlebnisDashboardData";
-import { registerDuplicateErlebnis } from "@/components/admin/erlebnisSessionStore";
+import { duplicateErlebnisRecord, fetchAllErlebnisRecords } from "@/lib/erlebnisApiClient";
 
 const FILTER_OPTIONS: ErlebnisFilter[] = [
   "Alle",
   "Entwurf",
-  "In Bearbeitung",
+  "In Prüfung",
   "Veröffentlicht",
+  "Archiviert",
 ];
 
 const SORT_OPTIONS: ErlebnisSort[] = ["Zuletzt geändert", "Alphabetisch", "Fortschritt"];
@@ -31,16 +30,23 @@ const FIELD_CLASS =
 
 export function ErlebnisDashboard() {
   const searchParams = useSearchParams();
-  const [erlebnisse, setErlebnisse] = useState<DashboardErlebnis[]>(DASHBOARD_ERLEBNISSE);
+  const [erlebnisse, setErlebnisse] = useState<DashboardErlebnis[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<ErlebnisFilter>("Alle");
   const [sort, setSort] = useState<ErlebnisSort>("Zuletzt geändert");
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<DashboardErlebnis | null>(null);
 
-  useEffect(() => {
-    setErlebnisse(getInitialDashboardErlebnisse());
+  const reload = useCallback(async () => {
+    const records = await fetchAllErlebnisRecords();
+    setErlebnisse(records.map(toDashboardErlebnis));
+    setIsLoading(false);
   }, []);
+
+  useEffect(() => {
+    void reload();
+  }, [reload]);
 
   useEffect(() => {
     if (searchParams.get("created") !== "1") return;
@@ -63,20 +69,24 @@ export function ErlebnisDashboard() {
     return sortErlebnisse(filtered, sort);
   }, [erlebnisse, searchQuery, filter, sort]);
 
-  function handleDuplicate(id: string) {
-    const record = registerDuplicateErlebnis(id);
-    if (!record) return;
-
-    const duplicate = toDashboardErlebnisFromRecord(record);
-    const nextErlebnisse = [duplicate, ...erlebnisse];
-    setErlebnisse(nextErlebnisse);
-    setStatusMessage(`„${duplicate.name}" wurde erstellt.`);
-
-    window.setTimeout(() => setStatusMessage(null), 5000);
+  async function handleDuplicate(id: string) {
+    try {
+      const record = await duplicateErlebnisRecord(id);
+      const duplicate = toDashboardErlebnis(record);
+      setErlebnisse((current) => [duplicate, ...current]);
+      setStatusMessage(`„${duplicate.name}" wurde erstellt.`);
+      window.setTimeout(() => setStatusMessage(null), 5000);
+    } catch (error) {
+      setStatusMessage(error instanceof Error ? error.message : "Duplizieren fehlgeschlagen.");
+    }
   }
 
   function handleDeleteConfirm() {
     setDeleteTarget(null);
+  }
+
+  if (isLoading) {
+    return <div className="text-[15px] text-[var(--mwg-ink-70)]">Laden…</div>;
   }
 
   return (
@@ -95,6 +105,9 @@ export function ErlebnisDashboard() {
             </span>
             <span>
               <span className="font-medium text-ink">{stats.entwurf}</span> Entwurf
+            </span>
+            <span>
+              <span className="font-medium text-ink">{stats.inPruefung}</span> In Prüfung
             </span>
             <span>
               <span className="font-medium text-ink">{stats.veroeffentlicht}</span> veröffentlicht

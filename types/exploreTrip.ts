@@ -41,11 +41,11 @@ export interface ExploreTripGalleryImage {
 }
 
 /**
- * AP-007.1 — Ebene 1 landing page layout. Trips with `layout: "landing"`
- * render the full inspiration landing page (Hero → USP bar → Warum →
- * Erlebniswelten → Ride Guides → Warum MW Guides → Closing CTA) instead
- * of the AP-007/AP-008.2 premium magazine blocks. Magazine articles
- * (`sections` only) and legacy premium trips (Mailand, Wien) are unaffected.
+ * AP-007.1 / AP-ET002 — Ebene 1 landing page layout. Trips with
+ * `layout: "landing"` render the inspiration landing page (Hero → USP bar →
+ * Warum → Erlebniswelten → Erlebnisbausteine → Warum MW Guides → Closing CTA)
+ * instead of the AP-007/AP-008.2 premium magazine blocks. Magazine articles
+ * (`sections` only) and legacy premium trips (Wien) are unaffected.
  */
 export type ExploreTripLayout = "magazine" | "premium" | "landing";
 
@@ -70,24 +70,6 @@ export interface ExploreTripLandingUsp {
 export interface ExploreTripConceptIllustration {
   src: string;
   alt: string;
-}
-
-/** Ride Guide card on the landing page — may link to a real tour or show status label. */
-export interface ExploreTripLandingRideGuide {
-  slug: string;
-  title: string;
-  /** Short card description beneath the title. */
-  description?: string;
-  image: string;
-  imageAlt: string;
-  available: boolean;
-  /** When available, links to `/touren/[tourSlug]`. */
-  tourSlug?: string;
-  duration?: string;
-  format?: string;
-  price?: string;
-  /** Display label when not yet available, e.g. "Bald verfügbar". */
-  status?: string;
 }
 
 /** Platform USP with a Lucide icon name (see landing PlatformUspsSection). */
@@ -130,8 +112,12 @@ export interface ExploreTripLanding {
   uspBar: ExploreTripLandingUsp[];
   /** Left column body copy in "Das Konzept". */
   conceptIntro: string;
-  /** H2 in "Das Konzept", e.g. "Ein See. Drei Länder. Tausend Möglichkeiten." */
+  /** H2 in "Das Konzept", e.g. "Warum dieser Explore Trip?" */
   conceptHeading: string;
+  /** AP-ET002 — short Trip-Explorer explanation heading in "Das Konzept". */
+  conceptExplainerHeading?: string;
+  /** AP-ET002 — short Trip-Explorer explanation body in "Das Konzept". */
+  conceptExplainer?: string;
   /** Optional link beneath the concept copy. */
   conceptLink?: ExploreTripLandingCta;
   /** AP-010.1 — illustrated concept map in the right column of "Das Konzept". */
@@ -144,11 +130,12 @@ export interface ExploreTripLanding {
   erlebnisweltenViewAll?: ExploreTripLandingCta;
   /** Pull Erlebniswelten from the Trip Explorer registry; filter/order via refs. */
   erlebnisweltenFromExplorer: ExploreTripLandingErlebnisweltRef[];
-  /** Ride Guides H2 — e.g. "Ride Guides – Deine Touren am und rund um den Bodensee." */
-  rideGuidesHeading: string;
-  rideGuides: ExploreTripLandingRideGuide[];
-  /** Trailing "view all" card in the Ride Guides row. */
-  rideGuidesViewAll?: ExploreTripLandingCta;
+  /** AP-ET002 — H2 for Erlebnisbaustein cards, e.g. "Noch mehr Highlights am Bodensee". */
+  highlightsHeading: string;
+  /** Explorer-highlight slugs shown as cards; each opens ET-03. */
+  highlightsFromExplorer: string[];
+  /** Trailing "view all" link in the Erlebnisbausteine row. */
+  highlightsViewAll?: ExploreTripLandingCta;
   platformUsps: ExploreTripPlatformUsp[];
   closingImage: string;
   closingImageAlt: string;
@@ -158,8 +145,6 @@ export interface ExploreTripLanding {
   closingButtonSubtext?: string;
   /** @deprecated Renamed to `conceptIntro` in AP-010.1 — kept for migration only. */
   whyIntro?: string;
-  /** @deprecated Renamed to `rideGuidesHeading` — use full heading string instead. */
-  rideGuidesRegion?: string;
 }
 
 export interface ExploreTrip {

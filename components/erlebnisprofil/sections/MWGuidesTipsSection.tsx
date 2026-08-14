@@ -16,7 +16,7 @@ export function MWGuidesTipsSection({ tipps, headingMeta }: MWGuidesTipsSectionP
       <div className="flex items-end justify-between gap-4">
         <ErlebnisprofilSectionHeading
           eyebrow="MW Guides Tipps"
-          title="Unsere Empfehlungen"
+          title="MW-Guides-Empfehlungen"
           meta={headingMeta}
         />
         <Lightbulb size={28} className="hidden text-accent/40 sm:block" strokeWidth={1.5} />

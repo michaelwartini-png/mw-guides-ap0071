@@ -1,0 +1,526 @@
+{
+  "slug": "kuestentram",
+  "name": "Küstentram",
+  "kategorie": "Straßenbahn",
+  "erlebniswelt": "Bahn",
+  "profileStatus": "Entwurf",
+  "progress": 0,
+  "lastModifiedAt": "2026-08-11T11:01:41.261Z",
+  "lastModifiedLabel": "11.08.2026 · 13:01 Uhr",
+  "lastSaved": {
+    "date": "11.08.2026",
+    "time": "13:01 Uhr"
+  },
+  "allgemein": {
+    "name": "Küstentram",
+    "untertitel": "",
+    "kategorie": "Straßenbahn",
+    "erlebniswelt": "Bahn",
+    "laender": [
+      "Belgien"
+    ],
+    "regionen": [
+      "Flandern"
+    ],
+    "orte": [],
+    "status": "Entwurf"
+  },
+  "hero": {
+    "titel": "Küstentram",
+    "untertitel": "",
+    "hasHeroImage": true,
+    "galerieCount": 0,
+    "badges": [
+      "Ganzjährig",
+      "Familienfreundlich",
+      "Fahrradmitnahme",
+      "Barrierefrei",
+      "Hunde erlaubt",
+      "Bestseller"
+    ],
+    "score": "9",
+    "rideGuideAvailable": false
+  },
+  "bewertungen": {
+    "mwgScore": "9",
+    "kurzbegruendung": "",
+    "scoreCategories": [],
+    "google": {
+      "bewertung": "3,4",
+      "anzahl": "16",
+      "link": "https://www.google.com/maps/search/?api=1&query=The+Kusttram%2C+Nieuwpoortsesteenweg+110%2C+8400+Oostende%2C+Belgium&utm_source=chatgpt.com"
+    },
+    "tripadvisor": {
+      "bewertung": "4,2",
+      "anzahl": "116",
+      "link": "https://www.tripadvisor.be/Attraction_Review-g641827-d1549816-Reviews-The_Coast_Tram-De_Panne_West_Flanders_Province.html"
+    },
+    "weiterePlattformen": {
+      "holidayCheck": {
+        "bewertung": "",
+        "anzahl": "",
+        "link": ""
+      },
+      "trustpilot": {
+        "bewertung": "",
+        "anzahl": "",
+        "link": ""
+      },
+      "yelp": {
+        "bewertung": "",
+        "anzahl": "",
+        "link": ""
+      }
+    }
+  },
+  "offizielleInformationen": {
+    "betreiber": "https://www.delijn.be/de/",
+    "betreiberWebseiteGleichOffiziell": true,
+    "betreiberWebseite": "https://www.delijn.be/de/content/kusttram/",
+    "offizielleWebseite": "https://www.delijn.be/de/content/kusttram/",
+    "fahrplan": "Die Kusttram fährt ganzjährig zwischen De Panne, Oostende und Knokke. Tagsüber verkehren die Straßenbahnen je nach Saison bzw. Zeitraum im 10-, 15- oder 20-Minuten-Takt. Abends fährt die Kusttram in der Regel alle 30 Minuten.\n\nDen aktuellen Fahrplan und mögliche Änderungen oder Baustellen vor der Fahrt bei De Lijn prüfen.",
+    "preise": "Einzelfahrt: 3,00 €\nHin- und Rückfahrt: 6,00 €\nTageskarte: 9,00 € ab 12 Jahren / 4,50 € für 6–11 Jahre\n3-Tageskarte: 18,00 € ab 12 Jahren / 9,00 € für 6–11 Jahre\nKinder unter 6 Jahren: kostenlos in Begleitung eines zahlenden Fahrgasts ab 12 Jahren.\n\nFür einen Sightseeing-Tag mit mehreren Ausstiegen ist die Tageskarte für 9 € normalerweise die sinnvollste Option. Sie gilt 24 Stunden und ermöglicht beliebig viele Fahrten mit den Bussen und Straßenbahnen von De Lijn.",
+    "ticketshop": "https://www.delijn.be/de/tickets/",
+    "standortAnreise": {
+      "adresse": "De Panne Station – Knokke Station, Belgische Küste",
+      "gpsBreitengrad": "",
+      "gpsLaengengrad": "",
+      "kartenlink": "",
+      "navigation": "",
+      "anreiseHinweise": ""
+    },
+    "telefon": "+32 15 40 88 40",
+    "email": "",
+    "kontaktseite": "https://help.delijn.be/hc/de?utm_source=chatgpt.com",
+    "barrierefreiheit": {
+      "rollstuhlgerecht": true,
+      "kinderwagen": true,
+      "fahrradmitnahme": false,
+      "hunde": false,
+      "wc": false
+    }
+  },
+  "highlights": {
+    "items": [
+      {
+        "id": "h-1786431817490-1",
+        "titel": "Mit der Tram direkt am Meer",
+        "kurzbeschreibung": "Auf mehreren Streckenabschnitten fährt die Kusttram unmittelbar an Dünen, Strand und Nordsee entlang – mit freien Blicken aufs Meer direkt aus der Tram.",
+        "icon": "view",
+        "galerieBildId": "bild-1786431042965-1",
+        "reihenfolge": 1,
+        "aktiv": true
+      },
+      {
+        "id": "h-1786431858936-2",
+        "titel": "Highlight · Reihenfolge 2",
+        "kurzbeschreibung": "Kurzbeschreibung",
+        "icon": "view",
+        "galerieBildId": "bild-1786431149674-4",
+        "reihenfolge": 2,
+        "aktiv": true
+      },
+      {
+        "id": "h-1786436990239-3",
+        "titel": "Die gesamte belgische Küste mit nur einer Linie",
+        "kurzbeschreibung": "Von De Panne bis Knokke verbindet die Kusttram nahezu alle bekannten Badeorte der belgischen Nordseeküste – ohne Umsteigen.",
+        "icon": "view",
+        "galerieBildId": "bild-1786431135768-3",
+        "reihenfolge": 3,
+        "aktiv": true
+      },
+      {
+        "id": "h-1786437222940-4",
+        "titel": "Einfach aussteigen und weiterfahren",
+        "kurzbeschreibung": "Dank des dichten Takts lassen sich Strände, Promenaden, Beachbars und Sehenswürdigkeiten flexibel erkunden. Die nächste Bahn bringt dich bequem weiter.",
+        "icon": "view",
+        "galerieBildId": "bild-1786432092834-6",
+        "reihenfolge": 4,
+        "aktiv": true
+      },
+      {
+        "id": "h-1786437274955-5",
+        "titel": "Die längste Straßenbahnlinie der Welt",
+        "kurzbeschreibung": "Rund 67 Kilometer Strecke und 67 Haltestellen machen die Kusttram zu einer der außergewöhnlichsten Straßenbahnlinien Europas.",
+        "icon": "view",
+        "galerieBildId": "bild-1786431085251-2",
+        "reihenfolge": 5,
+        "aktiv": true
+      },
+      {
+        "id": "h-1786437316167-6",
+        "titel": "Jeder Küstenort hat seinen eigenen Charakter",
+        "kurzbeschreibung": "Elegante Belle-Époque-Orte wie De Haan, lebhafte Seebäder wie Oostende oder ruhige Dünenlandschaften – jede Etappe bietet ein anderes Erlebnis.",
+        "icon": "view",
+        "galerieBildId": "bild-1786431149674-4",
+        "reihenfolge": 6,
+        "aktiv": false
+      },
+      {
+        "id": "h-1786437362389-7",
+        "titel": "Perfekt für einen individuellen Küstentag",
+        "kurzbeschreibung": "Ob ein kurzer Strandbesuch, ein Restaurant, eine Wanderung durch die Dünen oder mehrere Stopps – die Kusttram eignet sich ideal für spontane Entdeckungen.",
+        "icon": "view",
+        "galerieBildId": "bild-1786431168617-5",
+        "reihenfolge": 7,
+        "aktiv": true
+      }
+    ]
+  },
+  "mwGuidesTipps": {
+    "items": [
+      {
+        "id": "tipp-1786445171120-1",
+        "typ": "standard",
+        "thema": "beste-besuchszeit",
+        "ueberschrift": "Bei gutem Wetter besonders schön",
+        "beschreibung": "Die Kusttram lebt vom Blick auf Küste, Dünen und Meer. Bei trockenem, möglichst klarem Wetter lohnt sich die Fahrt besonders. Im Sommer sind die Badeorte allerdings deutlich voller.",
+        "prioritaet": "",
+        "galerieBildId": "bild-1786431168617-5",
+        "reihenfolge": 1,
+        "aktiv": true
+      },
+      {
+        "id": "tipp-1786445227575-2",
+        "typ": "standard",
+        "thema": "beste-besuchszeit",
+        "ueberschrift": "Für die Aussicht den Sitzplatz bewusst wählen",
+        "beschreibung": "Auf den schönsten Küstenabschnitten entscheidet die Fahrtrichtung über den besseren Meerblick. Nicht einfach irgendwo einsteigen – bei MW Guides zeigen wir dir, auf welcher Seite sich das Sitzen besonders lohnt.",
+        "prioritaet": "",
+        "galerieBildId": "bild-1786431042965-1",
+        "reihenfolge": 2,
+        "aktiv": true
+      },
+      {
+        "id": "tipp-1786445241768-3",
+        "typ": "frei",
+        "ueberschrift": "Nicht die gesamte Strecke einfach durchfahren",
+        "beschreibung": "Die Kusttram wird besonders interessant, wenn du unterwegs aussteigst. Plane lieber weniger Orte mit genügend Zeit ein, statt möglichst viele Haltestellen abzuhaken.",
+        "prioritaet": "",
+        "galerieBildId": "bild-1786431135768-3",
+        "reihenfolge": 3,
+        "aktiv": true
+      }
+    ]
+  },
+  "galerie": {
+    "items": [
+      {
+        "id": "bild-1786431042965-1",
+        "bildUrl": "blob:http://localhost:3000/c73a5a00-f29f-43e7-90e6-7f17f09c5cc5",
+        "titel": "Kusttram_05-21_cropped",
+        "kurzbeschreibung": "Kurzbeschreibung",
+        "fotograf": "",
+        "quelle": "",
+        "lizenz": "",
+        "copyright": "",
+        "altText": "Kusttram_05-21_cropped",
+        "reihenfolge": 1,
+        "aktiv": true,
+        "kategorien": [
+          "galerie",
+          "hero"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 0,
+        "mwGuidesBildscore": 0,
+        "kiQuelle": "",
+        "kiStatus": "neu"
+      },
+      {
+        "id": "bild-1786431085251-2",
+        "bildUrl": "blob:http://localhost:3000/0a92193a-1e82-4dc9-ad0d-780926d7fe56",
+        "titel": "Kusttram_R04",
+        "kurzbeschreibung": "",
+        "fotograf": "",
+        "quelle": "",
+        "lizenz": "",
+        "copyright": "",
+        "altText": "Kusttram_R04",
+        "reihenfolge": 2,
+        "aktiv": true,
+        "kategorien": [
+          "galerie"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": true,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 0,
+        "mwGuidesBildscore": 0,
+        "kiQuelle": "",
+        "kiStatus": "neu"
+      },
+      {
+        "id": "bild-1786431135768-3",
+        "bildUrl": "blob:http://localhost:3000/3c684e7d-01be-4323-b578-59a67214b7d3",
+        "titel": "Route_Belgian_Coast_Tram",
+        "kurzbeschreibung": "",
+        "fotograf": "",
+        "quelle": "",
+        "lizenz": "",
+        "copyright": "",
+        "altText": "Route_Belgian_Coast_Tram",
+        "reihenfolge": 3,
+        "aktiv": true,
+        "kategorien": [
+          "galerie"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 0,
+        "mwGuidesBildscore": 0,
+        "kiQuelle": "",
+        "kiStatus": "neu"
+      },
+      {
+        "id": "bild-1786431149674-4",
+        "bildUrl": "blob:http://localhost:3000/a1a6a052-ceb8-486d-bb7d-a11b2a64d37b",
+        "titel": "Kusttram_De_Haan_aan_Zee",
+        "kurzbeschreibung": "",
+        "fotograf": "",
+        "quelle": "",
+        "lizenz": "",
+        "copyright": "",
+        "altText": "Kusttram_De_Haan_aan_Zee",
+        "reihenfolge": 4,
+        "aktiv": true,
+        "kategorien": [
+          "galerie"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 0,
+        "mwGuidesBildscore": 0,
+        "kiQuelle": "",
+        "kiStatus": "neu"
+      },
+      {
+        "id": "bild-1786431168617-5",
+        "bildUrl": "blob:http://localhost:3000/daf27e2b-2cf6-4074-96f5-cf40a6f726e9",
+        "titel": "PXL_20260609_115614181",
+        "kurzbeschreibung": "",
+        "fotograf": "",
+        "quelle": "",
+        "lizenz": "",
+        "copyright": "",
+        "altText": "PXL_20260609_115614181",
+        "reihenfolge": 5,
+        "aktiv": true,
+        "kategorien": [
+          "galerie"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 0,
+        "mwGuidesBildscore": 0,
+        "kiQuelle": "",
+        "kiStatus": "neu"
+      },
+      {
+        "id": "bild-1786432092834-6",
+        "bildUrl": "blob:http://localhost:3000/25c37d6f-dc0b-4325-9674-a5f0ce7294e5",
+        "titel": "PXL_20260607_134447404",
+        "kurzbeschreibung": "",
+        "fotograf": "",
+        "quelle": "",
+        "lizenz": "",
+        "copyright": "",
+        "altText": "PXL_20260607_134447404",
+        "reihenfolge": 6,
+        "aktiv": true,
+        "kategorien": [
+          "galerie"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 0,
+        "mwGuidesBildscore": 0,
+        "kiQuelle": "",
+        "kiStatus": "neu"
+      },
+      {
+        "id": "bild-1786445829034-7",
+        "bildUrl": "/images/explore-trips/bodensee-schifffahrt.jpg",
+        "titel": "Katamaran auf dem Bodensee",
+        "kurzbeschreibung": "",
+        "fotograf": "",
+        "quelle": "",
+        "lizenz": "",
+        "copyright": "",
+        "altText": "Katamaran auf dem Bodensee",
+        "reihenfolge": 7,
+        "aktiv": true,
+        "kategorien": [
+          "galerie"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 0,
+        "mwGuidesBildscore": 0,
+        "kiQuelle": "",
+        "kiStatus": "neu"
+      },
+      {
+        "id": "bild-1786445842860-8",
+        "bildUrl": "/images/explore-trips/bodensee-schifffahrt.jpg",
+        "titel": "Katamaran auf dem Bodensee",
+        "kurzbeschreibung": "",
+        "fotograf": "",
+        "quelle": "",
+        "lizenz": "",
+        "copyright": "",
+        "altText": "Katamaran auf dem Bodensee",
+        "reihenfolge": 8,
+        "aktiv": true,
+        "kategorien": [
+          "galerie"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 0,
+        "mwGuidesBildscore": 0,
+        "kiQuelle": "",
+        "kiStatus": "neu"
+      },
+      {
+        "id": "bild-1786445860767-9",
+        "bildUrl": "/images/explore-trips/bodensee-schifffahrt.jpg",
+        "titel": "Katamaran auf dem Bodensee",
+        "kurzbeschreibung": "",
+        "fotograf": "",
+        "quelle": "",
+        "lizenz": "",
+        "copyright": "",
+        "altText": "Katamaran auf dem Bodensee",
+        "reihenfolge": 9,
+        "aktiv": true,
+        "kategorien": [
+          "galerie"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 0,
+        "mwGuidesBildscore": 0,
+        "kiQuelle": "",
+        "kiStatus": "neu"
+      }
+    ]
+  },
+  "workflowSections": [
+    {
+      "id": "allgemein",
+      "label": "Allgemein",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 8
+    },
+    {
+      "id": "hero",
+      "label": "Hero",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 8
+    },
+    {
+      "id": "bewertungen",
+      "label": "Bewertungen",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 6
+    },
+    {
+      "id": "offizielle-informationen",
+      "label": "Offizielle Informationen",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 7
+    },
+    {
+      "id": "highlights",
+      "label": "Highlights",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 5
+    },
+    {
+      "id": "mw-guides-tipps",
+      "label": "MW Guides Tipps",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 5
+    },
+    {
+      "id": "galerie",
+      "label": "Galerie & Bildverwaltung",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 8
+    },
+    {
+      "id": "produkte",
+      "label": "Produkte",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 6
+    },
+    {
+      "id": "videos",
+      "label": "Videos",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 3
+    },
+    {
+      "id": "faq",
+      "label": "FAQ",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 4
+    }
+  ]
+}

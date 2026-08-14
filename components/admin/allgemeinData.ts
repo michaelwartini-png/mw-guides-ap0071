@@ -39,9 +39,9 @@ export const LAENDER = [
 
 export const STATUS_OPTIONS = [
   "Entwurf",
-  "In Bearbeitung",
-  "Veröffentlichungsbereit",
+  "In Prüfung",
   "Veröffentlicht",
+  "Archiviert",
 ] as const;
 
 export type AllgemeinData = {

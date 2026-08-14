@@ -1,18 +1,12 @@
 import type { AllgemeinData } from "@/components/admin/allgemeinData";
 import type { BewertungenData } from "@/components/admin/bewertungenData";
-import {
-  getErlebnisBySlug,
-  type ErlebnisRecord,
-} from "@/components/admin/erlebnisData";
+import type { ErlebnisRecord } from "@/components/admin/erlebnisData";
 import type { GalerieData } from "@/components/admin/galerieData";
 import type { HeroData } from "@/components/admin/heroData";
 import type { HighlightsData } from "@/components/admin/highlightsData";
 import type { MWGuidesTippsData } from "@/components/admin/mwGuidesTippsData";
 import type { OffizielleInformationenData } from "@/components/admin/offizielleInformationenData";
-import {
-  getSessionErlebnisBySlug,
-  saveSessionErlebnis,
-} from "@/components/admin/erlebnisSessionStore";
+import { fetchErlebnisRecord, saveErlebnisRecord } from "@/lib/erlebnisApiClient";
 
 export type ErlebnisSectionKey =
   | "allgemein"
@@ -38,12 +32,9 @@ function formatTimestamp(date: Date): string {
   return `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()} · ${pad(date.getHours())}:${pad(date.getMinutes())} Uhr`;
 }
 
-/**
- * Session hat Vorrang vor Seed-Daten.
- * Seeds dienen nur als Initialstand, bis der Redakteur das erste Mal speichert.
- */
-export function loadErlebnisRecord(slug: string): ErlebnisRecord | undefined {
-  return getSessionErlebnisBySlug(slug) ?? getErlebnisBySlug(slug);
+/** Lädt Erlebnis aus dem serverseitigen Store (AP-0023). */
+export async function loadErlebnisRecord(slug: string): Promise<ErlebnisRecord | undefined> {
+  return fetchErlebnisRecord(slug);
 }
 
 export function mergeErlebnisSection<K extends ErlebnisSectionKey>(
@@ -74,12 +65,11 @@ export function mergeErlebnisSection<K extends ErlebnisSectionKey>(
   return next;
 }
 
-export function persistErlebnisSection<K extends ErlebnisSectionKey>(
+export async function persistErlebnisSection<K extends ErlebnisSectionKey>(
   record: ErlebnisRecord,
   section: K,
   data: ErlebnisSectionDataMap[K],
-): ErlebnisRecord {
+): Promise<ErlebnisRecord> {
   const next = mergeErlebnisSection(record, section, data);
-  saveSessionErlebnis(next);
-  return next;
+  return saveErlebnisRecord(next);
 }

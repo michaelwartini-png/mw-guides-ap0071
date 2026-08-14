@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import { registerNewErlebnis } from "@/components/admin/erlebnisSessionStore";
+import { createErlebnisRecord } from "@/lib/erlebnisApiClient";
 
 const KATEGORIEN = [
   "Mit besonderen Verkehrsmitteln unterwegs",
@@ -17,17 +17,21 @@ export function NeuesErlebnisForm() {
   const [name, setName] = useState("");
   const [website, setWebsite] = useState("");
   const [kategorie, setKategorie] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
 
-    const record = registerNewErlebnis({ name });
-
-    const params = new URLSearchParams({
-      created: "1",
-      name: record.name,
-    });
-    router.push(`/admin?${params.toString()}`);
+    try {
+      const record = await createErlebnisRecord({ name });
+      router.push(`/admin/erlebnis/${record.slug}?created=1&name=${encodeURIComponent(record.name)}`);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erstellen fehlgeschlagen.");
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -42,6 +46,7 @@ export function NeuesErlebnisForm() {
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="z. B. Katamaran Konstanz–Friedrichshafen"
+          required
           className="w-full rounded-xl border border-[var(--mwg-line)] bg-paper-raised px-4 py-3 text-[15px] outline-none transition-colors focus:border-accent"
         />
       </div>
@@ -79,11 +84,18 @@ export function NeuesErlebnisForm() {
         </select>
       </div>
 
+      {error ? (
+        <p role="alert" className="text-[14px] text-red-600">
+          {error}
+        </p>
+      ) : null}
+
       <button
         type="submit"
-        className="inline-flex items-center justify-center rounded-full bg-accent px-8 py-3 text-[14.5px] font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_-12px_rgba(47,111,111,0.55)]"
+        disabled={isSubmitting}
+        className="inline-flex items-center justify-center rounded-full bg-accent px-8 py-3 text-[14.5px] font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_-12px_rgba(47,111,111,0.55)] disabled:opacity-60"
       >
-        Erlebnis erstellen
+        {isSubmitting ? "Wird erstellt…" : "Erlebnis erstellen"}
       </button>
     </form>
   );

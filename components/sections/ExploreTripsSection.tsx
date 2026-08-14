@@ -1,36 +1,28 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
+import { Button } from "@/components/ui/Button";
 import { ExploreTripCard } from "@/components/explore-trips/ExploreTripCard";
 import { exploreTrips } from "@/content/exploreTrips";
+import type { ExploreTrip } from "@/types/exploreTrip";
+
+const HOMEPAGE_TRIP_SLUGS = ["bodensee", "mailand-unlimited", "wien-bratislava"];
 
 /**
- * AP-002.2: the homepage's second experience world, placed directly
- * after Ride Guides so the two are read as parallel and equal — the
- * core structural fix requested in AP-002.2.
- *
- * AP-007: now placed *before* Ride Guides (see app/page.tsx) — Explore
- * Trips are the inspiration entry point per the updated brand strategy.
- *
- * AP-008.1/AP-008.2: added the section's first explanatory sentences.
- *
- * AP-007.1 (UX review): those sentences described the *relationship* to
- * Ride Guides but never explained what an Explore Trip actually *is* —
- * a first-time visitor still had to infer "ein Hotel, viele
- * Möglichkeiten, kein fester Tagesplan" from context. Rewritten to name
- * this directly. "Alles kann – nichts muss" now appears exactly once on
- * the entire platform, here — removed from all three individual Explore
- * Trip pages (see content/exploreTrips.ts), where it had become a
- * repeated stock phrase instead of a single, memorable maxim.
+ * Homepage Explore Trips gallery. AP-PP000.3: this is the start of the
+ * journey — visually weighted above Ride Guides, with a primary CTA
+ * into the Europe entry.
  */
 export function ExploreTripsSection() {
+  const featured = HOMEPAGE_TRIP_SLUGS.map((slug) =>
+    exploreTrips.find((trip) => trip.slug === slug),
+  ).filter((trip): trip is ExploreTrip => trip !== undefined);
+
   return (
     <section id="explore-trips" className="mx-auto max-w-[1240px] px-6 py-28 lg:px-10 lg:py-40">
-      <Reveal className="mb-14 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end lg:mb-20">
+      <Reveal className="mb-14 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end lg:mb-20">
         <div>
           <h2 className="mwg-display-xl max-w-[16ch]">Explore Trips</h2>
           <p className="mt-5 max-w-[28ch] font-display text-[24px] italic leading-snug text-[var(--mwg-ink)]">
-            Ein Hotel. Viele Möglichkeiten.
+            Hier beginnt deine Reise.
           </p>
           <p className="mt-4 max-w-[52ch] text-[17px] leading-[1.6] text-[var(--mwg-ink-70)]">
             Der Ausgangspunkt bleibt derselbe, die Ziele wechseln täglich —
@@ -40,17 +32,13 @@ export function ExploreTripsSection() {
             <span className="text-[var(--mwg-ink)]"> Alles kann — nichts muss.</span>
           </p>
         </div>
-        <Link
-          href="/explore-trips"
-          className="group flex shrink-0 items-center gap-1.5 text-[14px] font-medium text-[var(--mwg-ink-70)] transition-colors hover:text-[var(--mwg-ink)]"
-        >
-          Alle Explore Trips
-          <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </Link>
+        <Button href="/explore-trips" variant="accent" className="shrink-0">
+          Explore Trips entdecken
+        </Button>
       </Reveal>
 
-      <div className="grid gap-3 sm:grid-cols-3">
-        {exploreTrips.map((trip, i) => (
+      <div className="grid gap-5 sm:grid-cols-3 sm:gap-6">
+        {featured.map((trip, i) => (
           <Reveal key={trip.slug} delayMs={i * 90}>
             <ExploreTripCard trip={trip} />
           </Reveal>

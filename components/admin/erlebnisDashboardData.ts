@@ -1,11 +1,8 @@
-import {
-  ERLEBNIS_LIST,
-  type ErlebnisRecord,
-} from "@/components/admin/erlebnisData";
+import type { ErlebnisRecord } from "@/components/admin/erlebnisData";
 import { getErlebnisprofilCompleteness } from "@/components/admin/products/erlebnisprofilProduct";
-import { loadSessionErlebnisse } from "@/components/admin/erlebnisSessionStore";
+import type { PublicationStatus } from "@/lib/erlebnisPublication";
 
-export type ErlebnisStatus = "Entwurf" | "In Bearbeitung" | "Veröffentlicht";
+export type ErlebnisStatus = PublicationStatus;
 
 export type DashboardErlebnis = {
   id: string;
@@ -16,11 +13,9 @@ export type DashboardErlebnis = {
   progress: number;
   lastModifiedAt: string;
   lastModifiedLabel: string;
-  /** Dynamische Karte (Neu/Duplikat) – gespeichert in sessionStorage */
-  isTemporary?: boolean;
 };
 
-function toDashboardErlebnis(record: ErlebnisRecord, isTemporary = false): DashboardErlebnis {
+export function toDashboardErlebnis(record: ErlebnisRecord): DashboardErlebnis {
   const completeness = getErlebnisprofilCompleteness(record).percent;
   return {
     id: record.slug,
@@ -31,35 +26,7 @@ function toDashboardErlebnis(record: ErlebnisRecord, isTemporary = false): Dashb
     progress: completeness > 0 ? completeness : record.progress,
     lastModifiedAt: record.lastModifiedAt,
     lastModifiedLabel: record.lastModifiedLabel,
-    isTemporary,
   };
-}
-
-export const DASHBOARD_ERLEBNISSE: DashboardErlebnis[] = ERLEBNIS_LIST.map((record) =>
-  toDashboardErlebnis(record),
-);
-
-export function toDashboardErlebnisFromRecord(record: ErlebnisRecord): DashboardErlebnis {
-  return toDashboardErlebnis(record, true);
-}
-
-export function getInitialDashboardErlebnisse(): DashboardErlebnis[] {
-  const session = loadSessionErlebnisse();
-
-  const mergedSeeds = ERLEBNIS_LIST.map((seed) => {
-    const sessionRecord = session[seed.slug];
-    if (sessionRecord) {
-      return toDashboardErlebnis(sessionRecord, false);
-    }
-    return toDashboardErlebnis(seed);
-  });
-
-  const sessionOnlySlugs = new Set(ERLEBNIS_LIST.map((record) => record.slug));
-  const sessionOnly = Object.values(session)
-    .filter((record) => !sessionOnlySlugs.has(record.slug))
-    .map((record) => toDashboardErlebnisFromRecord(record));
-
-  return [...mergedSeeds, ...sessionOnly];
 }
 
 export type ErlebnisFilter = "Alle" | ErlebnisStatus;
@@ -70,8 +37,9 @@ export function getDashboardStats(erlebnisse: DashboardErlebnis[]) {
   return {
     total: erlebnisse.length,
     entwurf: erlebnisse.filter((item) => item.status === "Entwurf").length,
+    inPruefung: erlebnisse.filter((item) => item.status === "In Prüfung").length,
     veroeffentlicht: erlebnisse.filter((item) => item.status === "Veröffentlicht").length,
-    inBearbeitung: erlebnisse.filter((item) => item.status === "In Bearbeitung").length,
+    archiviert: erlebnisse.filter((item) => item.status === "Archiviert").length,
   };
 }
 

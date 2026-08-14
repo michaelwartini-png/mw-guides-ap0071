@@ -1,5 +1,6 @@
 import type { Erlebnisdetail } from "@/types/erlebnisdetail";
 import type { ExplorerHighlight } from "@/types/explorerHighlight";
+import { getExploreTripBySlug } from "@/content/exploreTrips";
 import { getHighlightBySlug } from "@/content/explorerHighlights";
 
 /** Build a minimal detail page from highlight card data when no bespoke entry exists. */
@@ -7,6 +8,9 @@ export function createDetailFromHighlight(
   tripSlug: string,
   highlight: ExplorerHighlight,
 ): Erlebnisdetail {
+  const trip = getExploreTripBySlug(tripSlug);
+  const region = trip?.title ?? highlight.location;
+
   return {
     slug: highlight.slug,
     tripSlug,
@@ -17,7 +21,7 @@ export function createDetailFromHighlight(
     heroImageAlt: highlight.imageAlt,
     stats: [
       { icon: "calendar", label: "Saison", value: "Ganzjährig" },
-      { icon: "route", label: "Region", value: "Bodensee" },
+      { icon: "route", label: "Region", value: region },
     ],
     score: 8.5,
     scoreCategories: [
@@ -27,23 +31,25 @@ export function createDetailFromHighlight(
       { label: "Fotopotenzial", value: 8.5 },
     ],
     description: highlight.description,
-    features: [{ icon: "view", label: "Einzigartiges Erlebnis am Bodensee" }],
+    features: [{ icon: "view", label: `Einzigartiges Erlebnis in ${region}` }],
     practicalInfo: [
-      { label: "Region", value: "Bodensee" },
+      { label: "Region", value: region },
       { label: "Saison", value: "Ganzjährig" },
     ],
     gallery: [{ src: highlight.image, alt: highlight.imageAlt }],
     reviews: [{ source: "google", rating: 4.0 }],
     recommendations: [],
     combinations: [],
-    includedInTrips: [
-      {
-        slug: "bodensee",
-        title: "Bodensee Unlimited",
-        image: "/images/explore-trips/bodensee-hero.jpg",
-        imageAlt: "Bodensee Unlimited",
-      },
-    ],
+    includedInTrips: trip
+      ? [
+          {
+            slug: trip.slug,
+            title: trip.title,
+            image: trip.heroImage,
+            imageAlt: trip.heroImageAlt,
+          },
+        ]
+      : [],
     addedCount: highlight.addedCount,
   };
 }

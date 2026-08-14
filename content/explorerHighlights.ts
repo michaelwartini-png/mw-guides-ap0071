@@ -214,7 +214,76 @@ const bodenseeHighlights: ExplorerHighlightsByTrip = {
   ],
 };
 
-export const explorerHighlights: ExplorerHighlightsByTrip[] = [bodenseeHighlights];
+const mailandHighlights: ExplorerHighlightsByTrip = {
+  tripSlug: "mailand-unlimited",
+  highlights: [
+    {
+      slug: "strassenbahn-mailand",
+      erlebnisweltSlug: "mobilitaet",
+      title: "Historische Straßenbahn Mailand",
+      location: "Mailand",
+      description:
+        "Vom Dom über die Navigli bis Porta Ticinese — die Stadt von der Schiene aus.",
+      image: "/images/explore-trips/mailand-ride-guides.jpg",
+      imageAlt: "Historische Straßenbahn in Mailand",
+    },
+    {
+      slug: "metro-mailand",
+      erlebnisweltSlug: "mobilitaet",
+      title: "Metro Mailand",
+      location: "Mailand",
+      description:
+        "Unter der Stadt: Architektur, Alltag und verborgene Stationen der M1–M5.",
+      image: "/images/explore-trips/mailand-mobilitaet.jpg",
+      imageAlt: "Metro Mailand unter der Stadt",
+    },
+    {
+      slug: "como-faehren",
+      erlebnisweltSlug: "natur",
+      title: "Como-Fähren",
+      location: "Comer See",
+      description:
+        "Villen, Uferpromenaden und Alpenpanorama — der See als Tagesausflug ab Mailand.",
+      image: "/images/explore-trips/mailand-natur.jpg",
+      imageAlt: "Fähre auf dem Comer See",
+    },
+    {
+      slug: "bergamo-seilbahn",
+      erlebnisweltSlug: "mobilitaet",
+      title: "Bergamo Seilbahn",
+      location: "Bergamo",
+      description:
+        "Die Funicolare hinauf in die Città Alta — mittelalterliche Gassen über der Ebene.",
+      image: "/images/explore-trips/mailand-besondere-erlebnisse.jpg",
+      imageAlt: "Seilbahn nach Bergamo Città Alta",
+    },
+    {
+      slug: "navigli",
+      erlebnisweltSlug: "kulinarik",
+      title: "Navigli-Viertel",
+      location: "Mailand",
+      description:
+        "Kanäle, Ateliers und Aperitivo — Mailands lebendigstes Viertel am Wasser.",
+      image: "/images/explore-trips/mailand-kulinarik.jpg",
+      imageAlt: "Navigli-Viertel in Mailand am Abend",
+    },
+    {
+      slug: "duomo-dach",
+      erlebnisweltSlug: "staedte",
+      title: "Duomo-Dach",
+      location: "Mailand",
+      description:
+        "Marmor, Statuen und die Stadt zu Füßen — der Mailänder Dom von oben.",
+      image: "/images/explore-trips/mailand-staedte.jpg",
+      imageAlt: "Blick vom Dach des Mailänder Doms",
+    },
+  ],
+};
+
+export const explorerHighlights: ExplorerHighlightsByTrip[] = [
+  bodenseeHighlights,
+  mailandHighlights,
+];
 
 export function getHighlightsByTripSlug(tripSlug: string) {
   return explorerHighlights.find((h) => h.tripSlug === tripSlug)?.highlights ?? [];

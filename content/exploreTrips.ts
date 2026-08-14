@@ -1,5 +1,10 @@
 import type { ExploreTrip } from "@/types/exploreTrip";
 
+/** AP-ET002 — shared Trip-Explorer explanation for landing "Das Konzept". */
+export const TRIP_EXPLORER_EXPLAINER_HEADING = "Reise jenseits des Reiseführers.";
+export const TRIP_EXPLORER_EXPLAINER =
+  "Ein Trip Explorer zeigt dir außergewöhnliche Regionen und Erlebnisbausteine, die klassische Reiseführer oft übersehen. Statt stundenlang zu recherchieren, stellst du deine persönliche Reise flexibel selbst zusammen. MW Guides spart dir Zeit und hilft dir dabei, mehr zu erleben.";
+
 /**
  * The three real Explore Trips. Content migrated unchanged from the
  * former /reiseideen layer (AP-002.2) — only `category` → `theme` was
@@ -154,6 +159,8 @@ export const exploreTrips: ExploreTrip[] = [
       conceptHeading: "Mailand ist dein Ausgangspunkt. Du bestimmst den Kurs.",
       conceptIntro:
         "Wer eine Woche durch Norditalien reist, packt gewöhnlich fünfmal den Koffer. Mailand Unlimited braucht genau einen. Die Stadt bleibt Basis, die Ziele wechseln — Alpen am Vormittag, Seeufer am Nachmittag, Mailand selbst am Abend.",
+      conceptExplainerHeading: TRIP_EXPLORER_EXPLAINER_HEADING,
+      conceptExplainer: TRIP_EXPLORER_EXPLAINER,
       conceptLink: { href: "#konzept", label: "Mehr über das Konzept" },
       conceptIllustration: {
         src: "/images/explore-trips/mailand-concept-illustration.png",
@@ -175,65 +182,18 @@ export const exploreTrips: ExploreTrip[] = [
         { slug: "aktiv", title: "Aktiv" },
         { slug: "ride-guides", title: "Ride Guides" },
       ],
-      rideGuidesHeading: "Ride Guides – Deine Touren ab Mailand.",
-      rideGuides: [
-        {
-          slug: "strassenbahn-mailand",
-          title: "Historische Straßenbahn Mailand",
-          description: "Vom Dom über die Navigli bis Porta Ticinese — die Stadt von der Schiene aus.",
-          image: "/images/explore-trips/mailand-ride-guides.jpg",
-          imageAlt: "Historische Straßenbahn in Mailand",
-          available: false,
-          duration: "20 Min.",
-          format: "Audio Guide",
-          price: "6,99 €",
-        },
-        {
-          slug: "metro-mailand",
-          title: "Metro Mailand",
-          description: "Unter der Stadt: Architektur, Alltag und verborgene Stationen der M1–M5.",
-          image: "/images/explore-trips/mailand-mobilitaet.jpg",
-          imageAlt: "Metro Mailand unter der Stadt",
-          available: false,
-          duration: "25 Min.",
-          format: "Audio Guide",
-          price: "6,99 €",
-        },
-        {
-          slug: "como-faehren",
-          title: "Como-Fähren",
-          description: "Villen, Uferpromenaden und Alpenpanorama — der See als Tagesausflug ab Mailand.",
-          image: "/images/explore-trips/mailand-natur.jpg",
-          imageAlt: "Fähre auf dem Comer See",
-          available: false,
-          duration: "30 Min.",
-          format: "Audio Guide",
-          price: "6,99 €",
-        },
-        {
-          slug: "bergamo-seilbahn",
-          title: "Bergamo Seilbahn",
-          description: "Die Funicolare hinauf in die Città Alta — mittelalterliche Gassen über der Ebene.",
-          image: "/images/explore-trips/mailand-besondere-erlebnisse.jpg",
-          imageAlt: "Seilbahn nach Bergamo Città Alta",
-          available: false,
-          duration: "20 Min.",
-          format: "Audio Guide",
-          price: "6,99 €",
-        },
-        {
-          slug: "navigli",
-          title: "Navigli Tour",
-          description: "Kanäle, Ateliers und Aperitivo — Mailands lebendigstes Viertel am Wasser.",
-          image: "/images/explore-trips/mailand-kulinarik.jpg",
-          imageAlt: "Navigli-Viertel in Mailand am Abend",
-          available: false,
-          duration: "35 Min.",
-          format: "Audio Guide",
-          price: "6,99 €",
-        },
+      highlightsHeading: "Weitere Erlebnisbausteine entdecken",
+      highlightsFromExplorer: [
+        "strassenbahn-mailand",
+        "metro-mailand",
+        "como-faehren",
+        "bergamo-seilbahn",
+        "navigli",
       ],
-      rideGuidesViewAll: { href: "/touren", label: "Alle Ride Guides ansehen" },
+      highlightsViewAll: {
+        href: "/explore-trips/mailand-unlimited/explorer",
+        label: "Alle Erlebnisbausteine anzeigen",
+      },
       platformUsps: [
         {
           title: "Individuell reisen",
@@ -257,7 +217,7 @@ export const exploreTrips: ExploreTrip[] = [
         },
         {
           title: "Bis zu 20 Sprachen",
-          description: "Ride Guides in deiner Sprache.",
+          description: "Inhalte in deiner Sprache.",
           icon: "languages",
         },
         {
@@ -270,7 +230,7 @@ export const exploreTrips: ExploreTrip[] = [
       closingImageAlt: "Navigli-Kanäle in Mailand bei Abendstimmung",
       closingHeadline: "Bereit für dein Abenteuer in Mailand?",
       closingSubtitle:
-        "Öffne den Trip Explorer und entdecke alle Erlebniswelten, Ride Guides und Tagesziele rund um Mailand.",
+        "Öffne den Trip Explorer und entdecke alle Erlebniswelten und Erlebnisbausteine rund um Mailand.",
       closingButtonSubtext: "Der nächste Schritt zu deinem perfekten Trip.",
     },
     sections: [],
@@ -280,8 +240,8 @@ export const exploreTrips: ExploreTrip[] = [
     theme: "reiseregion",
     title: "Wien & Bratislava",
     teaser: "Zwei Hauptstädte. Ein Fluss. Unzählige Erlebnisse dazwischen.",
-    heroImage: "/images/explore-trips/wien-bratislava-hero.jpg",
-    heroImageAlt: "Panorama von Bratislava mit Burg und Donau, von der Neuen Brücke aus gesehen",
+    heroImage: "/images/explore-trips/wien-donau.png",
+    heroImageAlt: "Donau in Wien mit Brücke und Riesenrad im Abendlicht",
     subtitle: "Zwei Hauptstädte. Ein Fluss.",
     usp:
       "Zwei Hauptstädte, ein Gepäckstück. Statt zweimal einzuchecken, bleibt ein Zimmer die ganze Woche über reserviert — die Donau übernimmt den Rest der Fahrt. Sie verbindet Wien und Bratislava nicht nur geografisch, sondern macht die Strecke selbst zum Erlebnis.",
@@ -348,6 +308,8 @@ export const exploreTrips: ExploreTrip[] = [
       conceptHeading: "Warum dieser Explore Trip?",
       conceptIntro:
         "Statt jeden Tag den Koffer zu packen, bleibt ein Zimmer am Bodensee die ganze Woche über reserviert. Von dort aus erkundest du Deutschland, Österreich und die Schweiz per Schiff, Bahn und Zeppelin – ohne jeden Morgen neu einzuchecken.",
+      conceptExplainerHeading: TRIP_EXPLORER_EXPLAINER_HEADING,
+      conceptExplainer: TRIP_EXPLORER_EXPLAINER,
       conceptLink: { href: "#konzept", label: "Mehr über das Konzept" },
       conceptIllustration: {
         src: "/images/explore-trips/bodensee-concept-illustration.png",
@@ -369,65 +331,18 @@ export const exploreTrips: ExploreTrip[] = [
         { slug: "aktiv", title: "Aktiv" },
         { slug: "ride-guides", title: "Ride Guides" },
       ],
-      rideGuidesHeading: "Ride Guides – Deine Touren am und rund um den Bodensee.",
-      rideGuides: [
-        {
-          slug: "strassenbahn-konstanz",
-          title: "Historische Straßenbahn Konstanz",
-          description: "Durch die Altstadt und entlang des Sees — Konstanz von der Schiene aus.",
-          image: "/images/explore-trips/bodensee-konstanz.jpg",
-          imageAlt: "Historische Straßenbahn in Konstanz",
-          available: false,
-          duration: "20 Min.",
-          format: "Audio Guide",
-          price: "6,99 €",
-        },
-        {
-          slug: "strassenbahn-friedrichshafen",
-          title: "Historische Straßenbahn Friedrichshafen",
-          description: "Hafen, Zeppelinstadt und Seepromenade — Friedrichshafen auf Schienen.",
-          image: "/images/explore-trips/bodensee-zeppelin.jpg",
-          imageAlt: "Historische Straßenbahn in Friedrichshafen",
-          available: false,
-          duration: "25 Min.",
-          format: "Audio Guide",
-          price: "6,99 €",
-        },
-        {
-          slug: "schifffahrt-konstanz",
-          title: "Schifffahrt Konstanz",
-          description: "Drei Länder, ein See — die wichtigsten Strecken der Bodenseeschifffahrt.",
-          image: "/images/explore-trips/bodensee-konstanz.jpg",
-          imageAlt: "Schifffahrt ab Konstanz",
-          available: false,
-          duration: "30 Min.",
-          format: "Audio Guide",
-          price: "6,99 €",
-        },
-        {
-          slug: "zug-am-see",
-          title: "Zug am See",
-          description: "Panoramafenster und Seeblick — die Bodenseegürtelbahn im Minutentakt.",
-          image: "/images/explore-trips/bodensee-bahn.jpg",
-          imageAlt: "Zugstrecke entlang des Bodensees",
-          available: false,
-          duration: "35 Min.",
-          format: "Audio Guide",
-          price: "6,99 €",
-        },
-        {
-          slug: "zeppelin",
-          title: "Zeppelin",
-          description: "Über Friedrichshafen und den See — Geschichte und Alltag aus der Luft.",
-          image: "/images/explore-trips/bodensee-zeppelin.jpg",
-          imageAlt: "Zeppelin-Rundflug über den Bodensee",
-          available: false,
-          duration: "20 Min.",
-          format: "Audio Guide",
-          price: "6,99 €",
-        },
+      highlightsHeading: "Noch mehr Highlights am Bodensee",
+      highlightsFromExplorer: [
+        "katamaran-konstanz-friedrichshafen",
+        "strassenbahn-konstanz",
+        "zeppelin-rundflug",
+        "insel-mainau",
+        "zeppelin-museum",
       ],
-      rideGuidesViewAll: { href: "/touren", label: "Alle Ride Guides ansehen" },
+      highlightsViewAll: {
+        href: "/explore-trips/bodensee/explorer",
+        label: "Alle Erlebnisbausteine anzeigen",
+      },
       platformUsps: [
         {
           title: "Individuell reisen",
@@ -451,7 +366,7 @@ export const exploreTrips: ExploreTrip[] = [
         },
         {
           title: "Bis zu 20 Sprachen",
-          description: "Ride Guides in deiner Sprache.",
+          description: "Inhalte in deiner Sprache.",
           icon: "languages",
         },
         {
@@ -464,9 +379,76 @@ export const exploreTrips: ExploreTrip[] = [
       closingImageAlt: "Hafen von Konstanz am Bodensee bei Sonnenuntergang",
       closingHeadline: "Bereit für dein Abenteuer am Bodensee?",
       closingSubtitle:
-        "Öffne den Trip Explorer und entdecke alle Erlebniswelten, Ride Guides und besonderen Momente rund um den See.",
+        "Öffne den Trip Explorer und entdecke alle Erlebniswelten und Erlebnisbausteine rund um den See.",
       closingButtonSubtext: "Der nächste Schritt zu deinem perfekten Trip.",
     },
+    sections: [],
+  },
+
+  // ===================================================================
+  // AP-PP000 — additional Europe-entry examples. Magazine layout only
+  // (no Ride Guides, prices, or booking). Click targets from /explore-trips.
+  // ===================================================================
+  {
+    slug: "belgische-kueste",
+    theme: "reiseregion",
+    title: "Belgische Küste",
+    teaser:
+      "Nordsee, Dünen und Hafenstädte — Europas längste Straßenbahnlinie als Reiseidee.",
+    heroImage: "/images/explore-trips/belgische-kueste.png",
+    heroImageAlt: "Gelbe Küstentram entlang der belgischen Nordsee",
+    subtitle: "Eine Küste. Unzählige Haltestellen.",
+    usp: "Entlang der belgischen Nordsee reiht sich ein Ort an den nächsten — ohne jemals den Koffer neu packen zu müssen. Die Küste bleibt die Linie, die Städte und Dünen wechseln. Ein Ausgangspunkt, viele Tage am Meer.",
+    flexibility:
+      "Heute die Promenade, morgen ein Hafen, übermorgen einfach weiterfahren. Die Reihenfolge bestimmst du unterwegs.",
+    recommendedDuration: "4–6 Tage, höchstens ein Hotelwechsel",
+    highlights: [
+      { title: "Eine Linie als roter Faden", text: "Die Küste verbindet die Orte — nicht ein fester Tagesplan." },
+      { title: "Nordsee vor der Tür", text: "Dünen, Deiche und weites Wasser, ohne zwischen den Etappen umzuziehen." },
+      { title: "Hafenstädte in Reichweite", text: "Jeder Halt ein anderes Gesicht derselben Küste." },
+      { title: "Öffentlich unterwegs", text: "Straßenbahn und Fußweg statt Mietwagen entlang des Meeres." },
+    ],
+    sections: [],
+  },
+  {
+    slug: "amsterdam",
+    theme: "reiseregion",
+    title: "Amsterdam",
+    teaser: "Wasser, Schienen und eine Stadt, die sich langsam erschließt.",
+    heroImage: "/images/explore-trips/amsterdam-grachten.png",
+    heroImageAlt: "Grachten in Amsterdam mit historischen Fassaden und einem Kanalboot",
+    subtitle: "Eine Stadt. Ein Netz. Unzählige Richtungen.",
+    usp: "Amsterdam bleibt der Ausgangspunkt. Grachten, Schienen und das Umland liegen in Reichweite — ohne jeden Tag neu einzuchecken. Die Stadt erschließt sich langsam, die Richtung bestimmst du selbst.",
+    flexibility:
+      "Heute die Gracht, morgen das Meer, übermorgen einfach sitzen bleiben. Nichts davon ist Pflicht.",
+    recommendedDuration: "4–6 Tage, ein fester Ausgangspunkt",
+    highlights: [
+      { title: "Wasser als roter Faden", text: "Grachten und Küste verbinden die Tage, nicht ein fester Plan." },
+      { title: "Öffentlich unterwegs", text: "Bahn, Tram und Rad statt Mietwagen." },
+      { title: "Die Stadt als Basecamp", text: "Ein Ausgangspunkt, viele Richtungen." },
+      { title: "Langsam reisen", text: "Die Stadt zeigt sich, wenn man ihr Zeit lässt." },
+    ],
+    sections: [],
+  },
+  {
+    slug: "glacier-express",
+    theme: "reiseregion",
+    title: "Glacier Express",
+    teaser:
+      "Von den Gletschern Graubündens bis nach Zermatt — die Alpen im Panoramafenster.",
+    heroImage: "/images/explore-trips/bodensee-bahn.jpg",
+    heroImageAlt: "Zugfahrt durch eine alpine Landschaft",
+    subtitle: "Die Alpen. Ein Fenster. Dein Tempo.",
+    usp: "Der Glacier Express ist keine Durchreise, sondern der Ausgangspunkt. Täler, Passagen und Bergorte bleiben in Reichweite — ohne jeden Tag neu einzuchecken. Die Fahrt selbst ist das Erlebnis, der Rest entsteht daraus.",
+    flexibility:
+      "Heute das Tal, morgen der Pass, übermorgen einfach sitzen bleiben. Nichts davon ist Pflicht.",
+    recommendedDuration: "4–6 Tage, ein fester Ausgangspunkt",
+    highlights: [
+      { title: "Panorama statt Transfer", text: "Die Strecke ist die Sehenswürdigkeit — nicht nur der Weg dazwischen." },
+      { title: "Ein Tal als Basis", text: "Ankommen, bleiben, von dort aus entscheiden." },
+      { title: "Alpen ohne Mietwagen", text: "Bahn und öffentlicher Verkehr bis in die Täler." },
+      { title: "Gletscher und Dörfer", text: "Große Landschaft, kleine Orte, frei kombinierbar." },
+    ],
     sections: [],
   },
 ];

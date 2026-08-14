@@ -1,7 +1,14 @@
 export interface NavLink {
   label: string;
   href: string;
+  /** Optional quiet caption — display only, no new behaviour. */
+  hint?: string;
+  /** Visual weight in the primary nav — hierarchy only, no new destinations. */
+  weight?: "featured" | "quiet";
 }
+
+export const meineReiseHint =
+  "Speichere Explore Trips und setze deine Planung jederzeit fort.";
 
 /**
  * AP-002.2: exactly two content worlds, per explicit instruction —
@@ -14,8 +21,9 @@ export interface NavLink {
  * docs/AP-002-platform-architecture-strategy.md §6.
  */
 export const primaryNav: NavLink[] = [
-  { label: "Ride Guides", href: "/touren" },
-  { label: "Explore Trips", href: "/explore-trips" },
+  { label: "Explore Trips", href: "/explore-trips", weight: "featured" },
+  { label: "Ride Guides", href: "/touren", weight: "quiet" },
+  { label: "Meine Reise", href: "/meine-reise", hint: meineReiseHint },
   { label: "Über MW Guides", href: "/ueber" },
 ];
 

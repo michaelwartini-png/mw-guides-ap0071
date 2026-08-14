@@ -35,7 +35,8 @@ import type { WorkflowSection } from "@/components/admin/workflowData";
 export type ErlebnisSlug =
   | "katamaran-konstanz-friedrichshafen"
   | "wuppertaler-schwebebahn"
-  | "glacier-express";
+  | "glacier-express"
+  | (string & {});
 
 export type ErlebnisRecord = {
   slug: string;
@@ -46,6 +47,8 @@ export type ErlebnisRecord = {
   progress: number;
   lastModifiedAt: string;
   lastModifiedLabel: string;
+  /** ISO timestamp — gesetzt bei erster Veröffentlichung (AP-0023). */
+  publishedAt?: string;
   lastSaved: {
     date: string;
     time: string;

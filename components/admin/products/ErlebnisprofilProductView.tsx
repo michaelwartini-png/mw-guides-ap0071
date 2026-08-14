@@ -21,6 +21,8 @@ const SECTION_SOURCES: Record<ErlebnisprofilSectionId, string> = {
   description: "Bewertungen & Highlights",
   highlights: "Highlights",
   tipps: "MW Guides Tipps",
+  map: "Offizielle Informationen",
+  official: "Offizielle Informationen",
   gallery: "Galerie",
   reviews: "Bewertungen",
   practical: "Offizielle Informationen",
@@ -50,7 +52,11 @@ function buildAdminSlots(
 export function ErlebnisprofilProductView({ bundle }: ErlebnisprofilProductViewProps) {
   return (
     <div className="overflow-hidden rounded-2xl border border-[var(--mwg-line)] bg-[var(--mwg-paper-raised)] shadow-[0_40px_80px_-40px_rgba(26,26,24,0.18)]">
-      <ErlebnisprofilRenderer product={bundle.product} slots={buildAdminSlots(bundle)} />
+      <ErlebnisprofilRenderer
+        product={bundle.product}
+        mode="admin"
+        slots={buildAdminSlots(bundle)}
+      />
     </div>
   );
 }

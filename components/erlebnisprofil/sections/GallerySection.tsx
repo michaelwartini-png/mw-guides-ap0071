@@ -2,7 +2,6 @@
 
 import { useState, type ReactNode } from "react";
 import type { ErlebnisprofilGalleryImage } from "@/components/admin/products/erlebnisprofilProduct";
-import { ErlebnisprofilSectionHeading } from "@/components/erlebnisprofil/ErlebnisprofilSectionHeading";
 import { GalleryLightbox } from "@/components/erlebnisprofil/GalleryLightbox";
 
 interface GallerySectionProps {
@@ -17,19 +16,16 @@ export function GallerySection({ gallery, headingMeta }: GallerySectionProps) {
 
   return (
     <>
-      <section className="mt-16">
-        <ErlebnisprofilSectionHeading
-          eyebrow="Impressionen"
-          title="Bilder vom Erlebnis"
-          meta={headingMeta}
-        />
-        <div className="mt-6 flex gap-4 overflow-x-auto pb-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <section className="mx-auto mt-12 max-w-[1240px] px-6 lg:mt-16 lg:px-10">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">{headingMeta}</div>
+        <h2 className="font-display text-[22px] font-medium">Impressionen</h2>
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {gallery.map((bild, index) => (
             <button
               key={bild.src + bild.titel}
               type="button"
               onClick={() => setLightboxIndex(index)}
-              className="group relative h-[240px] w-[360px] shrink-0 overflow-hidden rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:h-[280px] sm:w-[420px]"
+              className="group relative aspect-[4/3] overflow-hidden rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               aria-label={`${bild.titel} vergrößern`}
               data-lightbox-index={index}
               data-lightbox-ready="true"
@@ -38,11 +34,8 @@ export function GallerySection({ gallery, headingMeta }: GallerySectionProps) {
               <img
                 src={bild.src}
                 alt={bild.alt}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
               />
-              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 py-4 text-left text-[13px] font-medium text-white">
-                {bild.titel}
-              </span>
             </button>
           ))}
         </div>

@@ -3,8 +3,8 @@
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnalyseWorkspace } from "@/components/admin/AnalyseWorkspace";
-import { loadErlebnisRecord } from "@/components/admin/erlebnisRecordStore";
 import type { ErlebnisRecord } from "@/components/admin/erlebnisData";
+import { fetchErlebnisRecord } from "@/lib/erlebnisApiClient";
 
 interface ErlebnisEditorLoaderProps {
   slug: string;
@@ -14,7 +14,7 @@ export function ErlebnisEditorLoader({ slug }: ErlebnisEditorLoaderProps) {
   const [erlebnis, setErlebnis] = useState<ErlebnisRecord | null | undefined>(undefined);
 
   useEffect(() => {
-    setErlebnis(loadErlebnisRecord(slug) ?? null);
+    void fetchErlebnisRecord(slug).then((record) => setErlebnis(record ?? null));
   }, [slug]);
 
   if (erlebnis === undefined) {

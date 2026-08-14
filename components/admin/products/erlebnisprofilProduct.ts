@@ -25,6 +25,29 @@ export type ErlebnisprofilStat = {
   source: string;
 };
 
+export type ErlebnisprofilHeroStatIcon = "clock" | "calendar" | "euro" | "building" | "route";
+
+export type ErlebnisprofilHeroStat = {
+  icon: ErlebnisprofilHeroStatIcon;
+  label: string;
+  value: string;
+  source: string;
+};
+
+export type ErlebnisprofilScoreCategory = {
+  label: string;
+  value: string;
+  source: string;
+};
+
+export type ErlebnisprofilMapInfo = {
+  adresse: string;
+  gps: string;
+  kartenlink: string;
+  anreiseHinweise: string;
+  source: string;
+};
+
 export type ErlebnisprofilImageRef = {
   src: string;
   alt: string;
@@ -64,6 +87,7 @@ export type ErlebnisprofilTipp = {
 export type ErlebnisprofilPracticalRow = {
   label: string;
   value: string;
+  href?: string;
   source: string;
 };
 
@@ -77,6 +101,9 @@ export type ErlebnisprofilProduct = {
   description: string;
   mwgScore: string;
   scoreBegruendung: string;
+  scoreCategories: ErlebnisprofilScoreCategory[];
+  rideGuideAvailable: boolean;
+  heroStats: ErlebnisprofilHeroStat[];
   stats: ErlebnisprofilStat[];
   features: ErlebnisprofilFeature[];
   gallery: ErlebnisprofilGalleryImage[];
@@ -96,10 +123,12 @@ export type ErlebnisprofilProduct = {
     kartenlink: string;
     source: string;
   };
+  mapInfo: ErlebnisprofilMapInfo;
   officialLinks: {
     fahrplan: string;
     preise: string;
     ticketshop: string;
+    website: string;
     source: string;
   };
   kategorie: string;
@@ -143,6 +172,79 @@ function buildDescription(erlebnis: ErlebnisRecord): string {
   return parts.join("\n\n");
 }
 
+function inferHeroStatIcon(label: string): ErlebnisprofilHeroStatIcon {
+  const normalized = label.toLowerCase();
+  if (normalized.includes("fahrzeit") || normalized.includes("dauer")) return "clock";
+  if (normalized.includes("saison") || normalized.includes("betrieb")) return "calendar";
+  if (normalized.includes("preis")) return "euro";
+  if (normalized.includes("betreiber")) return "building";
+  return "route";
+}
+
+function buildHeroStats(erlebnis: ErlebnisRecord): ErlebnisprofilHeroStat[] {
+  const stats: ErlebnisprofilHeroStat[] = [];
+  const { allgemein, offizielleInformationen: offiziell } = erlebnis;
+
+  const fahrplanLine = firstLine(offiziell.fahrplan);
+  if (fahrplanLine) {
+    stats.push({
+      icon: "clock",
+      label: "Betrieb",
+      value: fahrplanLine,
+      source: "Offizielle Informationen",
+    });
+  }
+
+  if (allgemein.orte.length >= 2) {
+    stats.push({
+      icon: "route",
+      label: "Verbindung",
+      value: allgemein.orte.join(" – "),
+      source: "Allgemein",
+    });
+  } else if (allgemein.orte.length === 1) {
+    stats.push({
+      icon: "route",
+      label: "Ort",
+      value: allgemein.orte[0] ?? "",
+      source: "Allgemein",
+    });
+  }
+
+  const preiseLine = firstLine(offiziell.preise);
+  if (preiseLine) {
+    stats.push({
+      icon: "euro",
+      label: "Preise",
+      value: preiseLine,
+      source: "Offizielle Informationen",
+    });
+  }
+
+  if (offiziell.betreiber.trim()) {
+    stats.push({
+      icon: "building",
+      label: "Betreiber",
+      value: offiziell.betreiber.trim(),
+      source: "Offizielle Informationen",
+    });
+  }
+
+  if (allgemein.regionen.length > 0) {
+    stats.push({
+      icon: "calendar",
+      label: "Region",
+      value: allgemein.regionen.join(", "),
+      source: "Allgemein",
+    });
+  }
+
+  return stats.slice(0, 5).map((stat) => ({
+    ...stat,
+    icon: inferHeroStatIcon(stat.label),
+  }));
+}
+
 function buildStats(erlebnis: ErlebnisRecord): ErlebnisprofilStat[] {
   const stats: ErlebnisprofilStat[] = [];
   const { allgemein, offizielleInformationen: offiziell, hero } = erlebnis;
@@ -183,17 +285,38 @@ function buildStats(erlebnis: ErlebnisRecord): ErlebnisprofilStat[] {
   return stats;
 }
 
+function splitSchedule(fahrplan: string): { oeffnungszeiten?: string; fahrplan?: string } {
+  const blocks = fahrplan
+    .split(/\n\s*\n/)
+    .map((block) => block.trim().replace(/\s*\n\s*/g, " "))
+    .filter(Boolean);
+
+  if (blocks.length === 0) return {};
+  if (blocks.length === 1) return { fahrplan: blocks[0] };
+  return {
+    oeffnungszeiten: blocks[0],
+    fahrplan: blocks.slice(1).join(" "),
+  };
+}
+
+function fahrradValue(offiziell: ErlebnisRecord["offizielleInformationen"]): string | undefined {
+  const priceLine = offiziell.preise
+    .split("\n")
+    .map((line) => line.trim())
+    .find((line) => line.toLowerCase().includes("fahrrad"));
+  if (priceLine) {
+    return priceLine.replace(/^fahrradmitnahme:\s*/i, "").trim();
+  }
+  if (offiziell.barrierefreiheit.fahrradmitnahme) return "möglich";
+  return undefined;
+}
+
 function buildPracticalInfo(erlebnis: ErlebnisRecord): ErlebnisprofilPracticalRow[] {
   const rows: ErlebnisprofilPracticalRow[] = [];
   const offiziell = erlebnis.offizielleInformationen;
+  const schedule = splitSchedule(offiziell.fahrplan);
+  const bike = fahrradValue(offiziell);
 
-  if (offiziell.fahrplan.trim()) {
-    rows.push({
-      label: "Fahrplan",
-      value: offiziell.fahrplan.trim(),
-      source: "Offizielle Informationen",
-    });
-  }
   if (offiziell.preise.trim()) {
     rows.push({
       label: "Preise",
@@ -201,14 +324,45 @@ function buildPracticalInfo(erlebnis: ErlebnisRecord): ErlebnisprofilPracticalRo
       source: "Offizielle Informationen",
     });
   }
-
-  getActiveBarrierefreiheitLabels(offiziell).forEach((label) => {
+  if (schedule.fahrplan) {
     rows.push({
-      label: "Barrierefreiheit",
-      value: label,
+      label: "Fahrplan",
+      value: schedule.fahrplan,
       source: "Offizielle Informationen",
     });
-  });
+  }
+  if (offiziell.ticketshop.trim()) {
+    rows.push({
+      label: "Tickets",
+      value: "Tickets buchen",
+      href: offiziell.ticketshop.trim(),
+      source: "Offizielle Informationen",
+    });
+  }
+  if (bike) {
+    rows.push({
+      label: "Fahrradmitnahme",
+      value: bike,
+      source: "Offizielle Informationen",
+    });
+  }
+  if (schedule.oeffnungszeiten) {
+    rows.push({
+      label: "Öffnungszeiten",
+      value: schedule.oeffnungszeiten,
+      source: "Offizielle Informationen",
+    });
+  }
+
+  getActiveBarrierefreiheitLabels(offiziell)
+    .filter((label) => label !== "Fahrradmitnahme")
+    .forEach((label) => {
+      rows.push({
+        label: "Barrierefreiheit",
+        value: label,
+        source: "Offizielle Informationen",
+      });
+    });
 
   if (offiziell.standortAnreise.anreiseHinweise.trim()) {
     rows.push({
@@ -237,6 +391,15 @@ export function generateErlebnisprofil(erlebnis: ErlebnisRecord): Erlebnisprofil
     description: buildDescription(erlebnis),
     mwgScore: erlebnis.bewertungen.mwgScore.trim() || erlebnis.hero.score.trim(),
     scoreBegruendung: erlebnis.bewertungen.kurzbegruendung.trim(),
+    scoreCategories: (erlebnis.bewertungen.scoreCategories ?? [])
+      .filter((category) => category.label.trim() && category.value.trim())
+      .map((category) => ({
+        label: category.label.trim(),
+        value: category.value.trim(),
+        source: "Bewertungen",
+      })),
+    rideGuideAvailable: erlebnis.hero.rideGuideAvailable,
+    heroStats: buildHeroStats(erlebnis),
     stats: buildStats(erlebnis),
     features: getActiveHighlights(erlebnis.highlights.items).map((item) => ({
       label: item.titel,
@@ -285,10 +448,18 @@ export function generateErlebnisprofil(erlebnis: ErlebnisRecord): Erlebnisprofil
       kartenlink: erlebnis.offizielleInformationen.standortAnreise.kartenlink,
       source: "Offizielle Informationen",
     },
+    mapInfo: {
+      adresse: erlebnis.offizielleInformationen.standortAnreise.adresse,
+      gps: formatGps(erlebnis.offizielleInformationen.standortAnreise) ?? "",
+      kartenlink: erlebnis.offizielleInformationen.standortAnreise.kartenlink,
+      anreiseHinweise: erlebnis.offizielleInformationen.standortAnreise.anreiseHinweise.trim(),
+      source: "Offizielle Informationen",
+    },
     officialLinks: {
       fahrplan: erlebnis.offizielleInformationen.fahrplan,
       preise: erlebnis.offizielleInformationen.preise,
       ticketshop: erlebnis.offizielleInformationen.ticketshop,
+      website: getEffectiveOffizielleWebseite(erlebnis.offizielleInformationen),
       source: "Offizielle Informationen",
     },
     kategorie: erlebnis.allgemein.kategorie,

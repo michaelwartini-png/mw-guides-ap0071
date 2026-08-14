@@ -5,6 +5,7 @@ import { AdminSecondaryButton } from "@/components/admin/adminButtons";
 import { ProductHerkunftOverview } from "@/components/admin/EditorRedakteurPanel";
 import type { ErlebnisRecord } from "@/components/admin/erlebnisData";
 import { ErlebnisprofilProductView } from "@/components/admin/products/ErlebnisprofilProductView";
+import { PublishPanel } from "@/components/admin/products/PublishPanel";
 import {
   generateErlebnisprofilBundle,
   getErlebnisprofilCompleteness,
@@ -16,9 +17,10 @@ import { RefreshCw, Sparkles } from "lucide-react";
 
 interface ProduktStudioProps {
   erlebnis: ErlebnisRecord;
+  onRecordChange?: (record: ErlebnisRecord) => void;
 }
 
-export function ProduktStudio({ erlebnis }: ProduktStudioProps) {
+export function ProduktStudio({ erlebnis, onRecordChange }: ProduktStudioProps) {
   const [selectedProductId, setSelectedProductId] = useState<ProductId>("erlebnisprofil");
   const [generatedAt, setGeneratedAt] = useState<number>(() => Date.now());
   const [isRegenerating, setIsRegenerating] = useState(false);
@@ -112,6 +114,9 @@ export function ProduktStudio({ erlebnis }: ProduktStudioProps) {
 
       {selectedProductId === "erlebnisprofil" ? (
         <div className="space-y-4">
+          {onRecordChange ? (
+            <PublishPanel erlebnis={erlebnis} onRecordChange={onRecordChange} />
+          ) : null}
           <ProductHerkunftOverview />
           <ErlebnisprofilProductView bundle={erlebnisprofilBundle} />
         </div>

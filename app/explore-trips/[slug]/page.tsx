@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, Clock } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/footer/Footer";
+import { ErlebnisprofilBreadcrumbs } from "@/components/erlebnisprofil/ErlebnisprofilBreadcrumbs";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
 import { EditorialBlock } from "@/components/editorial/EditorialBlock";
@@ -79,6 +80,12 @@ export default async function ExploreTripDetailPage({ params }: ExploreTripPageP
     <>
       <Header />
       <main className="flex-1">
+        <ErlebnisprofilBreadcrumbs
+          items={[
+            { label: "Europa", href: "/explore-trips" },
+            { label: trip.title },
+          ]}
+        />
         <div className="relative flex h-[64vh] min-h-[440px] items-end overflow-hidden p-6 lg:p-12">
           <Image
             src={trip.heroImage}
@@ -307,13 +314,16 @@ export default async function ExploreTripDetailPage({ params }: ExploreTripPageP
               <h2 className="mwg-display-lg mx-auto max-w-[18ch]">
                 Genau diese Reise möchte ich erleben.
               </h2>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
                 <Button href="/explore-trips" variant="accent">
-                  {trip.ctaLabel ?? "Alle Explore Trips ansehen"}
+                  {trip.ctaLabel ?? "Explore Trips entdecken"}
                 </Button>
-                <Button href="/touren" variant="ghost-dark">
-                  Ride Guides entdecken
-                </Button>
+                <Link
+                  href="/touren"
+                  className="text-[14px] font-medium text-[var(--mwg-ink-45)] transition-colors hover:text-[var(--mwg-ink)]"
+                >
+                  Ride Guides innerhalb von Explore Trips
+                </Link>
               </div>
             </Reveal>
           </section>

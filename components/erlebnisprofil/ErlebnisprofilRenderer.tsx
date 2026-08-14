@@ -1,64 +1,87 @@
 import type { ErlebnisprofilProduct } from "@/components/admin/products/erlebnisprofilProduct";
-import type { ErlebnisprofilRendererSlots } from "@/components/erlebnisprofil/types";
-import { DescriptionSection } from "@/components/erlebnisprofil/sections/DescriptionSection";
+import { ErlebnisprofilBreadcrumbs } from "@/components/erlebnisprofil/ErlebnisprofilBreadcrumbs";
+import type {
+  ErlebnisprofilRenderMode,
+  ErlebnisprofilRendererSlots,
+  ErlebnisprofilWebsiteOptions,
+} from "@/components/erlebnisprofil/types";
 import { GallerySection } from "@/components/erlebnisprofil/sections/GallerySection";
 import { HeroSection } from "@/components/erlebnisprofil/sections/HeroSection";
-import { HighlightsSection } from "@/components/erlebnisprofil/sections/HighlightsSection";
 import { MWGuidesTipsSection } from "@/components/erlebnisprofil/sections/MWGuidesTipsSection";
-import { OperatorSection } from "@/components/erlebnisprofil/sections/OperatorSection";
-import { PracticalInfoSection } from "@/components/erlebnisprofil/sections/PracticalInfoSection";
-import { ReviewsSection } from "@/components/erlebnisprofil/sections/ReviewsSection";
-import { StatsStripSection } from "@/components/erlebnisprofil/sections/StatsStripSection";
+import { OverviewSection } from "@/components/erlebnisprofil/sections/OverviewSection";
+import { ScoreBarSection } from "@/components/erlebnisprofil/sections/ScoreBarSection";
 
 interface ErlebnisprofilRendererProps {
   product: ErlebnisprofilProduct;
+  /** Website: product sections only. Admin: optional chrome via slots. */
+  mode?: ErlebnisprofilRenderMode;
   slots?: ErlebnisprofilRendererSlots;
+  /** Website-only options (breadcrumbs, ride guide link). Ignored in admin mode. */
+  website?: ErlebnisprofilWebsiteOptions;
 }
 
-export function ErlebnisprofilRenderer({ product, slots }: ErlebnisprofilRendererProps) {
-  const sectionMeta = slots?.sectionHeadingMeta;
+export function ErlebnisprofilRenderer({
+  product,
+  mode = "website",
+  slots,
+  website,
+}: ErlebnisprofilRendererProps) {
+  const isWebsite = mode === "website";
+  const adminSlots = isWebsite ? undefined : slots;
+  const sectionMeta = adminSlots?.sectionHeadingMeta;
+  const rideGuide = isWebsite ? website?.rideGuide : undefined;
 
   return (
     <>
-      <HeroSection product={product} lead={slots?.heroLead} aside={slots?.heroAside} />
-      <StatsStripSection stats={product.stats} />
+      {isWebsite && website?.breadcrumbs?.length ? (
+        <ErlebnisprofilBreadcrumbs items={website.breadcrumbs} />
+      ) : null}
 
-      <div className="mx-auto max-w-[1240px] px-6 py-12 lg:px-10 lg:py-16">
-        <DescriptionSection
-          description={product.description}
-          scoreBegruendung={product.scoreBegruendung}
-          headingMeta={sectionMeta?.("description")}
-        />
+      <HeroSection
+        product={product}
+        mode={mode}
+        rideGuide={rideGuide}
+        introVideoLabel={isWebsite ? website?.introVideoLabel : undefined}
+        lead={adminSlots?.heroLead}
+        aside={adminSlots?.heroAside}
+      />
 
-        <HighlightsSection
-          features={product.features}
-          className={product.description ? "mt-16" : undefined}
-          headingMeta={sectionMeta?.("highlights")}
-        />
+      <ScoreBarSection
+        mwgScore={product.mwgScore}
+        scoreCategories={product.scoreCategories}
+        reviews={product.reviews}
+        mapInfo={product.mapInfo}
+        rideGuide={rideGuide}
+      />
 
+      <OverviewSection
+        product={product}
+        collapsible={isWebsite}
+        mapEnhancement={isWebsite ? website?.mapEnhancement : undefined}
+        headingMeta={
+          sectionMeta
+            ? {
+                description: sectionMeta("description"),
+                map: sectionMeta("map"),
+                official: sectionMeta("official"),
+                practical: sectionMeta("practical"),
+              }
+            : undefined
+        }
+      />
+
+      <div className="mx-auto max-w-[1240px] px-6 pb-12 lg:px-10 lg:pb-16">
         <MWGuidesTipsSection tipps={product.tipps} headingMeta={sectionMeta?.("tipps")} />
-
-        <GallerySection gallery={product.gallery} headingMeta={sectionMeta?.("gallery")} />
-
-        <ReviewsSection
-          mwgScore={product.mwgScore}
-          reviews={product.reviews}
-          headingMeta={sectionMeta?.("reviews")}
-        />
-
-        <PracticalInfoSection
-          practicalInfo={product.practicalInfo}
-          headingMeta={sectionMeta?.("practical")}
-        />
-
-        <OperatorSection
-          operator={product.operator}
-          standort={product.standort}
-          headingMeta={sectionMeta?.("operator")}
-        />
       </div>
+
+      <GallerySection gallery={product.gallery} headingMeta={sectionMeta?.("gallery")} />
     </>
   );
 }
 
-export type { ErlebnisprofilRendererSlots, ErlebnisprofilSectionId } from "@/components/erlebnisprofil/types";
+export type {
+  ErlebnisprofilRenderMode,
+  ErlebnisprofilRendererSlots,
+  ErlebnisprofilSectionId,
+  ErlebnisprofilWebsiteOptions,
+} from "@/components/erlebnisprofil/types";

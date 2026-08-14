@@ -1,0 +1,408 @@
+{
+  "slug": "wuppertaler-schwebebahn",
+  "name": "Wuppertaler Schwebebahn",
+  "kategorie": "Schwebebahn",
+  "erlebniswelt": "Technik",
+  "profileStatus": "Veröffentlicht",
+  "progress": 100,
+  "lastModifiedAt": "2026-08-04T16:20:00",
+  "lastModifiedLabel": "04.08.2026 · 16:20 Uhr",
+  "lastSaved": {
+    "date": "04.08.2026",
+    "time": "16:20 Uhr"
+  },
+  "allgemein": {
+    "name": "Wuppertaler Schwebebahn",
+    "untertitel": "Schwebe durch Wuppertal – seit 1901",
+    "kategorie": "Schwebebahn",
+    "erlebniswelt": "Technik",
+    "laender": [
+      "Deutschland"
+    ],
+    "regionen": [
+      "Bergisches Land"
+    ],
+    "orte": [
+      "Wuppertal"
+    ],
+    "status": "Veröffentlicht"
+  },
+  "hero": {
+    "titel": "Wuppertaler Schwebebahn",
+    "untertitel": "Die schwebende Ikone des Bergischen Lands.",
+    "hasHeroImage": true,
+    "galerieCount": 6,
+    "badges": [
+      "Bestseller",
+      "Ganzjährig",
+      "Panoramablick",
+      "Familienfreundlich"
+    ],
+    "score": "9.2",
+    "rideGuideAvailable": true
+  },
+  "bewertungen": {
+    "mwgScore": "9.4",
+    "kurzbegruendung": "Technisches Weltkulturerbe mit hoher Alltagstauglichkeit und starkem Erlebnisfaktor.",
+    "scoreCategories": [
+      {
+        "label": "Komfort",
+        "value": "9.0"
+      },
+      {
+        "label": "Aussicht",
+        "value": "9.5"
+      },
+      {
+        "label": "Einzigartigkeit",
+        "value": "9.8"
+      },
+      {
+        "label": "Fotopotenzial",
+        "value": "9.2"
+      }
+    ],
+    "google": {
+      "bewertung": "4.7",
+      "anzahl": "3421",
+      "link": "https://maps.google.com/"
+    },
+    "tripadvisor": {
+      "bewertung": "4.5",
+      "anzahl": "892",
+      "link": "https://www.tripadvisor.de/"
+    },
+    "weiterePlattformen": {
+      "holidayCheck": {
+        "bewertung": "4.3",
+        "anzahl": "56",
+        "link": "https://www.holidaycheck.de/"
+      },
+      "trustpilot": {
+        "bewertung": "",
+        "anzahl": "",
+        "link": ""
+      },
+      "yelp": {
+        "bewertung": "",
+        "anzahl": "",
+        "link": ""
+      }
+    }
+  },
+  "offizielleInformationen": {
+    "betreiber": "WSW mobil GmbH",
+    "betreiberWebseiteGleichOffiziell": false,
+    "betreiberWebseite": "https://www.wsw-online.de",
+    "offizielleWebseite": "https://www.schwebebahn.de",
+    "fahrplan": "Mo–So durchgehend.\n\nIn der Hauptverkehrszeit\nca. alle 3–5 Minuten.",
+    "preise": "Erwachsene: ab 3,50 € (Tarifzone A)\nKinder: ermäßigt\nFamilien: Tageskarten verfügbar\nMonatskarte: ab 78,00 €",
+    "ticketshop": "https://www.schwebebahn.de/tickets",
+    "standortAnreise": {
+      "adresse": "Verkehrsmuseum Wuppertal, Kasinostr. 23, 42103 Wuppertal",
+      "gpsBreitengrad": "51.2565",
+      "gpsLaengengrad": "7.1508",
+      "kartenlink": "https://maps.google.com/?q=51.2565,7.1508",
+      "navigation": "",
+      "anreiseHinweise": ""
+    },
+    "telefon": "+49 202 563-0",
+    "email": "info@wsw-online.de",
+    "kontaktseite": "https://www.wsw-online.de/kontakt",
+    "barrierefreiheit": {
+      "rollstuhlgerecht": true,
+      "kinderwagen": true,
+      "fahrradmitnahme": false,
+      "hunde": true,
+      "wc": true
+    }
+  },
+  "highlights": {
+    "items": [
+      {
+        "id": "s1",
+        "titel": "Schwebe über Wupper und Stadt",
+        "kurzbeschreibung": "Einzigartige Fahrt in 12 Metern Höhe durch das Tal der Wupper.",
+        "icon": "view",
+        "galerieBildId": "gs1",
+        "reihenfolge": 1,
+        "aktiv": true
+      },
+      {
+        "id": "s2",
+        "titel": "Historische Strecke seit 1901",
+        "kurzbeschreibung": "Technikdenkmal und Alltagsverkehr zugleich – mitten in Wuppertal.",
+        "icon": "accessibility",
+        "galerieBildId": "gs2",
+        "reihenfolge": 2,
+        "aktiv": true
+      },
+      {
+        "id": "s3",
+        "titel": "Verkehrsmuseum am Startpunkt",
+        "kurzbeschreibung": "Geschichte der Schwebebahn und originalgetreue Wagen im Museum.",
+        "icon": "city",
+        "galerieBildId": null,
+        "reihenfolge": 3,
+        "aktiv": true
+      },
+      {
+        "id": "s4",
+        "titel": "Café und Aussichtspunkte",
+        "kurzbeschreibung": "Haltestellen mit Blick ins Tal – ideal für Foto-Stops.",
+        "icon": "food",
+        "galerieBildId": null,
+        "reihenfolge": 4,
+        "aktiv": true
+      },
+      {
+        "id": "s5",
+        "titel": "Perfekte ÖPNV-Anbindung",
+        "kurzbeschreibung": "Nahtlose Verknüpfung mit Bus, Bahn und dem restlichen WSW-Netz.",
+        "icon": "bike",
+        "galerieBildId": null,
+        "reihenfolge": 5,
+        "aktiv": false
+      }
+    ]
+  },
+  "mwGuidesTipps": {
+    "items": [
+      {
+        "id": "ts1",
+        "typ": "standard",
+        "thema": "beste-besuchszeit",
+        "ueberschrift": "Beste Besuchszeit",
+        "beschreibung": "Früh morgens oder gegen Abend: weniger Berufspendler, besseres Licht für Fotos aus dem schwebenden Wagen.",
+        "prioritaet": "hoch",
+        "galerieBildId": null,
+        "reihenfolge": 1,
+        "aktiv": true
+      },
+      {
+        "id": "ts2",
+        "typ": "standard",
+        "thema": "aussicht",
+        "ueberschrift": "Aussicht",
+        "beschreibung": "In der Kurve über der Wupper rechts hinten platzieren – von dort sieht man am weitesten ins Tal.",
+        "prioritaet": "hoch",
+        "galerieBildId": "gs3",
+        "reihenfolge": 2,
+        "aktiv": true
+      },
+      {
+        "id": "ts3",
+        "typ": "standard",
+        "thema": "unsere-empfehlung",
+        "ueberschrift": "Unsere Empfehlung",
+        "beschreibung": "Kombination mit dem Verkehrsmuseum Wuppertal – ideal als Einstieg, bevor man die Linie komplett befährt.",
+        "prioritaet": "",
+        "galerieBildId": null,
+        "reihenfolge": 3,
+        "aktiv": true
+      },
+      {
+        "id": "ts4",
+        "typ": "frei",
+        "ueberschrift": "Vom Zoo/Varresbecker Platz einsteigen",
+        "beschreibung": "Ruhigere Haltestelle als Hauptbahnhof – mehr Zeit, einen Fensterplatz zu ergattern.",
+        "prioritaet": "",
+        "galerieBildId": null,
+        "reihenfolge": 4,
+        "aktiv": true
+      }
+    ]
+  },
+  "galerie": {
+    "items": [
+      {
+        "id": "gs1",
+        "bildUrl": "/images/tours/schwebebahn-detail-hero.webp",
+        "titel": "Kaiserwagen der Schwebebahn",
+        "kurzbeschreibung": "Der historische Kaiserwagen – Pflichtmotiv für jedes Schwebebahn-Profil.",
+        "fotograf": "WSW mobil",
+        "quelle": "Offizielle Pressestelle",
+        "lizenz": "Pressefreigabe WSW",
+        "copyright": "© WSW mobil",
+        "altText": "Historischer Kaiserwagen der Wuppertaler Schwebebahn",
+        "reihenfolge": 1,
+        "aktiv": true,
+        "kategorien": [
+          "hero",
+          "galerie",
+          "handout",
+          "explore-trip"
+        ],
+        "bildtyp": "offizielles-pressefoto",
+        "pflichtbild": true,
+        "aufnahmeort": "Wuppertal, Station Vohwinkel",
+        "gps": "51.26, 7.09",
+        "aufnahmedatum": "2023-05-12",
+        "blickrichtung": "Süd",
+        "jahreszeit": "fruehling",
+        "sternBewertung": 5,
+        "mwGuidesBildscore": 98,
+        "kiQuelle": "",
+        "kiStatus": "freigegeben"
+      },
+      {
+        "id": "gs2",
+        "bildUrl": "/images/reiseideen/125-jahre-historisch.jpg",
+        "titel": "Schwebebahn 1901",
+        "kurzbeschreibung": "Historische Aufnahme aus dem Eröffnungsjahr.",
+        "fotograf": "Unbekannt",
+        "quelle": "Stadtarchiv Wuppertal",
+        "lizenz": "Public Domain",
+        "copyright": "Gemeinfrei",
+        "altText": "Historische Schwebebahn in Wuppertal 1901",
+        "reihenfolge": 2,
+        "aktiv": true,
+        "kategorien": [
+          "galerie",
+          "highlight"
+        ],
+        "bildtyp": "historisches-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "Wuppertal",
+        "gps": "",
+        "aufnahmedatum": "1901-03-01",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 4,
+        "mwGuidesBildscore": 88,
+        "kiQuelle": "",
+        "kiStatus": "freigegeben"
+      },
+      {
+        "id": "gs3",
+        "bildUrl": "/images/reiseideen/dieselbe-kurve-01.jpg",
+        "titel": "Schwebebahn in der Kurve",
+        "kurzbeschreibung": "Die berühmte Kurve über der Wupper – bester Fotospot.",
+        "fotograf": "MW Guides",
+        "quelle": "Eigenaufnahme",
+        "lizenz": "© MW Guides",
+        "copyright": "© MW Guides",
+        "altText": "Schwebebahnwagen schwebt durch eine Kurve über der Wupper",
+        "reihenfolge": 3,
+        "aktiv": true,
+        "kategorien": [
+          "galerie",
+          "social-media",
+          "ride-guide"
+        ],
+        "bildtyp": "eigenes-foto",
+        "pflichtbild": false,
+        "aufnahmeort": "Wuppertal, Wupperkurve",
+        "gps": "51.25, 7.15",
+        "aufnahmedatum": "2024-10-05",
+        "blickrichtung": "West",
+        "jahreszeit": "herbst",
+        "sternBewertung": 5,
+        "mwGuidesBildscore": 93,
+        "kiQuelle": "",
+        "kiStatus": "freigegeben"
+      },
+      {
+        "id": "gs4",
+        "bildUrl": "/images/reiseideen/neue-generation-hero.jpg",
+        "titel": "Generation 15 Wagen",
+        "kurzbeschreibung": "Die neue Wagen-Generation seit 2016 im Einsatz.",
+        "fotograf": "WSW mobil",
+        "quelle": "Betreiber",
+        "lizenz": "Pressefreigabe WSW",
+        "copyright": "© WSW mobil",
+        "altText": "Moderner blauer Schwebebahnwagen Generation 15",
+        "reihenfolge": 4,
+        "aktiv": true,
+        "kategorien": [
+          "galerie",
+          "mw-guides-tipp"
+        ],
+        "bildtyp": "betreiberfoto",
+        "pflichtbild": false,
+        "aufnahmeort": "",
+        "gps": "",
+        "aufnahmedatum": "",
+        "blickrichtung": "",
+        "jahreszeit": "",
+        "sternBewertung": 3,
+        "mwGuidesBildscore": 72,
+        "kiQuelle": "Asset-Agent",
+        "kiStatus": "geprueft"
+      }
+    ]
+  },
+  "workflowSections": [
+    {
+      "id": "allgemein",
+      "label": "Allgemein",
+      "status": "completed",
+      "fieldsFilled": 8,
+      "fieldsTotal": 8
+    },
+    {
+      "id": "hero",
+      "label": "Hero",
+      "status": "completed",
+      "fieldsFilled": 8,
+      "fieldsTotal": 8
+    },
+    {
+      "id": "bewertungen",
+      "label": "Bewertungen",
+      "status": "completed",
+      "fieldsFilled": 6,
+      "fieldsTotal": 6
+    },
+    {
+      "id": "offizielle-informationen",
+      "label": "Offizielle Informationen",
+      "status": "completed",
+      "fieldsFilled": 7,
+      "fieldsTotal": 7
+    },
+    {
+      "id": "highlights",
+      "label": "Highlights",
+      "status": "completed",
+      "fieldsFilled": 5,
+      "fieldsTotal": 5
+    },
+    {
+      "id": "mw-guides-tipps",
+      "label": "MW Guides Tipps",
+      "status": "completed",
+      "fieldsFilled": 5,
+      "fieldsTotal": 5
+    },
+    {
+      "id": "galerie",
+      "label": "Galerie & Bildverwaltung",
+      "status": "completed",
+      "fieldsFilled": 8,
+      "fieldsTotal": 8
+    },
+    {
+      "id": "produkte",
+      "label": "Produkte",
+      "status": "open",
+      "fieldsFilled": 0,
+      "fieldsTotal": 6
+    },
+    {
+      "id": "videos",
+      "label": "Videos",
+      "status": "completed",
+      "fieldsFilled": 3,
+      "fieldsTotal": 3
+    },
+    {
+      "id": "faq",
+      "label": "FAQ",
+      "status": "completed",
+      "fieldsFilled": 4,
+      "fieldsTotal": 4
+    }
+  ],
+  "publishedAt": "2026-08-11T06:04:35.030Z"
+}

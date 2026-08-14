@@ -54,8 +54,9 @@ export default function RideGuidesPage() {
             Das Verkehrsmittel ist Teil der Reise.
           </h1>
           <p className="mt-6 max-w-[60ch] text-[17px] leading-[1.7] text-[var(--mwg-ink-70)]">
-            GPS-geführte Touren entlang außergewöhnlicher Strecken — die
-            Fahrt selbst ist die Attraktion, nicht nur das Ziel am Ende.
+            GPS-geführte Touren entlang außergewöhnlicher Strecken — Bausteine
+            innerhalb eines Explore Trips. Die Fahrt selbst ist die Attraktion,
+            nicht nur das Ziel am Ende.
           </p>
         </section>
 

@@ -36,6 +36,9 @@ export function resolveOfficialInfo(detail: Erlebnisdetail): ErlebnisdetailOffic
 export function getPracticalIcon(label: string): string | null {
   const normalized = label.toLowerCase();
   if (normalized.includes("fahrrad")) return "🚲";
+  if (normalized.includes("ticket")) return "🎟️";
+  if (normalized.includes("preis")) return "💶";
+  if (normalized.includes("fahrplan") || normalized.includes("öffnung")) return "🕒";
   if (normalized.includes("barrierefrei")) return "♿";
   if (normalized.includes("hund")) return "🐶";
   if (

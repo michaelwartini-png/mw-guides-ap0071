@@ -5,36 +5,30 @@ import { Reveal } from "@/components/ui/Reveal";
 import { tours } from "@/content/tours";
 
 /**
- * AP-002.2: heading changed from an editorial title to the literal
- * "Ride Guides" (with the exact explanatory line from the brief), so
- * the navigation term and this homepage section match 1:1 — the core
- * fix requested in AP-002.2.
- *
- * AP-008.1: added a second sentence naming the relationship to Explore
- * Trips explicitly (mirrors the sentence added to ExploreTripsSection),
- * so the two product worlds are defined in terms of each other rather
- * than left for the visitor to infer.
+ * Homepage Ride Guides. AP-PP000.3: visually quieter than Explore Trips —
+ * they are building blocks inside a trip, not a parallel main product.
  */
 export function PopularTours() {
   const [featured, ...rest] = tours;
 
   return (
-    <section id="touren" className="mx-auto max-w-[1240px] px-6 py-28 lg:px-10 lg:py-40">
-      <Reveal className="mb-14 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end lg:mb-20">
+    <section id="touren" className="mx-auto max-w-[1240px] px-6 py-20 lg:px-10 lg:py-28">
+      <Reveal className="mb-12 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end lg:mb-16">
         <div>
-          <h2 className="mwg-display-xl max-w-[16ch]">Ride Guides</h2>
-          <p className="mt-4 max-w-[50ch] text-[17px] leading-[1.6] text-[var(--mwg-ink-70)]">
-            GPS-geführte Audiotouren entlang außergewöhnlicher Strecken. Jeder
-            Ride Guide funktioniert einzeln für sich — oder als Teil eines
-            Explore Trips.
+          <span className="mwg-eyebrow text-[var(--mwg-ink-45)]">Innerhalb eines Explore Trips</span>
+          <h2 className="mwg-display-lg mt-4 max-w-[16ch]">Ride Guides</h2>
+          <p className="mt-4 max-w-[50ch] text-[16px] leading-[1.65] text-[var(--mwg-ink-70)]">
+            GPS-geführte Audiotouren als Bausteine — nicht das eigentliche
+            Reiseprodukt. Sie gehören zu einem Explore Trip, sobald du sie
+            unterwegs brauchen kannst.
           </p>
         </div>
         <Link
           href="/touren"
-          className="group flex shrink-0 items-center gap-1.5 text-[14px] font-medium text-[var(--mwg-ink-70)] transition-colors hover:text-[var(--mwg-ink)]"
+          className="group flex shrink-0 items-center gap-1.5 text-[13.5px] font-medium text-[var(--mwg-ink-45)] transition-colors hover:text-[var(--mwg-ink)]"
         >
           Alle Ride Guides
-          <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          <ArrowUpRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Link>
       </Reveal>
 

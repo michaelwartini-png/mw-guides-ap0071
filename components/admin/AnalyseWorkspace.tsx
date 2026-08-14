@@ -12,9 +12,11 @@ import { OffizielleInformationenEditor } from "@/components/admin/OffizielleInfo
 import { AdminLink } from "@/components/admin/adminButtons";
 import type { ErlebnisRecord } from "@/components/admin/erlebnisData";
 import {
+  mergeErlebnisSection,
   persistErlebnisSection,
   type ErlebnisSectionKey,
 } from "@/components/admin/erlebnisRecordStore";
+import { saveErlebnisRecord } from "@/lib/erlebnisApiClient";
 import type { EditorPersistActions } from "@/components/admin/redakteurExperienceData";
 import { buildNewErlebnisRecord } from "@/components/admin/erlebnisSessionStore";
 import { ProduktStudio } from "@/components/admin/products/ProduktStudio";
@@ -35,7 +37,10 @@ interface AnalyseWorkspaceProps {
 }
 
 export function AnalyseWorkspace({ erlebnis }: AnalyseWorkspaceProps) {
-  const emptyErlebnis = useMemo(() => buildNewErlebnisRecord({ name: "" }), []);
+  const emptyErlebnis = useMemo(
+    () => buildNewErlebnisRecord({ name: "", slug: "neues-erlebnis" }),
+    [],
+  );
   const seedRecord = erlebnis ?? emptyErlebnis;
   const [record, setRecord] = useState<ErlebnisRecord>(seedRecord);
   const [sections] = useState<WorkflowSection[]>(seedRecord.workflowSections);
@@ -57,7 +62,11 @@ export function AnalyseWorkspace({ erlebnis }: AnalyseWorkspaceProps) {
       section: K,
       data: Parameters<typeof persistErlebnisSection<K>>[2],
     ) => {
-      setRecord((current) => persistErlebnisSection(current, section, data));
+      setRecord((current) => {
+        const next = mergeErlebnisSection(current, section, data);
+        void saveErlebnisRecord(next).then(setRecord).catch(console.error);
+        return next;
+      });
     },
     [],
   );
@@ -211,7 +220,11 @@ export function AnalyseWorkspace({ erlebnis }: AnalyseWorkspaceProps) {
               {...editorRxProps}
             />
           ) : activeItem === "produkte" ? (
-            <ProduktStudio key={`${record.slug}-produkte`} erlebnis={record} />
+            <ProduktStudio
+              key={`${record.slug}-produkte`}
+              erlebnis={record}
+              onRecordChange={setRecord}
+            />
           ) : (
             <div className="flex min-h-[200px] items-center justify-center px-4 py-10">
               <p className="max-w-md text-center text-[15px] leading-relaxed text-[var(--mwg-ink-70)]">
