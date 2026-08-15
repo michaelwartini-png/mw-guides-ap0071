@@ -3,6 +3,21 @@
 Alle nennenswerten Änderungen an diesem Projekt werden in dieser Datei
 dokumentiert. Format angelehnt an [Keep a Changelog](https://keepachangelog.com/de/1.0.0/).
 
+## [0.9.0] — So funktioniert MW Guides V1.0
+
+Erklärseite `/so-funktioniert` gilt als Version 1.0 eingefroren
+(15.08.2026). Keine direkten Änderungen mehr an dieser Baseline;
+nächste Arbeit nur als 1.1 / 1.2 / 2.0.
+
+- Drei Kapitel im Akkordeon: Prinzip, Planung, Begleitung. Kein Seiten-Hero.
+- Kapitel 1 startet geöffnet; nur ein Kapitel gleichzeitig offen.
+- Legende Kostenlos · Premium · Optional nur in Kapitel 1.
+- Mastergrafik A, B und C in der Website-Einbindung ohne Grafik-Kopf und Grafik-Fuß.
+- Originalgrafiken unverändert archiviert.
+- Produktnamen vereinheitlicht (kein Ride Guide Companion, kein Reisepaket).
+
+Dokumentation: [`docs/AP-G-so-funktioniert-v1.0.md`](./docs/AP-G-so-funktioniert-v1.0.md)
+
 ## [0.8.0] — Meine Reise V1
 
 Persönlicher Reiseassistent nach dem freigegebenen Dashboard-Mockup.

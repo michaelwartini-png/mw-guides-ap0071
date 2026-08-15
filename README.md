@@ -23,7 +23,7 @@ und
 - **Band 0 — Projektüberblick:** dieser README (Setup, Struktur, Design-System)
 - **Band 1 — Production Handbook:** [`docs/MW-Guides-Production-Handbook-V1.0.md`](./docs/MW-Guides-Production-Handbook-V1.0.md)
 
-Aktuelles Arbeitspaket: [`docs/AP-MR001-meine-reise.md`](./docs/AP-MR001-meine-reise.md) (Meine Reise V1, eingefroren).
+Aktuelle Freeze-Baselines: [`docs/AP-G-so-funktioniert-v1.0.md`](./docs/AP-G-so-funktioniert-v1.0.md) (So funktioniert MW Guides V1.0) · [`docs/AP-MR001-meine-reise.md`](./docs/AP-MR001-meine-reise.md) (Meine Reise V1).
 
 ## Voraussetzungen
 
@@ -86,6 +86,7 @@ mw-guides/
 │   ├── touren/             # "Ride Guides"-Hub (nach Kategorie gruppiert) + /touren/[slug] Detailseite
 │   ├── explore-trips/       # "Explore Trips"-Übersicht + /explore-trips/[slug] Detailseite (inkl. der drei migrierten Ex-"Reiseideen"-Artikel)
 │   ├── meine-reise/         # Persönlicher Reiseassistent (AP-MR001, V1 eingefroren)
+│   ├── so-funktioniert/     # Erklärseite (V1.0 eingefroren, 15.08.2026)
 │   ├── reiseziele/         # Platzhalter-Route
 │   ├── fotospots/          # Platzhalter-Route
 │   ├── blog/                # Platzhalter-Route
@@ -100,6 +101,7 @@ mw-guides/
 │   ├── about/                  # AboutHero, AboutIntro, AboutCta (Über-uns-Seite)
 │   ├── editorial/               # EditorialBlock (Bild+Text, geteilt zwischen Über-uns- und Explore-Trips-Seiten)
 │   ├── meine-reise/            # Meine-Reise-Dashboard (AP-MR001)
+│   ├── so-funktioniert/        # Erklärseite V1.0: Akkordeon + Mastergrafiken A/B/C
 │   ├── ui/                     # Logo, Button, LanguageSwitch, Reveal (generische Bausteine)
 │   └── footer/                  # Footer
 ├── content/                # Statische Inhalte (Touren, Explore Trips, Ride-Guide-Roadmap, Navigation)

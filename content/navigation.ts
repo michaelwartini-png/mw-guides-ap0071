@@ -24,6 +24,7 @@ export const primaryNav: NavLink[] = [
   { label: "Explore Trips", href: "/explore-trips", weight: "featured" },
   { label: "Ride Guides", href: "/touren", weight: "quiet" },
   { label: "Meine Reise", href: "/meine-reise", hint: meineReiseHint },
+  { label: "So funktioniert MW Guides", href: "/so-funktioniert" },
   { label: "Über MW Guides", href: "/ueber" },
 ];
 

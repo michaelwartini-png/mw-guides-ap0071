@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<!-- So funktioniert MW Guides V1.0 — eingefroren 15.08.2026. Original: v2.3.html. Änderungen nur als 1.1+. -->
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <title>Mastergrafik A V2.3 – Website-Einbindung</title>
+  <style>
+    :root {
+      --ink: #1a2433;
+      --ink-soft: #3d4a5c;
+      --muted: #5b6776;
+      --line: #d8dee6;
+      --paper: #ffffff;
+      --page: #f3f5f7;
+      --green: #0b4d3a;
+      --green-soft: #7d9a8c;
+      --green-wash: #e7f0eb;
+      --blue: #0d3b66;
+      --blue-soft: #7a97b0;
+      --blue-wash: #e7eef5;
+      --gold: #c9a24a;
+      --gold-line: #e0c47a;
+      --cta: #f4ead8;
+      --header: #111318;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+    .sheet {
+      width: 1440px;
+      margin: 0 auto;
+      background: var(--paper);
+      overflow: hidden;
+    }
+
+    /* Header — unchanged chrome */
+    .nav {
+      height: 52px;
+      background: var(--header);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 28px;
+    }
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      margin-right: 8px;
+    }
+    .logo strong { font-size: 15px; letter-spacing: 0.04em; }
+    .logo span { font-size: 9px; letter-spacing: 0.18em; font-weight: 600; opacity: 0.9; margin-top: 2px; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 12.5px;
+      flex: 1;
+    }
+    .nav-links a { color: #fff; text-decoration: none; }
+    .nav-links .active {
+      color: var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+      padding-bottom: 2px;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 12px;
+    }
+    .nav-actions span { display: flex; align-items: center; gap: 6px; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 28px 48px 10px;
+    }
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+    .hero .sub {
+      margin-top: 10px;
+      font-size: 15.5px;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    .hero .sub em {
+      font-style: normal;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .hero .hint {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    /* Worlds */
+    .worlds {
+      display: grid;
+      grid-template-columns: 1fr 236px 1fr;
+      gap: 0;
+      align-items: stretch;
+      padding: 16px 28px 8px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 16px 12px;
+      display: flex;
+      flex-direction: column;
+      min-height: 430px;
+      background: #fff;
+    }
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      min-height: 62px;
+    }
+    .badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .badge.green { background: var(--green); }
+    .badge.blue { background: var(--blue); }
+    svg.icon {
+      display: block;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+    .badge .icon { width: 20px; height: 20px; }
+    .mini .icon { width: 14px; height: 14px; }
+    .foot .icon { width: 16px; height: 16px; }
+    .center-box .icon { width: 22px; height: 22px; margin: 0 auto; }
+    .benefit .ico {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 22px;
+      margin-bottom: 6px;
+    }
+    .benefit .icon { width: 18px; height: 18px; }
+    .nav-actions .icon { width: 14px; height: 14px; }
+    .gift .icon { width: 22px; height: 22px; }
+    .card-head h2 {
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+    .card-head h2.green { color: var(--green); }
+    .card-head h2.blue { color: var(--blue); }
+    .card-head p {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.35;
+      max-width: 46ch;
+    }
+    .rule {
+      height: 1px;
+      background: var(--line);
+      margin: 12px 0 14px;
+    }
+    .card-body {
+      display: grid;
+      grid-template-columns: 148px 1fr;
+      gap: 14px;
+      flex: 1;
+    }
+    .card-body img {
+      width: 148px;
+      height: 196px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+    .products { display: flex; flex-direction: column; gap: 14px; padding-top: 2px; }
+    .product { display: flex; gap: 10px; align-items: flex-start; }
+    .mini {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .mini.green { background: var(--green-soft); }
+    .mini.blue { background: var(--blue-soft); }
+    .product strong {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+    .product span {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--ink-soft);
+      line-height: 1.35;
+    }
+    .product-meta {
+      display: block;
+      margin-top: 5px;
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+    .product-meta.green { color: var(--green); }
+    .product-meta.blue { color: var(--blue); }
+    .foot {
+      margin-top: 14px;
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      min-height: 58px;
+    }
+    .foot.green { background: var(--green-wash); }
+    .foot.blue { background: var(--blue-wash); }
+    .foot svg { flex-shrink: 0; margin-top: 2px; }
+    .foot p { font-size: 12px; line-height: 1.4; color: var(--ink); }
+    .foot p strong { font-weight: 700; }
+
+    /* Center connector */
+    .center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 6px;
+      position: relative;
+    }
+    .center-box {
+      width: 196px;
+      border: 2.5px solid var(--gold);
+      border-radius: 10px;
+      padding: 22px 14px 18px;
+      text-align: center;
+      background: var(--cta);
+      position: relative;
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1;
+      opacity: 1;
+    }
+    .arrow.left { left: 0; color: var(--green); }
+    .arrow.right { right: 0; color: var(--blue); }
+    .center-box h3 {
+      font-size: 14.5px;
+      font-weight: 750;
+      line-height: 1.3;
+      color: var(--ink);
+      margin: 8px 0 4px;
+    }
+    .center-box .lead {
+      font-size: 12px;
+      font-weight: 650;
+      line-height: 1.35;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .gold-rule {
+      width: 42px;
+      height: 2px;
+      background: var(--gold);
+      margin: 0 auto 10px;
+    }
+    .center-box p {
+      font-size: 12px;
+      line-height: 1.4;
+      color: var(--ink-soft);
+    }
+
+    /* Benefits */
+    .benefits {
+      margin: 10px 28px 22px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      overflow: hidden;
+    }
+    .benefit {
+      padding: 14px 12px 16px;
+      text-align: center;
+      border-right: 1px solid var(--line);
+    }
+    .benefit:last-child { border-right: 0; }
+    .benefit .ico { color: var(--green); }
+    .benefit.quiet {
+      opacity: 0.48;
+    }
+    .benefit.priority strong { font-weight: 750; }
+    .benefit strong {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 750;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .benefit span {
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+      line-height: 1.35;
+      color: var(--ink-soft);
+    }
+
+    /* CTA */
+    .cta {
+      margin: 14px 28px 22px;
+      background: var(--cta);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .gift {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .cta-copy { flex: 1; }
+    .cta-copy strong {
+      display: block;
+      font-size: 16px;
+      font-weight: 750;
+    }
+    .cta-copy span {
+      display: block;
+      margin-top: 3px;
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+    .cta-actions { display: flex; gap: 10px; }
+    .btn {
+      border: 0;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 650;
+      padding: 11px 16px;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn.green { background: var(--green); }
+    .btn.blue { background: var(--blue); }
+  </style>
+</head>
+<body>
+  <article class="sheet" id="mastergrafik">
+    <section class="worlds">
+      <div class="card">
+        <div class="card-head">
+          <div class="badge green" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24" stroke="#fff"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          </div>
+          <div>
+            <h2 class="green">EXPLORE TRIPS</h2>
+            <p>Plane individuelle Rundreisen mit sorgfältig ausgewählten Highlights und Erlebnisbausteinen.</p>
+          </div>
+        </div>
+        <div class="rule"></div>
+        <div class="card-body">
+          <img src="explore-photo.png" alt="" />
+          <div class="products">
+            <div class="product">
+              <div class="mini green" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" stroke="#fff"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+              </div>
+              <div>
+                <strong>Kostenloses Explore Trip Handout</strong>
+                <span>Dein persönlicher Reiseplan als PDF.</span>
+                <span class="product-meta green">Kostenlos · Sofort herunterladen</span>
+              </div>
+            </div>
+            <div class="product">
+              <div class="mini green" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" stroke="#fff"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+              </div>
+              <div>
+                <strong>Explore Trip Premium Guide</strong>
+                <span>Der ausführliche Reisebegleiter mit Insider-Tipps, Karten, Restaurants, Schlechtwetter-Ideen und Zugang zu „Meine Reise“.</span>
+                <span class="product-meta green">Premium · Mehr Wissen • Mehr Komfort • Zugang zu „Meine Reise“</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="foot green">
+          <svg class="icon" viewBox="0 0 24 24" stroke="var(--green)"><circle cx="8" cy="6.5" r="2.6"/><path d="M4 19c.8-3.4 2.6-5.2 4-5.2s3.2 1.8 4 5.2"/><circle cx="17.2" cy="7.2" r="2.3"/><path d="M17.2 9.5c0 2.4-2.6 3.6-3.4 5.6"/><circle cx="13.4" cy="17.6" r="2"/></svg>
+          <p><strong>Entdecke außergewöhnliche Regionen und Themen.</strong> Stelle deine Reise individuell zusammen und reise in deinem Tempo.</p>
+        </div>
+      </div>
+
+      <div class="center">
+        <div class="arrow left">↔</div>
+        <div class="center-box">
+          <svg class="icon" viewBox="0 0 24 24" stroke="var(--gold)"><path d="M7 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><rect x="2" y="7" width="16" height="12" rx="2"/><path d="M2 12h16"/><path d="m20.2 2.4.85 1.75 1.9.28-1.38 1.34.33 1.9-1.7-.9-1.7.9.33-1.9-1.38-1.34 1.9-.28z"/></svg>
+          <h3>Meine Reise</h3>
+          <p class="lead">Dein persönlicher Reisebereich.</p>
+          <div class="gold-rule"></div>
+          <p>Alle Unterlagen, Premium Guides und ausgewählten Inhalte an einem Ort.</p>
+        </div>
+        <div class="arrow right">↔</div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="badge blue" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24" stroke="#fff"><rect width="16" height="16" x="4" y="3" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m18 22-2-3"/><path d="M8 15h.01"/><path d="M16 15h.01"/></svg>
+          </div>
+          <div>
+            <h2 class="blue">RIDE GUIDES</h2>
+            <p>Entdecke außergewöhnliche Fahrten mit spannenden Geschichten, Bildern und Audioguides.</p>
+          </div>
+        </div>
+        <div class="rule"></div>
+        <div class="card-body">
+          <img src="ride-photo.png" alt="" />
+          <div class="products">
+            <div class="product">
+              <div class="mini blue" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" stroke="#fff"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+              </div>
+              <div>
+                <strong>Kostenloses Ride Guide Handout</strong>
+                <span>Alles Wichtige zur Tour: Strecke, Highlights, Tipps.</span>
+                <span class="product-meta blue">Kostenlos · Überblick zur Fahrt</span>
+              </div>
+            </div>
+            <div class="product">
+              <div class="mini blue" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" stroke="#fff"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+              </div>
+              <div>
+                <strong>Ride Guide Premium Guide</strong>
+                <span>Hintergrundinformationen, historische Fotos und zusätzliche Inhalte.</span>
+                <span class="product-meta blue">Optional · Audio • Geschichten • Hintergrundwissen</span>
+              </div>
+            </div>
+            <div class="product">
+              <div class="mini blue" aria-hidden="true">
+                <svg class="icon" viewBox="0 0 24 24" stroke="#fff"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
+              </div>
+              <div>
+                <strong>Audio erleben</strong>
+                <span>Audio auf VoiceMap oder izi.TRAVEL.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="foot blue">
+          <svg class="icon" viewBox="0 0 24 24" stroke="var(--blue)"><rect width="16" height="16" x="4" y="3" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-2 3"/><path d="m18 22-2-3"/><path d="M8 15h.01"/><path d="M16 15h.01"/></svg>
+          <p><strong>Erlebe besondere Fahrten.</strong> Geschichten hören. Orte mit anderen Augen sehen.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div class="benefit priority">
+        <div class="ico"><svg class="icon" viewBox="0 0 24 24" stroke="currentColor"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <strong>Echte Orte<br>Echte Geschichten</strong>
+        <span>Abseits der Masse.</span>
+      </div>
+      <div class="benefit quiet">
+        <div class="ico"><svg class="icon" viewBox="0 0 24 24" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+        <strong>Mit Liebe recherchiert</strong>
+        <span>Echte Inhalte, aktuelle Infos und persönliche Empfehlungen.</span>
+      </div>
+      <div class="benefit priority">
+        <div class="ico"><svg class="icon" viewBox="0 0 24 24" stroke="currentColor"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg></div>
+        <strong>Individuell kombinierbar</strong>
+        <span>Stelle deine Reise genau so zusammen, wie du willst.</span>
+      </div>
+      <div class="benefit quiet">
+        <div class="ico"><svg class="icon" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <strong>In deinem Tempo</strong>
+        <span>Du bestimmst, wann, wo und wie du reist.</span>
+      </div>
+      <div class="benefit priority">
+        <div class="ico"><svg class="icon" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 13v8l-4-4"/><path d="m12 21 4-4"/><path d="M4.393 15.269A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.436 8.284"/></svg></div>
+        <strong>Online und offline nutzbar</strong>
+        <span>Deine Guides sind immer dabei – auch ohne Internet.</span>
+      </div>
+      <div class="benefit quiet">
+        <div class="ico"><svg class="icon" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M20 21a2 2 0 0 0 2-2v-3.851c0-1.39-2-2.962-2-4.829A2 2 0 0 0 18 8h-3c.012.987.17 1.973.5 2.929"/><path d="M5 7V4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3"/><path d="M4 21a2 2 0 0 1-2-2v-3.851c0-1.39 2-2.962 2-4.829A2 2 0 0 1 6 8h3c-.012.987-.17 1.973-.5 2.929"/><circle cx="12" cy="17" r="1"/><path d="m10 10-2 8"/><path d="m14 10 2 8"/></svg></div>
+        <strong>Für echte Entdecker</strong>
+        <span>Von Reisenden für Reisende gemacht.</span>
+      </div>
+    </section>
+  </article>
+</body>
+</html>

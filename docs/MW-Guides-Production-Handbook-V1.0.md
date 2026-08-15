@@ -14,6 +14,7 @@
 |---|---|---|
 | 1.0 | Aug 2026 | Erstfreigabe — Konsolidierung aller Produktions- und Architekturdokumentation nach Abschluss der Meilensteine v0.1 und v0.2 |
 | 1.0.1 | Aug 2026 | AP-MR001 Meine Reise V1 — öffentliche Route `/meine-reise` dokumentiert |
+| 1.0.2 | 15.08.2026 | So funktioniert MW Guides V1.0 — Route `/so-funktioniert` eingefroren |
 
 ---
 
@@ -747,6 +748,7 @@ Entscheidungen über neue Arbeitspakete **erst nach Abschluss** des Produktionsp
 | Explore Trips | `/explore-trips`, `/explore-trips/[slug]` | `content/exploreTrips.ts` | Live (3 echte Trips + Roadmap) |
 | Explore Trip Explorer | `/explore-trips/[slug]/explorer/...` | `content/erlebnisdetails.ts` + Explorer | Live (Bodensee) |
 | Meine Reise | `/meine-reise` | `content/meineReise.ts` | Live V1 (Bodensee Unlimited, eingefroren) |
+| So funktioniert MW Guides | `/so-funktioniert` | `app/so-funktioniert/page.tsx` | Live V1.0 (eingefroren 15.08.2026) |
 
 ## 8.2 Navigation (AP-002.2)
 
@@ -755,7 +757,8 @@ Entscheidungen über neue Arbeitspakete **erst nach Abschluss** des Produktionsp
 1. Explore Trips
 2. Ride Guides
 3. Meine Reise (`/meine-reise` — AP-MR001, V1 eingefroren)
-4. Über MW Guides
+4. So funktioniert MW Guides (`/so-funktioniert` — V1.0 eingefroren)
+5. Über MW Guides
 
 **Fußzeile:** Reiseziele, Fotospots, Blog (Platzhalter-Routen, vollständig erreichbar).
 
@@ -826,6 +829,21 @@ Bodensee Unlimited. Kein Login, kein Checkout, keine Persistenz.
 - Genau ein Primary-CTA: Premium Guide öffnen
 - Offline-Hinweis ausschließlich am Premium Guide in den Unterlagen
 - „Nach der Reise“ vor Abreise reduziert sichtbar
+
+## 8.9 So funktioniert MW Guides V1.0 ✅
+
+**Status:** Fachlich abgeschlossen und als Version 1.0 eingefroren (15.08.2026)  
+**Meilenstein:** `0.9.0`  
+**Route:** `/so-funktioniert`  
+**Dokumentation:** `docs/AP-G-so-funktioniert-v1.0.md`
+
+Erklärseite zum Produktprinzip. Kein Seiten-Hero; Einstieg ist Kapitel 1
+im Akkordeon. Drei Kapitel mit Mastergrafik A, B und C. Website-Einbindung
+der Grafiken ohne Grafik-Kopf und Grafik-Fuß; Originale unverändert archiviert.
+
+- Legende Kostenlos · Premium · Optional nur in Kapitel 1
+- Kein Login, kein Checkout
+- Nächste Änderungen nur als Version 1.1 / 1.2 / 2.0
 
 ---
 
@@ -1144,6 +1162,7 @@ Priorisiert laut AP-002-Strategie:
 | `README.md` | Technischer Setup, Projektstruktur | 7, 8 |
 | `CHANGELOG.md` | Versionshistorie Public Website | 8 |
 | `docs/AP-MR001-meine-reise.md` | Meine Reise V1 Dashboard | 8 |
+| `docs/AP-G-so-funktioniert-v1.0.md` | So funktioniert MW Guides V1.0 | 8 |
 | Git-Tags `v0.1-production-platform`, `v0.2-unified-renderer` | Meilenstein-Commits | 1, 5, 6 |
 
 ## B. Wichtige Dateipfade
@@ -1161,6 +1180,7 @@ Priorisiert laut AP-002-Strategie:
 | Public Explore Trips | `content/exploreTrips.ts` |
 | Public Ride Guides | `content/tours.ts` |
 | Meine Reise V1 | `app/meine-reise/page.tsx`, `content/meineReise.ts` |
+| So funktioniert V1.0 | `app/so-funktioniert/page.tsx`, `components/so-funktioniert/` |
 
 ## C. Glossar
 

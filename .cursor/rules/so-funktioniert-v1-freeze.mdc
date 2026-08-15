@@ -1,0 +1,22 @@
+---
+description: So funktioniert MW Guides V1.0 ist eingefroren. Keine direkten Änderungen — nur Version 1.1 / 1.2 / 2.0 mit Änderungsprotokoll.
+globs: app/so-funktioniert/**/*,components/so-funktioniert/**/*,public/mastergrafik-a/**/*,public/mastergrafik-b/**/*,public/mastergrafik-c/**/*,docs/ap-g01-mastergrafik/**/*,docs/ap-g03-mastergrafik-b/**/*,docs/ap-g04-mastergrafik-c/**/*,docs/AP-G-so-funktioniert-v1.0.md
+alwaysApply: false
+---
+
+# So funktioniert MW Guides V1.0 — Freeze
+
+Seite `/so-funktioniert` ist am 15.08.2026 als Version 1.0 eingefroren. Baseline: `docs/AP-G-so-funktioniert-v1.0.md`.
+
+## Nicht tun
+
+- Keine direkten Edits an Texten, Struktur, Accordion oder Grafik-Einbindungen der V1.0.
+- Originalgrafiken nicht verändern (`v2.3.html` / `mastergrafik-b-v2.1.png` / `mastergrafik-c-v1.html`).
+- Keinen Seiten-Hero wieder einführen.
+- Legende „Kostenlos · Premium · Optional“ nicht in Kapitel 2 oder 3 wiederholen.
+- Mastergrafik B nicht auf anderen Seiten einbinden.
+
+## Tun
+
+- Jede Änderung als Version 1.1, 1.2 oder 2.0 mit eigenem Protokoll in `CHANGELOG.md` und im Freeze-Dokument.
+- Produktnamen beibehalten: Explore Trip Handout, Explore Trip Premium Guide, Ride Guide / Handout / Premium Guide, Meine Reise. Nicht: Ride Guide Companion, Reisepaket.
