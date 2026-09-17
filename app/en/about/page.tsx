@@ -4,18 +4,18 @@ import { LandingSubpage } from "@/components/landing/LandingSubpage";
 import { landingCopy } from "@/content/landing";
 import { landingMetadata } from "@/lib/landing";
 
-const copy = landingCopy.de.about;
+const copy = landingCopy.en.about;
 
-export const metadata: Metadata = landingMetadata("de", {
+export const metadata: Metadata = landingMetadata("en", {
   title: copy.title,
   description: copy.paragraphs[0],
-  path: "/ueber",
+  path: "/en/about",
 });
 
-export default function UeberPage() {
+export default function AboutPage() {
   return (
     <LandingSubpage
-      locale="de"
+      locale="en"
       title={copy.title}
       headline={copy.headline}
       paragraphs={copy.paragraphs}

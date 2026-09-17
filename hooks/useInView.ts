@@ -14,15 +14,16 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(
   options: IntersectionObserverInit = { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
 ) {
   const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(() =>
-    typeof window !== "undefined"
-      ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      : false
-  );
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
     if (!node || inView) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setInView(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {

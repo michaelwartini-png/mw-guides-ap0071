@@ -3,17 +3,17 @@ import { LandingSubpage } from "@/components/landing/LandingSubpage";
 import { landingCopy } from "@/content/landing";
 import { landingMetadata } from "@/lib/landing";
 
-const copy = landingCopy.de.contact;
+const copy = landingCopy.en.contact;
 
-export const metadata: Metadata = landingMetadata("de", {
+export const metadata: Metadata = landingMetadata("en", {
   title: copy.title,
   description: copy.body,
-  path: "/kontakt",
+  path: "/en/contact",
 });
 
-export default function KontaktPage() {
+export default function ContactPage() {
   return (
-    <LandingSubpage locale="de" title={copy.title} headline={copy.headline} paragraphs={[copy.body]}>
+    <LandingSubpage locale="en" title={copy.title} headline={copy.headline} paragraphs={[copy.body]}>
       <p className="mt-8">
         <a
           href={`mailto:${copy.email}`}
