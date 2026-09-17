@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LandingSubpage } from "@/components/landing/LandingSubpage";
+import { LandingPartyDetails } from "@/components/landing/LandingPartyDetails";
 import { landingCopy } from "@/content/landing";
 import { landingMetadata } from "@/lib/landing";
 
@@ -13,6 +14,8 @@ export const metadata: Metadata = landingMetadata("de", {
 
 export default function ImpressumPage() {
   return (
-    <LandingSubpage locale="de" title={copy.title} headline={copy.headline} paragraphs={copy.paragraphs} />
+    <LandingSubpage locale="de" title={copy.title} headline={copy.headline} paragraphs={copy.paragraphs}>
+      <LandingPartyDetails locale="de" />
+    </LandingSubpage>
   );
 }

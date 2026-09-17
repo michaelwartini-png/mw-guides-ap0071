@@ -36,6 +36,18 @@ export function counterpartPath(pathname: string, next: LandingLocale): string {
   return landingPaths[next].home;
 }
 
+export const landingParty = {
+  name: "Michael Wartini",
+  company: "MW Guides",
+  street: "Tannenstr. 118",
+  zipCity: "42283 Wuppertal",
+  countryDe: "Deutschland",
+  countryEn: "Germany",
+  phone: "+49 1578 0381250",
+  phoneHref: "tel:+4915780381250",
+  email: "info@mw-guides.com",
+} as const;
+
 export const landingCopy = {
   de: {
     nav: {
@@ -118,24 +130,27 @@ export const landingCopy = {
     contact: {
       title: "Kontakt",
       headline: "Schreiben Sie uns.",
-      body: "MW Guides befindet sich in der Entwicklungsphase. Für Anfragen zum Projekt erreichen Sie uns per E-Mail.",
-      email: "hello@mw-guides.de",
+      body: "MW Guides befindet sich in der Entwicklungsphase. Für Anfragen zum Projekt erreichen Sie uns unter den folgenden Angaben.",
+      email: "info@mw-guides.com",
     },
     imprint: {
       title: "Impressum",
       headline: "Impressum",
       paragraphs: [
-        "MW Guides befindet sich derzeit in der Entwicklungsphase. Die vollständigen Angaben gemäß § 5 DDG werden zum offiziellen Projektstart veröffentlicht.",
-        "Für Anfragen: hello@mw-guides.de",
+        "Angaben gemäß § 5 DDG",
+        "Verantwortlich für den Inhalt dieser Website:",
       ],
     },
     privacy: {
       title: "Datenschutz",
       headline: "Datenschutz",
       paragraphs: [
-        "Diese Übergangsseite kommt ohne Registrierung, ohne Shop und ohne Newsletter-Anmeldung aus.",
-        "Es werden keine Nutzerkonten angelegt und keine Bestellungen verarbeitet. Soweit der Betrieb der Website technisch notwendige Daten verarbeitet, geschieht das ausschließlich zur Auslieferung der Seite.",
-        "Weitere Hinweise folgen mit dem offiziellen Projektstart. Fragen: hello@mw-guides.de",
+        "Verantwortlich für die Datenverarbeitung auf dieser Website ist Michael Wartini, MW Guides, Tannenstr. 118, 42283 Wuppertal, Deutschland. Telefon: +49 1578 0381250. E-Mail: info@mw-guides.com.",
+        "Diese Übergangsseite kommt ohne Registrierung, ohne Shop, ohne Newsletter und ohne Nutzerkonten aus.",
+        "Es werden keine Tracking- oder Analysedienste eingesetzt. Insbesondere sind kein Google Analytics, kein Google Tag Manager, kein Meta Pixel, keine Google Maps, keine YouTube-Einbettungen und keine sonstigen Trackingdienste eingebunden. Schriften werden lokal bereitgestellt und nicht über Google Fonts geladen.",
+        "Beim Aufruf der Seite kann der Hosting-Anbieter technisch notwendige Server-Logdaten verarbeiten (etwa IP-Adresse, Zeitpunkt, aufgerufene URL und Browsertyp), soweit das zur Auslieferung und Sicherheit der Website erforderlich ist. Eine Auswertung zu Werbe- oder Profilzwecken findet nicht statt.",
+        "Es werden keine Tracking-Cookies gesetzt.",
+        "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Widerspruch sowie auf Beschwerde bei einer Datenschutzaufsichtsbehörde. Anfragen richten Sie bitte an info@mw-guides.com.",
       ],
     },
     footer: {
@@ -226,24 +241,27 @@ export const landingCopy = {
     contact: {
       title: "Contact",
       headline: "Get in touch.",
-      body: "MW Guides is in development. For project enquiries, please write to us by email.",
-      email: "hello@mw-guides.de",
+      body: "MW Guides is in development. For project enquiries, please use the details below.",
+      email: "info@mw-guides.com",
     },
     imprint: {
       title: "Legal notice",
       headline: "Legal notice",
       paragraphs: [
-        "MW Guides is currently in development. Full provider details will be published at the official launch.",
-        "Enquiries: hello@mw-guides.de",
+        "Information according to § 5 DDG (German Digital Services Act).",
+        "Responsible for the content of this website:",
       ],
     },
     privacy: {
       title: "Privacy",
       headline: "Privacy",
       paragraphs: [
-        "This temporary site has no registration, no shop and no newsletter signup.",
-        "No user accounts are created and no orders are processed. Where the site processes technically necessary data, it does so solely to deliver the page.",
-        "Further information will follow at the official launch. Questions: hello@mw-guides.de",
+        "The person responsible for data processing on this website is Michael Wartini, MW Guides, Tannenstr. 118, 42283 Wuppertal, Germany. Phone: +49 1578 0381250. Email: info@mw-guides.com.",
+        "This temporary site has no registration, no shop, no newsletter signup and no user accounts.",
+        "No tracking or analytics services are used. In particular, this site does not include Google Analytics, Google Tag Manager, Meta Pixel, Google Maps, YouTube embeds or any other tracking services. Fonts are hosted locally and are not loaded from Google Fonts.",
+        "When you visit the site, the hosting provider may process technically necessary server log data (such as IP address, time, requested URL and browser type) insofar as this is required to deliver and secure the website. The data is not evaluated for advertising or profiling.",
+        "No tracking cookies are set.",
+        "You have the right to access, rectification, erasure, restriction of processing and objection, as well as the right to lodge a complaint with a data protection supervisory authority. Please send requests to info@mw-guides.com.",
       ],
     },
     footer: {
