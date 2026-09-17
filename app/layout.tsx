@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://mw-guides.de";
@@ -6,46 +7,33 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://mw-guides.de";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "MW Guides — Reisen entlang der bemerkenswertesten Bahnstrecken Europas",
+    default: "MW Guides | Digital Travel Experiences",
     template: "%s | MW Guides",
   },
-  description:
-    "MW Guides kuratiert außergewöhnliche Reiseerlebnisse entlang Europas bemerkenswertesten öffentlichen Verkehrswegen — Schwebebahn, Straßenbahn, Küstentram. Selbstgeführt, offline nutzbar.",
-  keywords: [
-    "Reiseerlebnis",
-    "Schwebebahn",
-    "Küstentram",
-    "Straßenbahn Tour",
-    "selbstgeführte Tour",
-    "GPS Tour",
-    "Städtereise",
-  ],
+  description: "Digital travel experiences currently in development.",
+  keywords: ["MW Guides", "digital travel experiences", "Explore Trips", "Ride Guides"],
   openGraph: {
     type: "website",
     locale: "de_DE",
+    alternateLocale: ["en_GB"],
     url: siteUrl,
     siteName: "MW Guides",
-    title: "MW Guides — Reisen entlang der bemerkenswertesten Bahnstrecken Europas",
-    description:
-      "Kuratierte Premium-Reiseerlebnisse entlang außergewöhnlicher öffentlicher Verkehrswege — selbstgeführt, persönlich erfahren, offline nutzbar.",
+    title: "MW Guides | Digital Travel Experiences",
+    description: "Digital travel experiences currently in development.",
     images: [
       {
-        url: "/images/og-default.jpg",
-        width: 1200,
-        height: 630,
+        url: "/images/reiseideen/neue-generation-hero.jpg",
+        width: 1600,
+        height: 1067,
         alt: "MW Guides",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MW Guides — Reisen entlang der bemerkenswertesten Bahnstrecken Europas",
-    description:
-      "Kuratierte Premium-Reiseerlebnisse entlang außergewöhnlicher öffentlicher Verkehrswege.",
-    images: ["/images/og-default.jpg"],
-  },
-  icons: {
-    icon: "/favicon.ico",
+    title: "MW Guides | Digital Travel Experiences",
+    description: "Digital travel experiences currently in development.",
+    images: ["/images/reiseideen/neue-generation-hero.jpg"],
   },
   robots: {
     index: true,
@@ -56,10 +44,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
-    <html lang="de" className="h-full scroll-smooth antialiased">
+    <html lang="de" suppressHydrationWarning className="h-full scroll-smooth antialiased">
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );
